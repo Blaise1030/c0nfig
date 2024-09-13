@@ -1,0 +1,6 @@
+{
+  "aliases": {
+    "path": "~/*"
+  },
+  "dbType": "sqlite"
+}
