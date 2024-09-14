@@ -3,5 +3,11 @@
     "path": "~/*",
     "aliasSource": "./src/*"
   },
-  "dbType": "sqlite"
+  "db": {
+    "type": "sqlite",
+    "path": "~/db"
+  },
+  "auth": {
+    "path": "~/auth"
+  }
 }

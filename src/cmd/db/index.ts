@@ -2,14 +2,13 @@
 import { intro, text, select, spinner } from '@clack/prompts';
 import { supabase } from "./examples/supabase/setup"
 import { sqlite } from "./examples/sqlite/setup"
-import { readInternalFiles } from '../read-file';
+import { readInternalFiles } from '../utils/readInternalFiles';
 import { turso } from "./examples/turso/setup"
 import { execSync } from 'child_process';
-import { DATABASE } from '../constant';
+import { DATABASE } from '../utils/constant';
 import path from 'path';
 import fs from 'fs';
-
-
+import { mutateProjectFiles } from '../utils/mutateProjectFiles';
 
 export const drizzle_init = async () => {
     intro('⚡️ Drizzle & Drizzle Kit initializer');
@@ -34,15 +33,13 @@ export const drizzle_init = async () => {
     });
 
     // Save the selected database type to setup.json
-    setupConfig['dbType'] = dbType?.toString();
-    fs.writeFileSync(setupPath, JSON.stringify(setupConfig, null, 2), 'utf-8');
-
     if (!dbType) process.exit(1); // Handle no selection
 
     const database = { supabase, turso, sqlite }[dbType as string]
 
     // Extract the path alias from the config
     const pathAlias = setupConfig.aliases?.path?.replace("*", '') || '';
+    const sourceDirectory = setupConfig.aliases.aliasSource.replace("*", '') || ''
 
     // Adjust the appName placeholder to use the path alias if available
     const defaultAppName = pathAlias ? `${pathAlias}db` : '@/db';
@@ -56,7 +53,7 @@ export const drizzle_init = async () => {
         }
     });
 
-    const absolutePath = appName.toString().replaceAll(pathAlias, './src/')
+    const absolutePath = appName.toString().replaceAll(pathAlias, sourceDirectory)
     const projectDir = path.resolve(process.cwd(), absolutePath as string);
 
     const s = spinner();
@@ -68,29 +65,36 @@ export const drizzle_init = async () => {
             fs.mkdirSync(projectDir, { recursive: true });
 
         // Write or overwrite index.ts
-        const indexFile = readInternalFiles(database.init)
+        const indexFile = readInternalFiles(__dirname, database.init)
         const dbFilePath = path.join(projectDir, 'index.ts');
         fs.writeFileSync(dbFilePath, indexFile, { flag: 'w' });
 
         // Write or overwrite schema.ts
-        const schemaFile = readInternalFiles(database.schema)
+        const schemaFile = readInternalFiles(__dirname, database.schema)
         const schemaFilePath = path.join(projectDir, 'schema.ts');
         fs.writeFileSync(schemaFilePath, schemaFile, { flag: 'w' });
 
         // Write or overwrite drizzle.config.ts
-        const drizzleKit = readInternalFiles(database.drizzleKit)
+        const drizzleKit = readInternalFiles(__dirname, database.drizzleKit)
         const drizzleConfigPath = path.resolve(process.cwd(), 'drizzle.config.ts');
         fs.writeFileSync(drizzleConfigPath, drizzleKit?.replaceAll('${databasePath}', absolutePath), { flag: 'w' });
 
         // Add drizzle command in package.json
-        const packageJSONPath = path.join(process.cwd(), 'package.json')
-        const packageJSONContent = JSON.parse(fs.readFileSync(packageJSONPath, 'utf-8'));
+        mutateProjectFiles('package.json', (rawContent: string) => {
+            const packageJSONContent = JSON.parse(rawContent);
+            packageJSONContent['scripts']['db:generate'] = "drizzle-kit generate"
+            packageJSONContent['scripts']['db:migrate'] = "drizzle-kit migrate"
+            packageJSONContent['scripts']['db:push'] = "drizzle-kit push"
+            return JSON.stringify(packageJSONContent, null, 2)
+        })
 
-        packageJSONContent['scripts']['db:generate'] = "drizzle-kit generate"
-        packageJSONContent['scripts']['db:migrate'] = "drizzle-kit migrate"
-        packageJSONContent['scripts']['db:push'] = "drizzle-kit push"
-
-        fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONContent, null, 2), { flag: 'w' });
+        mutateProjectFiles('setup.json', (rawContent: string) => {
+            const setupJSON = JSON.parse(rawContent);
+            setupJSON['db'] = {}
+            setupJSON['db']['type'] = dbType?.toString();
+            setupJSON['db']['path'] = appName
+            return JSON.stringify(setupJSON, null, 2)
+        })
 
         s.message('Installing dependencies...')
 

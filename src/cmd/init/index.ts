@@ -2,6 +2,7 @@
 import { intro, text, spinner } from '@clack/prompts';
 import path from 'path';
 import fs from 'fs';
+import { mutateProjectFiles } from '../utils/mutateProjectFiles';
 
 const config = {
     "aliases": {
@@ -36,22 +37,19 @@ export const cmd_init = async () => {
 
     try {
         // Setup package json
-        const packageJSONPath = path.join(process.cwd(), 'package.json')
-        const packageJSONContent = JSON.parse(fs.readFileSync(packageJSONPath, 'utf-8'));
+        mutateProjectFiles('package.json', (rawContent: string) => {
+            const packageJSONContent = JSON.parse(rawContent);
+            packageJSONContent['imports'] = {}
+            packageJSONContent['imports'][alias.toString()] = aliasTo.toString()
+            return JSON.stringify(packageJSONContent, null, 2)
+        })
 
-        packageJSONContent['imports'] = {}
-        packageJSONContent['imports'][alias.toString()] = aliasTo.toString()
-
-        fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONContent, null, 2), { flag: 'w' });
-
-        // Setup tsconfig
-        const tsConfigPath = path.join(process.cwd(), 'tsconfig.json')
-        const tsConfigContent = JSON.parse(fs.readFileSync(tsConfigPath, 'utf-8'));
-
-        tsConfigContent['compilerOptions']['paths'] = {}
-        tsConfigContent['compilerOptions']['paths'][alias.toString()] = [aliasTo.toString()]
-
-        fs.writeFileSync(tsConfigPath, JSON.stringify(tsConfigContent, null, 2), { flag: 'w' });
+        mutateProjectFiles('tsconfig.json', (rawContent: string) => {
+            const tsConfigContent = JSON.parse(rawContent);
+            tsConfigContent['compilerOptions']['paths'] = {}
+            tsConfigContent['compilerOptions']['paths'][alias.toString()] = [aliasTo.toString()]
+            return JSON.stringify(tsConfigContent, null, 2)
+        })
 
         // Setup config json
         config.aliases.path = alias.toString()

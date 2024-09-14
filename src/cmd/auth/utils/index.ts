@@ -1,8 +1,8 @@
-
+export default `
 import { Lucia } from "lucia";
 import { adapter } from "./adapter"
 export * from "./auth-schema"
-export * from "./oauth-schema"
+// export * from "./oauth-schema"
 
 // import { webcrypto } from "crypto";
 // globalThis.crypto = webcrypto as Crypto;
@@ -26,3 +26,4 @@ declare module "lucia" {
     DatabaseUserAttributes: Omit<{ username: string }, "id">;
   }
 }
+`
