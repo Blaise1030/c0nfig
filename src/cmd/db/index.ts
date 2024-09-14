@@ -1,12 +1,15 @@
 #!/usr/bin/env ts-node
 import { intro, text, select, spinner } from '@clack/prompts';
+import { supabase } from "./examples/supabase/setup"
+import { sqlite } from "./examples/sqlite/setup"
+import { readInternalFiles } from '../read-file';
+import { turso } from "./examples/turso/setup"
 import { execSync } from 'child_process';
-import { supabase } from "./supabase"
-import { sqlite } from "./sqlite"
-import { turso } from "./turso"
+import { DATABASE } from '../constant';
 import path from 'path';
 import fs from 'fs';
-import { DATABASE } from '../constant';
+
+
 
 export const drizzle_init = async () => {
     intro('⚡️ Drizzle & Drizzle Kit initializer');
@@ -32,7 +35,6 @@ export const drizzle_init = async () => {
 
     // Save the selected database type to setup.json
     setupConfig['dbType'] = dbType?.toString();
-    console.log(setupConfig)
     fs.writeFileSync(setupPath, JSON.stringify(setupConfig, null, 2), 'utf-8');
 
     if (!dbType) process.exit(1); // Handle no selection
@@ -46,7 +48,7 @@ export const drizzle_init = async () => {
     const defaultAppName = pathAlias ? `${pathAlias}db` : '@/db';
 
     const appName = await text({
-        message: 'Where do you want to store your database ?',
+        message: 'Path to database ?',
         placeholder: defaultAppName,
         validate(value) {
             if (value.length === 0) return `Name cannot be empty.`;
@@ -54,7 +56,8 @@ export const drizzle_init = async () => {
         }
     });
 
-    const projectDir = path.resolve(process.cwd(), appName.toString().replaceAll(pathAlias, './src/') as string);
+    const absolutePath = appName.toString().replaceAll(pathAlias, './src/')
+    const projectDir = path.resolve(process.cwd(), absolutePath as string);
 
     const s = spinner();
     s.start(`Creating your drizzle config...`);
@@ -64,17 +67,30 @@ export const drizzle_init = async () => {
         if (!fs.existsSync(projectDir))
             fs.mkdirSync(projectDir, { recursive: true });
 
-        // Write or overwrite db.ts
+        // Write or overwrite index.ts
+        const indexFile = readInternalFiles(database.init)
         const dbFilePath = path.join(projectDir, 'index.ts');
-        fs.writeFileSync(dbFilePath, database?.init, { flag: 'w' });
+        fs.writeFileSync(dbFilePath, indexFile, { flag: 'w' });
 
         // Write or overwrite schema.ts
+        const schemaFile = readInternalFiles(database.schema)
         const schemaFilePath = path.join(projectDir, 'schema.ts');
-        fs.writeFileSync(schemaFilePath, database?.schema, { flag: 'w' });
+        fs.writeFileSync(schemaFilePath, schemaFile, { flag: 'w' });
 
         // Write or overwrite drizzle.config.ts
+        const drizzleKit = readInternalFiles(database.drizzleKit)
         const drizzleConfigPath = path.resolve(process.cwd(), 'drizzle.config.ts');
-        fs.writeFileSync(drizzleConfigPath, database?.drizzleKit(appName?.toString()), { flag: 'w' });
+        fs.writeFileSync(drizzleConfigPath, drizzleKit?.replaceAll('${databasePath}', absolutePath), { flag: 'w' });
+
+        // Add drizzle command in package.json
+        const packageJSONPath = path.join(process.cwd(), 'package.json')
+        const packageJSONContent = JSON.parse(fs.readFileSync(packageJSONPath, 'utf-8'));
+
+        packageJSONContent['scripts']['db:generate'] = "drizzle-kit generate"
+        packageJSONContent['scripts']['db:migrate'] = "drizzle-kit migrate"
+        packageJSONContent['scripts']['db:push'] = "drizzle-kit push"
+
+        fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONContent, null, 2), { flag: 'w' });
 
         s.message('Installing dependencies...')
 
