@@ -11,6 +11,10 @@
 # deps
 node_modules/
 
+
+cli/src/db/
+cli/src/auth/
+
 # env
 .env
 .env.production

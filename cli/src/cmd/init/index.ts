@@ -11,7 +11,7 @@ const config = {
     }
 }
 
-export const cmd_init = async () => {
+export const cmdInit = async () => {
     intro('⚡️ Cmd initialiser');
 
     const aliasTo = await text({
