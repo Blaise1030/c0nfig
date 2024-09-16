@@ -2,7 +2,7 @@
 import { intro, text, spinner } from '@clack/prompts';
 import path from 'path';
 import fs from 'fs';
-import { mutateProjectFiles } from '../utils/mutateProjectFiles';
+import { mutateProjectFiles } from './utils';
 
 const config = {
     "aliases": {
@@ -10,6 +10,7 @@ const config = {
         "aliasSource": './src/*'
     }
 }
+
 
 export const cmdInit = async () => {
     intro('⚡️ Cmd initialiser');

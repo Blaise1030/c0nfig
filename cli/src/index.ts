@@ -11,11 +11,11 @@ const APPS = {
 }
 
 switch (args[2]) {
-    case APPS.DB:
-        drizzle_init();
-        break;
     case APPS.INIT:
         cmdInit();
+        break;
+    case APPS.DB:
+        drizzle_init();
         break;
     case APPS.AUTH:
         authInit();

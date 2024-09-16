@@ -5,9 +5,9 @@
   },
   "db": {
     "type": "sqlite",
-    "path": "~/db"
+    "name": "db"
   },
   "auth": {
-    "path": "~/auth"
+    "name": "auth"
   }
 }
