@@ -160,7 +160,7 @@ var require_picocolors = __commonJS({
 });
 
 // src/cmd/utils/constant.ts
-var BASE_URL = "http://localhost:4321";
+var BASE_URL = "https://kmdr.vercel.app";
 var DATABASE = {
   sqlite: "sqlite",
   turso: "turso",
