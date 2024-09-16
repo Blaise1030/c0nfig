@@ -68,7 +68,7 @@ export const authInit = async () => {
     const authDBConfig = config['auth']['db'][dbType as string] as TAuthDBConfigStruct
 
     const s = spinner();
-    s.start(`Creating your drizzle config...`);
+    s.start(`Creating your auth config...`);
 
     try {
         // Create project directory if it doesn't exist
