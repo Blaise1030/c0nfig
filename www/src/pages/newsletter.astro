@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import MainLayout from "@/layouts/main-layout.astro";
 import { cn } from "@/lib/utils";
 import { Icon } from "astro-icon/components";
-import { WaitingList, db, sql } from "astro:db";
 import { createForm } from "simple:form";
 import z from "zod";
 let error: boolean = false;
@@ -41,10 +40,10 @@ if (cookie) {
 }
 
 // Fetch count of all email in waitlist
-const waiting = await db
-  .select({ count: sql<number>`count(*)`.mapWith(Number) })
-  .from(WaitingList);
-const count = waiting[0].count;
+// const waiting = await db
+//   .select({ count: sql<number>`count(*)`.mapWith(Number) })
+//   .from(WaitingList);
+const count = 0;
 
 // With Fetch API:
 // const response = await fetch(Astro.url.origin + "/api/waitlist");
