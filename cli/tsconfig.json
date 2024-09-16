@@ -18,8 +18,8 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./src/*"
+      "Symbol(clack:cancel)": [
+        "Symbol(clack:cancel)"
       ]
     }
   },

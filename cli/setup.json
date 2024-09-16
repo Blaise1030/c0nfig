@@ -1,13 +1,6 @@
 {
   "aliases": {
-    "path": "~/*",
-    "aliasSource": "./src/*"
-  },
-  "db": {
-    "type": "sqlite",
-    "name": "db"
-  },
-  "auth": {
-    "name": "auth"
+    "path": "Symbol(clack:cancel)",
+    "aliasSource": "Symbol(clack:cancel)"
   }
 }

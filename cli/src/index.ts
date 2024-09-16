@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { drizzle_init } from './cmd/db';
 import { add, authInit } from "./cmd/auth"
 import { cmdInit } from "./cmd/init"
