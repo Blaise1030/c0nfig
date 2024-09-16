@@ -4,7 +4,7 @@
     "aliasSource": "./src/*"
   },
   "db": {
-    "type": "supabase",
+    "type": "sqlite",
     "path": "~/db"
   },
   "auth": {

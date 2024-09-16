@@ -132,7 +132,7 @@ export const authInit = async () => {
             { cwd: projectDir, stdio: 'inherit' }
         );
 
-        s.stop('Drizzle has been setup! 🎉');
+        s.stop('Auth has been setup! 🎉');
     } catch (err) {
         s.stop('Error occurred while setting up the project.');
         console.error(err);
