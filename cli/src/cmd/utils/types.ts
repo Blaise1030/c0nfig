@@ -16,8 +16,15 @@ export type TAuthConfigStruct = {
   dependencies: string[],
   devDependencies: string[],
   index: string,
+  options: {
+    password: {
+      dependencies: string[],
+      file: string
+    }
+  },
   db: {
     sqlite: TAuthDBConfigStruct,
     postgres: TAuthDBConfigStruct,
   }
 }
+

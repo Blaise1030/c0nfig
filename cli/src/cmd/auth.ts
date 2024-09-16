@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 import { DATABASE, fetchConfig, mutateProjectFiles, fetchFilesAsString, type TAuthConfigStruct, type TAuthDBConfigStruct, getSetupConfig, getModuleAbsolutePath, getModuleAliasPath } from './utils';
-import { intro, select, spinner, text } from '@clack/prompts';
+import { intro, multiselect, select, spinner, text } from '@clack/prompts';
 import { execSync } from 'child_process';
 import path from 'path';
 import fs from 'fs';
@@ -103,33 +103,54 @@ export const authInit = async () => {
     }
 };
 
-// export const add = async () => {
-//     intro('⚡️ Add new auth initializer');
+export const add = async () => {
+    const projectDir = getModuleAbsolutePath('auth');
+    intro('⚡️ Add new auth initializer');
 
-//     const item = multiselect({
-//         message: 'Select the authentication you would like to add.',
-//         options: [{
-//             value: '',
-//             label: ''
-//         }, {
-//             value: '',
-//             label: ''
-//         }]
-//     })
+    const config = await fetchConfig() as { auth: TAuthConfigStruct }
+
+    const item = await multiselect({
+        message: 'Select the authentication you would like to add.',
+        options: [{
+            value: 'password',
+            label: 'Email & Password'
+        }]
+    });
+
+    const s = spinner();
+    s.start(`Adding auth method...`);
+    try {
+        const authModuleAbsolutePath = getModuleAbsolutePath('auth')
+        const optionsIndexPath = path.join(`${authModuleAbsolutePath}/options`, 'index.ts');
+
+        if (!fs.existsSync(optionsIndexPath)) {
+            fs.mkdirSync(`${authModuleAbsolutePath}/options`, { recursive: true });
+            fs.writeFileSync(optionsIndexPath, `// Export all authentication options here`, { flag: 'w' });
+            fs.writeFileSync(path.join(authModuleAbsolutePath, 'index.ts'), `\nexport * from "./options"`, { flag: 'a' });
+        }
 
 
+        const { dependencies, file } = config.auth.options[item.toString()] as { dependencies: string[], file: string }
+        const fileContent = await fetchFilesAsString(file)
+        const optionsFilePath = path.join(`${authModuleAbsolutePath}/options`, `${item?.toString()}.ts`);
+        fs.writeFileSync(optionsFilePath, fileContent.replaceAll('$databasePath', getModuleAliasPath('db')).replaceAll('$authPath', getModuleAliasPath('auth')), { flag: 'w' });
+        fs.writeFileSync(optionsIndexPath, `\nexport * from "./${item?.toString()}"`, { flag: 'a' });
 
-//     const s = spinner();
-//     s.start(`Creating your auth config...`);
-//     try {
+        s.message('Installing dependencies...')
 
+        // Install dependencies
+        execSync(
+            `npm install ${dependencies?.join(' ')}`,
+            { cwd: projectDir, stdio: 'inherit' }
+        );
 
+        s.stop('Added auth options')
 
-
-//     } catch (e) {
-
-//     }
-// };
+    } catch (err) {
+        s.stop('Error occurred while setting up the project.');
+        console.error(err);
+    }
+};
 
 
 async function setupOAuth({ authDBConfig }: { authDBConfig: TAuthDBConfigStruct }) {
@@ -143,7 +164,7 @@ async function setupOAuth({ authDBConfig }: { authDBConfig: TAuthDBConfigStruct 
 
     // Append the oauth schema file from the index module
     const luciaIndexFilePath = path.join(authProjectDir, 'index.ts')
-    fs.writeFileSync(luciaIndexFilePath, '\n export * from "./oauth-schema"', { flag: 'a' });
+    fs.writeFileSync(luciaIndexFilePath, '\nexport * from "./oauth-schema"', { flag: 'a' });
 
     // Append exports in the schema
     mutateProjectFiles(`${dbProjectDir}/schema.ts`, (fileContent: string) => {

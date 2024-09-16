@@ -1,5 +1,5 @@
 import { drizzle_init } from './cmd/db';
-import { authInit } from "./cmd/auth"
+import { add, authInit } from "./cmd/auth"
 import { cmdInit } from "./cmd/init"
 
 const args = process.argv
@@ -18,7 +18,8 @@ switch (args[2]) {
         drizzle_init();
         break;
     case APPS.AUTH:
-        authInit();
+        if (args[3] === 'add') add()
+        else authInit();
         break;
     default:
         console.log(`Please select a params ${Object.values(APPS).join(',')}`)
