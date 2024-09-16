@@ -14,6 +14,7 @@ node_modules/
 
 cli/src/db/
 cli/src/auth/
+cli/dist/
 
 # env
 .env
