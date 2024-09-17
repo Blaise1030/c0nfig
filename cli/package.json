@@ -6,11 +6,7 @@
   "scripts": {
     "dev": "ts-node ./src/index.ts",
     "start": "node ./dist/index.js",
-    "build": "esbuild --bundle ./src/index.ts --platform=node --outdir=dist",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:push": "drizzle-kit push"
+    "build": "esbuild --bundle ./src/index.ts --platform=node --outdir=dist"
   },
   "author": "",
   "license": "ISC",
@@ -35,8 +31,5 @@
   "devDependencies": {
     "@types/node": "^22.5.5",
     "drizzle-kit": "^0.24.2"
-  },
-  "imports": {
-    "Symbol(clack:cancel)": "Symbol(clack:cancel)"
   }
 }
