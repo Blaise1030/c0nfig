@@ -1,0 +1,6 @@
+{
+  "aliases": {
+    "path": "~/*",
+    "aliasSource": "./src/*"
+  }
+}

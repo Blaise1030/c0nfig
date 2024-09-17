@@ -56,5 +56,8 @@
     "mdast-util-toc": "^7.1.0",
     "remark": "^15.0.1",
     "unist-util-visit": "^5.0.0"
+  },
+  "imports": {
+    "~/*": "./src/*"
   }
 }
