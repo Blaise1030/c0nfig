@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { mutateProjectFiles, fetchConfig, fetchFilesAsString, getSetupConfig, type TDBConfigStruct, DATABASE, getModuleAbsolutePath } from './utils';
+import { mutateProjectFiles, fetchConfig, fetchFilesAsString, getSetupConfig, type TDBConfigStruct, DATABASE, getModuleAbsolutePath, generateInstallSignature } from './utils';
 import { intro, text, select, spinner } from '@clack/prompts';
 import { execSync } from 'child_process';
 import path from 'path';
@@ -82,14 +82,14 @@ export const drizzle_init = async () => {
 
         // Install dependencies
         execSync(
-            `npm install ${dependencies?.join(' ')}`,
+            `${generateInstallSignature()} ${dependencies?.join(' ')}`,
             { cwd: projectDir, stdio: 'inherit' }
         );
 
         s.message('Installing dev dependencies...')
 
         execSync(
-            `npm install -D ${devDependencies?.join(' ')}`,
+            `${generateInstallSignature(true)} ${devDependencies?.join(' ')}`,
             { cwd: projectDir, stdio: 'inherit' }
         );
 
@@ -99,6 +99,4 @@ export const drizzle_init = async () => {
         console.error(err);
     }
 };
-
-
 

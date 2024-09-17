@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { intro, text, spinner } from '@clack/prompts';
+import { intro, text, spinner, select } from '@clack/prompts';
 import path from 'path';
 import fs from 'fs';
 import { mutateProjectFiles } from './utils';
@@ -33,6 +33,16 @@ export const cmdInit = async () => {
         }
     });
 
+    const packageManager = await select({
+        message: 'Choose your package manager?',
+        options: [
+            { value: 'npm', label: 'npm' },
+            { value: 'pnpm', label: 'pnpm' },
+            { value: 'yarn', label: 'yarn' },
+            { value: 'bun', label: 'bun' }
+        ],
+    });
+
     const s = spinner();
     s.start(`Setting up your config...`);
 
@@ -55,6 +65,7 @@ export const cmdInit = async () => {
         // Setup config json
         config.aliases.path = alias.toString()
         config.aliases.aliasSource = aliasTo.toString()
+        config['packageManager'] = packageManager.toString()
 
         const projectDir = path.resolve(process.cwd(), '');
         // Create project directory if it doesn't exist
