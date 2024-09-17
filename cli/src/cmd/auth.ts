@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { DATABASE, fetchConfig, mutateProjectFiles, fetchFilesAsString, type TAuthConfigStruct, type TAuthDBConfigStruct, getSetupConfig, getModuleAbsolutePath, getModuleAliasPath } from './utils';
+import { DATABASE, fetchConfig, mutateProjectFiles, fetchFilesAsString, type TAuthConfigStruct, type TAuthDBConfigStruct, getSetupConfig, getModuleAbsolutePath, getModuleAliasPath, generateInstallSignature } from './utils';
 import { intro, multiselect, select, spinner, text } from '@clack/prompts';
 import { execSync } from 'child_process';
 import path from 'path';
@@ -92,7 +92,7 @@ export const authInit = async () => {
 
         // Install dependencies
         execSync(
-            `npm install ${config?.auth?.dependencies?.join(' ')}`,
+            `${generateInstallSignature()} ${config?.auth?.dependencies?.join(' ')}`,
             { cwd: projectDir, stdio: 'inherit' }
         );
 
@@ -140,7 +140,7 @@ export const add = async () => {
 
         // Install dependencies
         execSync(
-            `npm install ${dependencies?.join(' ')}`,
+            `${generateInstallSignature()} ${dependencies?.join(' ')}`,
             { cwd: projectDir, stdio: 'inherit' }
         );
 

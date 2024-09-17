@@ -50,5 +50,15 @@ export function getSetupConfig() {
 }
 
 
+export function generateInstallSignature(isDev: boolean = false) {
+    const { packageManager } = getSetupConfig()
+    return `${{
+        'npm': 'npm i',
+        'pnpm': 'pnpm add',
+        'yarn': 'yarn add',
+        'bun': 'bun add'
+    }[packageManager]} ${isDev ? '-D' : ''}`
+}
+
 export * from "./constant"
 export * from "./types"
