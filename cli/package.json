@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "ts-node ./src/index.ts",
     "start": "node ./dist/index.js",
-    "build": "esbuild --bundle ./src/index.ts --platform=node --outdir=dist"
+    "build": "esbuild --bundle ./src/index.ts --platform=node --outdir=dist",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push"
   },
   "author": "",
   "license": "ISC",
@@ -16,14 +19,14 @@
     "@libsql/client": "^0.10.0",
     "@lucia-auth/adapter-drizzle": "^1.1.0",
     "@node-rs/argon2": "^1.8.3",
-    "better-sqlite3": "^11.3.0",
+    "arctic": "^1.9.2",
     "drizzle-orm": "^0.33.0",
     "fs": "^0.0.1-security",
     "hono": "^4.5.11",
     "lucia": "^3.2.0",
+    "oslo": "^1.2.1",
     "path": "^0.12.7",
     "postgres": "^3.4.4",
-    "sqlite3": "^5.1.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
     "zod": "^3.23.8"
@@ -31,5 +34,8 @@
   "devDependencies": {
     "@types/node": "^22.5.5",
     "drizzle-kit": "^0.24.2"
+  },
+  "imports": {
+    "~/*": "./src/*"
   }
 }

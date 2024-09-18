@@ -27,4 +27,3 @@ export type TAuthConfigStruct = {
     postgres: TAuthDBConfigStruct,
   }
 }
-

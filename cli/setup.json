@@ -1,0 +1,14 @@
+{
+  "aliases": {
+    "path": "~/*",
+    "aliasSource": "./src/*"
+  },
+  "packageManager": "npm",
+  "db": {
+    "type": "supabase",
+    "name": "db"
+  },
+  "auth": {
+    "name": "auth"
+  }
+}

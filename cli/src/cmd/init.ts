@@ -57,7 +57,7 @@ export const cmdInit = async () => {
 
         mutateProjectFiles('tsconfig.json', (rawContent: string) => {
             const tsConfigContent = JSON.parse(rawContent);
-            tsConfigContent['compilerOptions']['paths'] = {}
+            tsConfigContent['compilerOptions']['paths'] = tsConfigContent['compilerOptions']['paths'] ?? {}
             tsConfigContent['compilerOptions']['paths'][alias.toString()] = [aliasTo.toString()]
             return JSON.stringify(tsConfigContent, null, 2)
         })

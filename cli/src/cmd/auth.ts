@@ -64,6 +64,11 @@ export const authInit = async () => {
         const lucia = await fetchFilesAsString(config['auth']['index'])
         fs.writeFileSync(authFilePath, lucia, { flag: 'w' });
 
+        // Write signout.ts
+        const signOutPath = path.join(projectDir, 'signOut.ts');
+        const signOutContent = await fetchFilesAsString(config['auth']['signOut'])
+        fs.writeFileSync(signOutPath, signOutContent, { flag: 'w' });
+
         // Write adapter.ts
         const adapterFilePath = path.join(projectDir, 'adapter.ts');
         const adapterContent = await fetchFilesAsString(authDBConfig['adapter'])
@@ -112,6 +117,15 @@ export const add = async () => {
     const item = await multiselect({
         message: 'Select the authentication you would like to add.',
         options: [{
+            value: 'github',
+            label: 'Github'
+        }, {
+            value: 'discord',
+            label: 'Discord'
+        }, {
+            value: 'google',
+            label: 'Google'
+        }, {
             value: 'password',
             label: 'Email & Password'
         }]
@@ -129,6 +143,8 @@ export const add = async () => {
             fs.writeFileSync(path.join(authModuleAbsolutePath, 'index.ts'), `\nexport * from "./options"`, { flag: 'a' });
         }
 
+        const oAuthSchema = path.join(`${authModuleAbsolutePath}`, 'oauth-schema.ts');
+        if (!fs.existsSync(oAuthSchema)) setupOAuth({ authDBConfig: config.auth['oauth-schema'] })
 
         const { dependencies, file } = config.auth.options[item.toString()] as { dependencies: string[], file: string }
         const fileContent = await fetchFilesAsString(file)
