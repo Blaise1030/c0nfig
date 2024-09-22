@@ -24,7 +24,5 @@ declare module "lucia" {
   }
 }
 
-export * from "./signOut"
 export * from "./auth-schema"
-export * from "./oauth-schema"
-export * from "./options"
+export * from './auth-schema'

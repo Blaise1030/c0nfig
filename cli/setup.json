@@ -1,12 +1,13 @@
 {
   "aliases": {
-    "path": "~/*",
+    "path": "./src/*",
     "aliasSource": "./src/*"
   },
   "packageManager": "npm",
   "db": {
     "type": "supabase",
-    "name": "db"
+    "name": "turso",
+    "engine": "sqlite"
   },
   "auth": {
     "name": "auth"

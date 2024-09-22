@@ -1,7 +1,3 @@
-import { pgTable, serial } from "drizzle-orm/pg-core";
+import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-export const users = pgTable('users', {
-  id: serial('id').primaryKey(),
-});
-export * from "~/auth/auth-schema"
-export * from "~/auth/oauth-schema"
+export const users = sqliteTable('users', { id: text('id') });

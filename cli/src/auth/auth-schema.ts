@@ -1,13 +1,13 @@
-import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { text, sqliteTable, integer } from "drizzle-orm/sqlite-core";
 
-export const userTable = pgTable('users', {
+export const userTable = sqliteTable('users', {
   id: text('id').primaryKey(),
   username: text('username').default(''),
   passwordHash: text('password_hash').default('')
 });
 
-export const sessionTable = pgTable('session', {
+export const sessionTable = sqliteTable('session', {
   id: text('id').primaryKey(),
   userId: text('user_id').references(() => userTable.id).notNull(),
-  expiresAt: timestamp('expires_at').notNull()
+  expiresAt: integer('expires_at').notNull()
 })

@@ -1,4 +1,4 @@
-import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle"
+import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle"
 import { db, sessionTable, userTable } from "~/db"
 
-export const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);
+export const adapter = new DrizzleSQLiteAdapter(db, sessionTable, userTable);
