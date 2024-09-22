@@ -1,7 +1,7 @@
 import type { SidebarNavItem, SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
-  name: "Astronomy",
+  name: "Komander",
   description:
     "An modern example app built using Astro v4 & shadcn/ui. Inspired by shadcn/taxonomy.",
   url: "https://astro-nomy.vercel.app",

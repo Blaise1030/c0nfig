@@ -43,7 +43,6 @@ async function onSelectOperation(operation: SelectOperation, variables: Record<s
 };
 
 export async function onAddOperation(operation: AddOperation, variable: { [x: string]: string }) {
-    console.log(variable)
     const { remoteSrc, targetSrc } = operation
     const item = await fetchRemoteFile(replaceVariables(remoteSrc, variable))
     const resolvedTargetPath = path.resolve(await replaceAliasWithPath(targetSrc));

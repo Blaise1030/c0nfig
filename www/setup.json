@@ -2,5 +2,13 @@
   "aliases": {
     "path": "~/*",
     "aliasSource": "./src/*"
+  },
+  "packageManager": "pnpm",
+  "db": {
+    "type": "supabase",
+    "name": "db"
+  },
+  "auth": {
+    "name": "auth"
   }
 }
