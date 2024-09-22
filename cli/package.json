@@ -5,9 +5,9 @@
   "type": "module",
   "bin": "./dist/index.cjs",
   "scripts": {
-    "dev": "npx tsx ./src/cmd/index.ts",
+    "dev": "npx tsx ./src/index.ts",
     "start": "node ./dist/index.js",
-    "build": "esbuild --bundle ./src/cmd/index.ts --platform=node --outfile=dist/index.cjs",
+    "build": "esbuild --bundle ./src/index.ts --platform=node --outfile=dist/index.cjs",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push"
