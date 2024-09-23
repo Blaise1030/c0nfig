@@ -2,6 +2,7 @@
   "auth": {
     "dependencies": ["lucia", "@lucia-auth/adapter-drizzle"],
     "index": "/auth/index.ts",
+    "signOut": "/auth/signOut.ts",
     "options": {
       "password": {
         "dependencies": ["@node-rs/argon2", "zod"],

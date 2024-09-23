@@ -1,5 +1,18 @@
 ---
+import { passwordSignIn, passwordSignUp } from "~/auth";
+import { Button } from "../ui/button";
 
+async function signUpPassword() {
+  await passwordSignUp(Astro.request);
+}
 ---
 
-<div class="h-56 border rounded-lg flex justify-center items-center text-muted-foreground">Auth form soon</div>
+<div
+  class="h-56 border rounded-lg flex justify-center items-center text-muted-foreground"
+>
+  <form action="/api/signup" method="post" enctype="multipart/form-data">
+    <input name="email" type="email" />
+    <input name="password" type="password" />
+    <button>Submit</button>
+  </form>
+</div>

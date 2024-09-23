@@ -1,0 +1,63 @@
+[
+  {
+    "op": "input",
+    "title": "Which is your source directory",
+    "defaultValue": "./src/*",
+    "value": "$aliases",
+    "actions": [
+      {
+        "op": "add",
+        "remoteSrc": "/setup.json",
+        "targetSrc": "./setup.json"
+      },
+      {
+        "op": "updateJSON",
+        "targetSrc": "./setup.json",
+        "path": "aliases.path",
+        "value": "$aliases"
+      },
+      {
+        "op": "updateJSON",
+        "targetSrc": "./package.json",
+        "path": "imports.~/*",
+        "value": "$aliases"
+      }
+    ]
+  },
+  {
+    "op": "select",
+    "title": "Select you package manager",
+    "selections": [
+      { "label": "npm", "value": "npm" },
+      { "label": "pnpm", "value": "pnpm" },
+      { "label": "yarn", "value": "yarn" }
+    ],
+    "value": "$packageManager",
+    "values": {
+      "npm": [
+        {
+          "op": "updateJSON",
+          "targetSrc": "./setup.json",
+          "path": "packageManager",
+          "value": "npm"
+        }
+      ],
+      "pnpm": [
+        {
+          "op": "updateJSON",
+          "targetSrc": "./setup.json",
+          "path": "packageManager",
+          "value": "pnpm"
+        }
+      ],
+      "yarn": [
+        {
+          "op": "updateJSON",
+          "targetSrc": "./setup.json",
+          "path": "packageManager",
+          "value": "yarn"
+        }
+      ]
+    }
+  }
+]

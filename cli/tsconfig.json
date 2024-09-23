@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "CommonJS",
+    "module": "es2022",
     "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -18,16 +18,9 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "Symbol(clack:cancel)": [
-        "Symbol(clack:cancel)"
-      ]
+      "~/*": ["./src/target/*"]
     }
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

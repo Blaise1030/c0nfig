@@ -1,0 +1,54 @@
+{
+  "password": [
+    {
+      "op": "add",
+      "remoteSrc": "/assets/auth/options/password.ts",
+      "targetSrc": "~/auth/options/password.ts"
+    },
+    {
+      "op": "add-export",
+      "targetSrc": "~/auth/options/index.ts",
+      "content": "export * from './password'"
+    },
+    {
+      "op": "install",
+      "dep": ["zod"]
+    }
+  ],
+  "google": [
+    {
+      "op": "add",
+      "remoteSrc": "/assets/auth/options/google.ts",
+      "targetSrc": "~/auth/options/google.ts"
+    },
+    {
+      "op": "add-export",
+      "targetSrc": "~/auth/options/index.ts",
+      "content": "export * from './google'"
+    }
+  ],
+  "github": [
+    {
+      "op": "add",
+      "remoteSrc": "/assets/auth/options/github.ts",
+      "targetSrc": "~/auth/options/github.ts"
+    },
+    {
+      "op": "add-export",
+      "targetSrc": "~/auth/options/index.ts",
+      "content": "export * from './github'"
+    }
+  ],
+  "discord": [
+    {
+      "op": "add",
+      "remoteSrc": "/assets/auth/options/discord.ts",
+      "targetSrc": "~/auth/options/discord.ts"
+    },
+    {
+      "op": "add-export",
+      "targetSrc": "~/auth/options/index.ts",
+      "content": "export * from './discord'"
+    }
+  ]
+}

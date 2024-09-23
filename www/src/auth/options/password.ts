@@ -1,3 +1,4 @@
+// dependencies: ['@node-rs/argon2', 'zod']
 import { generateIdFromEntropySize } from "lucia";
 import { hash, verify } from "@node-rs/argon2";
 import { eq } from "drizzle-orm";
@@ -12,7 +13,14 @@ const signUpSchema = z.object({
 });
 
 export async function passwordSignUp(request: Request) {
-    const body = await request.json();
+    const formData = await request.formData();
+    const body = {
+        email: formData.get('email'),
+        password: formData.get('password')
+    }
+
+    // Uncomment this if using this for body
+    // const body = await request.json();
     const result = signUpSchema.safeParse(body);
     if (!result.success) {
         return new Response(result.error.message, { status: 400 });
@@ -60,8 +68,7 @@ export async function passwordSignIn(request: Request) {
     const email = result.data.email;
     const password = result.data.password;
 
-    const dbUser = await db.select().from(userTable).where(eq(userTable.username, email))
-    const user = dbUser[0]
+    const user = (await db.select().from(userTable).where(eq(userTable.username, email)))[0]
 
 
     if (!user) {
