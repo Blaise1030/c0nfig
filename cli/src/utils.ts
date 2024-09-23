@@ -51,3 +51,10 @@ export const replaceAliasWithPath = async (inputStr: string, configPath: string 
         throw error;
     }
 };
+
+
+export const getModuleAbsolutePath = async (module: string) => {
+    const config = await readConfig()
+    const src = config?.aliases?.aliasSource.replace("*", '')
+    return `${src}${module}`
+}

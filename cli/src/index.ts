@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { AddExportOperation, AddOperation, Config, InputOperation, InstallOperation, ReadJSONOperation, SelectOperation, UpdateJSONOperation } from "./type";
-import { readConfig, replaceAliasWithPath, replaceVariables } from "./utils";
+import { getModuleAbsolutePath, readConfig, replaceAliasWithPath, replaceVariables } from "./utils";
 import { execSync } from "child_process";
 import yoctoSpinner from "yocto-spinner"
 import { Command } from 'commander';
@@ -214,15 +214,16 @@ program.command('auth')
     .argument('[authMethod...]', 'google, discord, github, password')
     .description('Initialize the auth module')
     .action(async (operation, authMethod) => {
+        const defaultVariables = { "$absDbPath": await getModuleAbsolutePath('db') }
         if (operation === 'init') {
             const res = await fetchConfig('/auth.json')
-            await runOperations(res, {})
+            await runOperations(res, defaultVariables)
         } else if (operation === 'add') {
             const res = await fetchConfig('/auth-add.json')
             for (let i = 0; i < authMethod.length; i++) {
                 const method = authMethod[i]
                 const item = res[method]
-                await runOperations(item, {})
+                await runOperations(item, defaultVariables)
             }
         }
     })
