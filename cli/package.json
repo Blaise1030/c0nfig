@@ -12,7 +12,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push"
   },
-  "author": "",
+  "author": "blaise1030",
   "license": "ISC",
   "description": "",
   "dependencies": {
