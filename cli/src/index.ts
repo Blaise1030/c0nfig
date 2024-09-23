@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { AddExportOperation, AddOperation, Config, InputOperation, InstallOperation, ReadJSONOperation, SelectOperation, UpdateJSONOperation } from "./type";
 import { readConfig, replaceAliasWithPath, replaceVariables } from "./utils";
 import { execSync } from "child_process";
