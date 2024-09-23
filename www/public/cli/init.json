@@ -15,6 +15,12 @@
         "targetSrc": "./setup.json",
         "path": "aliases.path",
         "value": "$aliases"
+      },
+      {
+        "op": "updateJSON",
+        "targetSrc": "./package.json",
+        "path": "imports.~/*",
+        "value": "$aliases"
       }
     ]
   },

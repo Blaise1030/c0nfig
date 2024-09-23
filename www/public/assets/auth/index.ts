@@ -25,3 +25,4 @@ declare module "lucia" {
 }
 
 export * from "./auth-schema"
+export * from "./options"

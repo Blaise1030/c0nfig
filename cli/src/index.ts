@@ -45,7 +45,7 @@ async function onSelectOperation(operation: SelectOperation, variables: Record<s
 export async function onAddOperation(operation: AddOperation, variable: { [x: string]: string }) {
     const { remoteSrc, targetSrc } = operation
     const item = await fetchRemoteFile(replaceVariables(remoteSrc, variable))
-    const resolvedTargetPath = path.resolve(await replaceAliasWithPath(targetSrc));
+    const resolvedTargetPath = path.resolve(targetSrc.startsWith('~') ? await replaceAliasWithPath(targetSrc) : targetSrc);
     await fs.ensureDir(path.dirname(resolvedTargetPath));
     fs.writeFileSync(resolvedTargetPath, replaceVariables(item, variable))
 
@@ -200,7 +200,7 @@ program
         await runOperations(res, {})
     })
 
-program.command('db')
+program.command('db init')
     .description('Initialize the project database')
     .action(async () => {
         const res = await fetchConfig('/db.json')
@@ -208,17 +208,21 @@ program.command('db')
     })
 
 program.command('auth')
-    .description('Initialize the auth project')
-    .action(async () => {
-        const res = await fetchConfig('/auth.json')
-        await runOperations(res, {})
+    .argument('<operation>', 'init, add')
+    .argument('[authMethod...]', 'google, discord, github, password')
+    .description('Initialize the auth module')
+    .action(async (operation, authMethod) => {
+        if (operation === 'init') {
+            const res = await fetchConfig('/auth.json')
+            await runOperations(res, {})
+        } else if (operation === 'add') {
+            const res = await fetchConfig('/auth-add.json')
+            for (let i = 0; i < authMethod.length; i++) {
+                const method = authMethod[i]
+                const item = res[method]
+                await runOperations(item, {})
+            }
+        }
     })
-
-// program.command('auth add')
-//     .description('Initialize the auth project')
-//     .action(async () => {
-//         const res = await fetchConfig('/auth.json')
-//         await runOperations(res, {})
-//     })
 
 program.parse(process.argv);
