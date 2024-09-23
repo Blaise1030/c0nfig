@@ -8,8 +8,9 @@ import { lucia } from "~/auth";
 
 const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID as string;
 const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET as string;
+const DISCORD_REDIRECT_URL = process.env.DISCORD_REDIRECT_URL as string;
 
-const discord = new Discord(DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET);
+const discord = new Discord(DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_REDIRECT_URL);
 
 export async function discordOAuthRedirect(_: Request): Promise<Response> {
     const state = generateState();

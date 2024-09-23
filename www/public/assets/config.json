@@ -1,0 +1,48 @@
+{
+  "auth": {
+    "dependencies": ["lucia", "@lucia-auth/adapter-drizzle"],
+    "index": "/auth/index.ts",
+    "signOut": "/auth/signOut.ts",
+    "options": {
+      "password": {
+        "dependencies": ["@node-rs/argon2", "zod"],
+        "file": "/auth/options/password.ts"
+      }
+    },
+    "db": {
+      "sqlite": {
+        "adapter": "/auth/sqlite/adapter.ts",
+        "auth-schema": "/auth/sqlite/auth-schema.ts",
+        "oauth-schema": "/auth/sqlite/oauth-schema.ts"
+      },
+      "postgres": {
+        "adapter": "/auth/postgres/adapter.ts",
+        "auth-schema": "/auth/postgres/auth-schema.ts",
+        "oauth-schema": "/auth/postgres/oauth-schema.ts"
+      }
+    }
+  },
+  "db": {
+    "sqlite": {
+      "dependencies": ["drizzle-orm", "better-sqlite3"],
+      "devDependencies": ["drizzle-kit"],
+      "init": "/db/sqlite/index.ts",
+      "drizzleKit": "/db/sqlite/drizzle.config.ts",
+      "schema": "/db/sqlite/schema.ts"
+    },
+    "supabase": {
+      "dependencies": ["drizzle-orm", "postgres"],
+      "devDependencies": ["drizzle-kit"],
+      "init": "/db/supabase/index.ts",
+      "drizzleKit": "/db/supabase/drizzle.config.ts",
+      "schema": "/db/supabase/schema.ts"
+    },
+    "turso": {
+      "dependencies": ["drizzle-orm", "@libsql/client"],
+      "devDependencies": ["drizzle-kit"],
+      "init": "/db/turso/index.ts",
+      "drizzleKit": "/db/turso/drizzle.config.ts",
+      "schema": "/db/turso/schema.ts"
+    }
+  }
+}
