@@ -1,6 +1,6 @@
 {
   "name": "kmdrr",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
   "type": "module",
   "bin": "./dist/index.cjs",
