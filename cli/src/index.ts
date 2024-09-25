@@ -10,9 +10,21 @@ import fs from 'fs-extra';
 import path from 'path';
 import _ from "lodash"
 
-const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://kmdr.vercel.app/' : 'http://localhost:4321/';
-
 const program = new Command();
+
+let BASE_URL = process.env.NODE_ENV === 'production' ? 'https://kmdr.vercel.app/' : 'http://localhost:4321/';
+
+program
+    .command('run')
+    .argument('<remote-config-url>')
+    .description('Fetches remote config and run as configured')
+    .action(async (remoteURL: string) => {
+        const url = new URL(remoteURL)
+        console.log(url.host)
+        // const res = await fetchConfig(remoteURL)
+        // await runOperations(res, {})
+    })
+
 
 export async function fetchConfig(path: string) {
     const res = await fetch(`${BASE_URL}/cli${path}`)
@@ -193,6 +205,7 @@ async function runOperations(operation: Config, variables: { [x: string]: string
         }
     }
 }
+
 
 program
     .command('init')

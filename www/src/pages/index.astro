@@ -1,21 +1,23 @@
 ---
-import BentoGrid from "@/components/sections/bentogrid.astro";
-import Features from "@/components/sections/features.astro";
-import HeroLanding from "@/components/sections/hero-landing.astro";
-import InfoLanding from "@/components/sections/info-landing.astro";
-import PreviewLanding from "@/components/sections/preview-landing.astro";
-import Testimonials from "@/components/sections/testimonials.astro";
-
-import { infos } from "@/config/landing";
+import ExampleGrid from "@/components/example-grid.astro";
+import PageHeader from "@/components/page-header.astro";
+import { navMenuConfig } from "@/config/nav-menu";
 import MainLayout from "@/layouts/main-layout.astro";
+
+const examples = navMenuConfig.examplesNav[0].items;
+const pages = navMenuConfig.pagesNav[0].items;
 ---
 
-<MainLayout title="Landing">
-  <HeroLanding />
-  <PreviewLanding />
-  <BentoGrid />
-  <InfoLanding data={infos[0]} reverse={true} />
-  <!-- <InfoLanding data={infos[1]} /> -->
-  <Features />
-  <Testimonials />
+<MainLayout title="">
+  <div class="bg-background-200">
+    <section class="container py-12">
+      <PageHeader
+        heading="Discovery"
+        text="Differents pages and examples apps built with Astro v4.5, shadcn/ui & react js. Fully Open Source."
+      />
+
+      <ExampleGrid title="Pages" items={pages} />
+      <ExampleGrid title="Examples Apps" items={examples} />
+    </section>
+  </div>
 </MainLayout>
