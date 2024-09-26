@@ -12,7 +12,7 @@ import _ from "lodash"
 
 const program = new Command();
 
-let BASE_URL = process.env.NODE_ENV === 'production' ? 'https://kmdr.vercel.app/' : 'http://localhost:4321/';
+let BASE_URL = process.env.NODE_ENV === 'production' ? 'https://kmdr.vercel.app/' : 'http://localhost:3000/';
 
 program
     .command('run')
@@ -20,14 +20,13 @@ program
     .description('Fetches remote config and run as configured')
     .action(async (remoteURL: string) => {
         const url = new URL(remoteURL)
-        console.log(url.host)
-        // const res = await fetchConfig(remoteURL)
-        // await runOperations(res, {})
+        BASE_URL = url.origin
+        const res = await fetchConfig(url.pathname)
+        await runOperations(res, {})
     })
 
-
 export async function fetchConfig(path: string) {
-    const res = await fetch(`${BASE_URL}/cli${path}`)
+    const res = await fetch(`${BASE_URL}${path}`)
     const content = await res.json()
     return content
 }
@@ -211,14 +210,14 @@ program
     .command('init')
     .description('Initialize the project configuration')
     .action(async () => {
-        const res = await fetchConfig('/init.json')
+        const res = await fetchConfig('/cli/init.json')
         await runOperations(res, {})
     })
 
 program.command('db init')
     .description('Initialize the project database')
     .action(async () => {
-        const res = await fetchConfig('/db.json')
+        const res = await fetchConfig('/cli/db.json')
         await runOperations(res, {})
     })
 
@@ -229,10 +228,10 @@ program.command('auth')
     .action(async (operation, authMethod) => {
         const defaultVariables = { "$absDbPath": await getModuleAbsolutePath('db') }
         if (operation === 'init') {
-            const res = await fetchConfig('/auth.json')
+            const res = await fetchConfig('/cli/auth.json')
             await runOperations(res, defaultVariables)
         } else if (operation === 'add') {
-            const res = await fetchConfig('/auth-add.json')
+            const res = await fetchConfig('/cli/auth-add.json')
             for (let i = 0; i < authMethod.length; i++) {
                 const method = authMethod[i]
                 const item = res[method]
