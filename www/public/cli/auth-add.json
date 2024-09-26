@@ -2,7 +2,7 @@
   "password": [
     {
       "op": "add",
-      "remoteSrc": "/assets/auth/options/password.ts",
+      "remoteSrc": "cli/assets/auth/options/password.ts",
       "targetSrc": "~/auth/options/password.ts"
     },
     {

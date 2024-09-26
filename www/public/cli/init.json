@@ -7,7 +7,7 @@
     "actions": [
       {
         "op": "add",
-        "remoteSrc": "/setup.json",
+        "remoteSrc": "/cli/setup.json",
         "targetSrc": "./setup.json"
       },
       {
@@ -28,9 +28,9 @@
     "op": "select",
     "title": "Select you package manager",
     "selections": [
-      { "label": "npm", "value": "npm" },
-      { "label": "pnpm", "value": "pnpm" },
-      { "label": "yarn", "value": "yarn" }
+      {"label": "npm", "value": "npm"},
+      {"label": "pnpm", "value": "pnpm"},
+      {"label": "yarn", "value": "yarn"}
     ],
     "value": "$packageManager",
     "values": {
