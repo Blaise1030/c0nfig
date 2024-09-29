@@ -1,0 +1,10 @@
+{
+  "aliases": {
+    "path": "./src/*"
+  },
+  "packageManager": "npm",
+  "db": {
+    "engine": "sqlite",
+    "name": "sqlite"
+  }
+}
