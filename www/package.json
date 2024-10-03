@@ -17,7 +17,9 @@
     "better-sqlite3": "^11.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "diff": "^7.0.0",
     "drizzle-orm": "^0.33.0",
+    "framer-motion": "^11.11.0",
     "lucide-react": "^0.435.0",
     "next": "^14.2.6",
     "next-mdx-remote": "^5.0.0",
@@ -34,6 +36,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.14",
+    "@types/diff": "^5.2.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

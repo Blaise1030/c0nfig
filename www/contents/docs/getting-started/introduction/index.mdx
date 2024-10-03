@@ -17,7 +17,7 @@ To get started with **Kommander**, follow these simple steps:
 
 Begin by hosting your commands and assets on a storage bucket or serve them as static content from your website. This allows your CLI tools to fetch necessary configurations, commands, or other files required for bootstrapping.
 
-Here's an example of a basic JSON structure for commands, which can be hosted:
+Here's an example of a basic JSON structure that you should host:
 
 ```json
 [
@@ -55,13 +55,15 @@ The above command will:
 - Copy necessary files or configurations to the specified directories.
 - Update project files like package.json based on user choices.
 
+Do explore other blocks to perform your intended operations.
+
 ### 2. Run your command
 
 Once your assets are hosted, you can run the HTTP endpoint that points to your JSON command file in your documentation. Users can then execute these commands directly using the Kommander CLI tool.
 
 For example, pass the endpoint file path to the latest version of Kommander like so:
 
-```
+```bash
 npx kmdrr@latest run https://your-domain.com/commands/command.json
 ```
 
@@ -71,4 +73,5 @@ Kommander offers a variety of additional commands for you to explore. Head over 
 
 ## Conclusion
 
-Kommander simplifies the process of managing project configurations by giving developers a flexible, reusable, and customizable solution. Whether you’re a library maintainer or developer working on complex projects, Kommander will streamline your workflows and improve efficiency.
+Kommander simplifies the process of creating reusable project configurations by giving developers a flexible, reusable, and customizable solution.
+Whether you're a library maintainer or developer working on complex projects, Kommander will streamline your workflows and improve efficiency.
