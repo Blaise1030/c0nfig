@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import { evaluate } from 'eval-expression';
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
 import path from 'path';
@@ -12,6 +13,7 @@ import {
     AddExportOperation,
     AddImportOperation,
     AddOperation,
+    ConditionalOperation,
     Config,
     InputOperation,
     InstallOperation,
@@ -345,6 +347,30 @@ async function addExportStatement(
     }
 }
 
+
+async function onConditionalOperation(
+    operation: ConditionalOperation,
+    variables: Record<string, string>
+): Promise<void> {
+    const conditionStr = replaceVariables(operation.condition, variables);
+
+    let conditionResult: boolean;
+
+    try {
+        // Use a safe evaluator instead of eval
+        conditionResult = evaluate(conditionStr, variables);
+    } catch (error) {
+        console.error(`Failed to evaluate condition "${conditionStr}": ${error.message}`);
+        return;
+    }
+
+    if (conditionResult) {
+        await runOperations(operation.then, variables);
+    } else if (operation.else) {
+        await runOperations(operation.else, variables);
+    }
+}
+
 async function runOperations(operations: Config, variables: Record<string, string>): Promise<void> {
     for (const operation of operations) {
         const { op } = operation;
@@ -373,6 +399,9 @@ async function runOperations(operations: Config, variables: Record<string, strin
                 break;
             case 'input':
                 await onInputOperation(operation as InputOperation, variables);
+                break;
+            case 'conditional':
+                await onConditionalOperation(operation as ConditionalOperation, variables);
                 break;
             default:
                 console.warn(`Unsupported operation: ${op}`);

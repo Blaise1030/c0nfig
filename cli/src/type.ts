@@ -1,5 +1,5 @@
 export type Config = Operation[];
-type Operation = AddImportOperation | AddOperation | AddExportOperation | InstallOperation | SelectOperation | ReadJSONOperation | UpdateJSONOperation | InputOperation;
+type Operation = AddImportOperation | AddOperation | AddExportOperation | InstallOperation | SelectOperation | ReadJSONOperation | UpdateJSONOperation | InputOperation | ConditionalOperation;
 
 
 export interface InputOperation {
@@ -64,4 +64,11 @@ export interface UpdateJSONOperation {
     targetSrc: string,
     path: string,
     value: string
+}
+
+export interface ConditionalOperation {
+    op: 'conditional';
+    condition: string;
+    then: Config;
+    else?: Config;
 }
