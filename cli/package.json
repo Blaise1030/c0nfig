@@ -16,8 +16,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@babel/generator": "^7.25.7",
+    "@babel/parser": "^7.25.7",
+    "@babel/traverse": "^7.25.7",
+    "@babel/types": "^7.25.7",
+    "@libsql/client": "^0.14.0",
     "@lucia-auth/adapter-drizzle": "^1.1.0",
     "arctic": "^1.9.2",
+    "ast-types": "^0.16.1",
     "commander": "^12.1.0",
     "drizzle-orm": "^0.33.0",
     "esbuild": "^0.24.0",
@@ -29,12 +35,15 @@
     "ora": "^8.1.0",
     "path": "^0.12.7",
     "postgres": "^3.4.4",
+    "recast": "^0.23.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
     "yocto-spinner": "^0.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/babel__generator": "^7.6.8",
+    "@types/babel__traverse": "^7.20.6",
     "@types/node": "^22.5.5",
     "drizzle-kit": "^0.24.2",
     "tsx": "^4.19.1"

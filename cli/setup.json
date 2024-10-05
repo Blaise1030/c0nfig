@@ -1,15 +1,10 @@
 {
   "aliases": {
-    "path": "./src/target/*",
-    "aliasSource": "./src/*"
+    "path": "./src/target/*"
   },
   "packageManager": "npm",
   "db": {
-    "type": "supabase",
-    "name": "supabase",
-    "engine": "postgres"
-  },
-  "auth": {
-    "name": "auth"
+    "engine": "postgres",
+    "name": "supabase"
   }
 }
