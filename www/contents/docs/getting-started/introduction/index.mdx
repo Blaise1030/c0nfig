@@ -1,42 +1,77 @@
 ---
 title: Introduction
-description: A CLI tools that allows you to create easy, quick & reusable configurations for your developer tools
+description: A CLI tool that allows you to create easy, quick, and reusable configurations for various developer tools.
 ---
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam iste dolorum tempore consectetur explicabo tempora provident quia maxime, molestiae, facilis aperiam et, error illum vel ullam? Quis architecto dolore ullam
+This project is heavily inspired by Shadcn's CLI approach, which promotes copying and pasting reusable components directly into your apps, rather than including them as dependencies.
+
+This innovative approach strikes an ideal balance between customizability and efficiency.
+
+**Kommander** aims to streamline this process by providing a standardized structure, enabling library maintainers to easily create their own bootstrapping tools.
 
 ## Getting Started
 
-To begin using the Documentation Template, follow these simple steps:
+To get started with **Kommander**, follow these simple steps:
 
-- Start by cloning the repository to your local machine.
+### 1. Host your command
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit quae iure nulla deserunt dolore quam pariatur minus sapiente accusantium. Optio, necessitatibus sequi. Veritatis, aspernatur? Possimus quis repellat eum vitae eveniet.
+Begin by hosting your commands and assets on a storage bucket or serve them as static content from your website. This allows your CLI tools to fetch necessary configurations, commands, or other files required for bootstrapping.
 
-## Blockquotes
+Here's an example of a basic JSON structure that you should host:
 
-Blockquotes are useful for emphasizing key points or quoting external sources:
-
-> "Documentation is a love letter that you write to your future self." - Damian Conway
-
-Feel free to use blockquotes to highlight important information or quotes relevant to your documentation.
-
-## Code block
-
-```jsx {7} showLineNumbers
-import ThemeProvider from "./theme-provider";
-
-export default function RootLayout({children}) {
-  return (
-    <html>
-      <body className="container">
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
-    </html>
-  );
-}
+```json
+[
+  {
+    "op": "input",
+    "title": "Which is your source directory",
+    "defaultValue": "./src/*",
+    "value": "$aliases",
+    "actions": [
+      {
+        "op": "add",
+        "remoteSrc": "/cli/setup.json",
+        "targetSrc": "./setup.json"
+      },
+      {
+        "op": "updateJSON",
+        "targetSrc": "./setup.json",
+        "path": "aliases.path",
+        "value": "$aliases"
+      },
+      {
+        "op": "updateJSON",
+        "targetSrc": "./package.json",
+        "path": "imports.~/*",
+        "value": "$aliases"
+      }
+    ]
+  }
+]
 ```
+
+The above command will:
+
+- Prompt for user input (such as selecting a package manager or specifying a directory).
+- Copy necessary files or configurations to the specified directories.
+- Update project files like package.json based on user choices.
+
+Do explore other blocks to perform your intended operations.
+
+### 2. Run your command
+
+Once your assets are hosted, you can run the HTTP endpoint that points to your JSON command file in your documentation. Users can then execute these commands directly using the Kommander CLI tool.
+
+For example, pass the endpoint file path to the latest version of Kommander like so:
+
+```bash
+npx kmdrr@latest run https://your-domain.com/commands/command.json
+```
+
+### 3. Iterate !
+
+Kommander offers a variety of additional commands for you to explore. Head over to the command section of this doc and see what’s available. Feel free to try them out and enhance your workflows—there's plenty to discover!
 
 ## Conclusion
 
-Thank you for choosing the Documentation Template for your project. Whether you're documenting software, APIs, or processes, we're here to support you in creating clear and effective documentation. Happy documenting!
+Kommander simplifies the process of creating reusable project configurations by giving developers a flexible, reusable, and customizable solution.
+Whether you're a library maintainer or developer working on complex projects, Kommander will streamline your workflows and improve efficiency.

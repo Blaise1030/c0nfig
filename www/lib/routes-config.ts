@@ -14,24 +14,16 @@ export const ROUTES: EachRoute[] = [
     noLink: true,
     items: [
       { title: "Introduction", href: "/introduction" },
-      {
-        title: "Installation",
-        href: "/installation",
-        items: [
-          { title: "Laravel", href: "/laravel" },
-          { title: "React", href: "/react" },
-          { title: "Gatsby", href: "/gatsby" },
-        ],
-      },
     ],
   },
+
   {
-    title: "Server Actions",
-    href: "/server-actions",
+    title: "Operations",
+    href: "/operations",
     noLink: true,
     items: [
-      { title: "getSession", href: "/getSession" },
-      { title: "getToken", href: "/getToken" },
+      { title: "install", href: "/install" },
+      { title: "add", href: "/add" },
     ],
   },
 ];
