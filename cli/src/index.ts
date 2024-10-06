@@ -40,10 +40,10 @@ program
         try {
             const url = new URL(remoteURL);
 
-            // if (url.protocol !== 'https:') {
-            //     console.error('Only HTTPS protocol is allowed for remote configurations.');
-            //     process.exit(1);
-            // }
+            if (url.protocol !== 'https:') {
+                console.error('Only HTTPS protocol is allowed for remote configurations.');
+                process.exit(1);
+            }
 
             BASE_URL = url.origin;
             const config = await fetchConfig(url.pathname);
@@ -152,7 +152,7 @@ async function onAddOperation(
 
     try {
         const content = await fetchRemoteFile(replaceVariables(remoteSrc, variables));
-        const resolvedTargetPath = path.resolve(await replaceAliasWithPath(targetSrc));
+        const resolvedTargetPath = path.resolve(replaceVariables(await replaceAliasWithPath(targetSrc), variables));
 
         await fs.ensureDir(path.dirname(resolvedTargetPath));
 
@@ -181,12 +181,12 @@ async function onUpdateJSONOperation(
     operation: UpdateJSONOperation,
     variables: Record<string, string>
 ): Promise<void> {
-    const resolvedFilePath = path.resolve(await replaceAliasWithPath(operation.targetSrc));
+    const resolvedFilePath = path.resolve(replaceVariables(await replaceAliasWithPath(operation.targetSrc), variables));
 
     try {
         const jsonContent = await fs.readJSON(resolvedFilePath);
         const replacedValue = replaceVariables(operation.value, variables);
-        _.set(jsonContent, operation.path, replacedValue);
+        _.set(jsonContent, replaceVariables(operation.path, variables), replacedValue);
         await fs.writeJSON(resolvedFilePath, jsonContent, { spaces: 2 });
 
         console.log(`Updated ${operation.path} in ${resolvedFilePath} with value: ${replacedValue}`);
@@ -237,10 +237,10 @@ async function onReadJSONOperation(
     variables: Record<string, string>
 ): Promise<void> {
     try {
-        const resolvedFilePath = path.resolve(await replaceAliasWithPath(operation.targetSrc));
+        const resolvedFilePath = path.resolve(replaceVariables(await replaceAliasWithPath(operation.targetSrc), variables));
         const jsonContent = await fs.readJSON(resolvedFilePath);
 
-        const readingValue = _.get(jsonContent, operation.path, null);
+        const readingValue = _.get(jsonContent, replaceVariables(operation.path, variables), null);
 
         if (!readingValue) {
             console.error(`Value at ${operation.path} in ${resolvedFilePath} is not found.`);
@@ -272,7 +272,7 @@ async function addImportStatement(
     variables: Record<string, string>
 ): Promise<void> {
     try {
-        const resolvedPath = path.resolve(await replaceAliasWithPath(operation.targetSrc));
+        const resolvedPath = path.resolve(replaceVariables(await replaceAliasWithPath(operation.targetSrc), variables));
         let fileContent = await fs.readFile(resolvedPath, 'utf8');
 
         // Replace variables in the content
@@ -320,7 +320,7 @@ async function addExportStatement(
     variables: Record<string, string>
 ): Promise<void> {
     try {
-        const resolvedPath = path.resolve(await replaceAliasWithPath(operation.targetSrc));
+        const resolvedPath = path.resolve(replaceVariables(await replaceAliasWithPath(operation.targetSrc), variables));
         let fileContent = await fs.readFile(resolvedPath, 'utf8');
 
         // Replace variables in the content

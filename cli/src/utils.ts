@@ -8,7 +8,7 @@ import path from 'path';
  * @returns - The string with the variables replaced by their corresponding values.
  */
 export function replaceVariables(str: string, variables: Record<string, string>): string {
-    return str.replace(/\$([a-zA-Z_][\w]*)/g, (_, variable) => {
+    return str.replaceAll(/\$([a-zA-Z_][\w]*)/g, (_, variable) => {
         // Look up the variable in the object with a prefixed $ and replace it if found
         const key = `$${variable}`;
         return variables[key] || key;
