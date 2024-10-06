@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-// Import and configure dotenv at the very top
 import dotenv from 'dotenv';
 dotenv.config();
 
