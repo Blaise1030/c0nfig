@@ -2,13 +2,13 @@ name: Publish Package to npmjs
 on:
   push:
     branches: [main]
-     paths:
-      - 'cli/**' # Triggers the workflow only when changes are made in the 'cli' directory
+    paths:
+      - "cli/**" # Triggers the workflow only when changes are made in the 'cli' directory
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      BASE_URL: ${{ secrets.BASE_URL }}  
+      BASE_URL: ${{ secrets.BASE_URL }}
     steps:
       - uses: actions/checkout@v2
       # Setup .npmrc file to publish to npm
@@ -19,5 +19,5 @@ jobs:
       - run: cd cli && npm ci
       - run: cd cli && npm run build
       - run: cd cli && npm publish
-        env:          
+        env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
