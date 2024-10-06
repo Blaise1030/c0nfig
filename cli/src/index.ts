@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+// Import and configure dotenv at the very top
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { Command } from 'commander';
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
@@ -31,7 +35,9 @@ import {
 const execAsync = promisify(exec);
 const program = new Command();
 
-let BASE_URL = process.env.BASE_URL || 'https://kmdr.vercel.app/';
+let BASE_URL = process.env.BASE_URL ?? 'https://kmdr.vercel.app/';
+const INIT_URL = `${BASE_URL}/cli/init.json`
+const COMMAND_CONFIG_FILENAME = 'command.config.json'
 
 program
     .version('1.0.6')
@@ -40,6 +46,12 @@ program
     .description('Fetch and execute remote configuration')
     .action(async (remoteURL: string) => {
         try {
+            const setupFilePath = path.resolve(COMMAND_CONFIG_FILENAME);
+            if (!(await fs.pathExists(setupFilePath))) {
+                console.error(`Error: ${COMMAND_CONFIG_FILENAME} not found. Please run "npx kmdrr @latest init" first.`);
+                process.exit(1);
+            }
+
             const url = new URL(remoteURL);
 
             if (url.protocol !== 'https:') {
@@ -51,6 +63,21 @@ program
             const config = await fetchConfig(url.pathname);
             await runOperations(config, {});
         } catch (error) {
+            console.error(`Error: ${error.message}`);
+            process.exit(1);
+        }
+    });
+
+program
+    .command('init')
+    .description('Initialises kmdr CLI tool')
+    .action(async () => {
+        try {
+            const url = new URL(INIT_URL);
+            BASE_URL = url.origin;
+            const config = await fetchConfig(url.pathname);
+            await runOperations(config, {});
+        } catch (error: any) {
             console.error(`Error: ${error.message}`);
             process.exit(1);
         }
