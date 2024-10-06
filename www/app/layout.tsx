@@ -33,6 +33,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <Analytics />
+      <head>
+        <meta
+          name="google-site-verification"
+          content="tWqhMLMr3tLCIsVHvSXX_qc7spW5az1XUdoP-ESeyXY"
+        />
+      </head>
+
       <body
         className={`${regularFont.variable} ${codeFont.variable} font-regular`}
         suppressHydrationWarning
