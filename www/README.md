@@ -1,71 +1,81 @@
-## AriaDocsLite - Documentation Template (Branch - `minimal-docs`)
+---
+title: Introduction
+description: A CLI tool that allows you to create easy, quick, and reusable configurations for various developer tools.
+---
 
-This branch has feature for document versioning
+This project is heavily inspired by Shadcn's CLI approach, which promotes copying and pasting code snippets directly into your apps, rather than including them as dependencies together. It also greatly helps with developer's
+workflows by handling updates on a project configurations as well.
 
-This feature-packed documentation template, built with Next.js, offers a sleek and responsive design, perfect for all your project documentation needs.
+This approach strikes an ideal balance between customizability and efficiency.
 
-<img src="./public/public-og.png" />
+**Kommander** aims to streamline this process by providing a standardized structure, enabling developers or library maintainers to easily create their own bootstrapping tools.
 
+**Kommander's** approach of executing remote configurations simplifies distribution and updates, ensuring all users have access to the latest configurations without manual updates.
+Updating configurations or assets can be as simple as updating the files on your server, without needing to update the CLI tool or redistribute packages.
 
-<br/>
+## Quick Start
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+To get started with **Kommander**, follow these simple steps:
 
-## Getting Started
+### 1. Host your command
 
-First, run the development server:
+Begin by hosting your commands and assets on a storage bucket or serve them as static content from your website. This allows your CLI tools to fetch necessary configurations, commands, or other files required for bootstrapping.
+
+Here's an example of a basic JSON structure that you should host:
+
+```json
+[
+  {
+    "op": "input",
+    "title": "Which is your source directory",
+    "defaultValue": "./src/*",
+    "value": "$aliases",
+    "actions": [
+      {
+        "op": "add",
+        "remoteSrc": "/cli/setup.json",
+        "targetSrc": "./setup.json"
+      },
+      {
+        "op": "updateJSON",
+        "targetSrc": "./setup.json",
+        "path": "aliases.path",
+        "value": "$aliases"
+      },
+      {
+        "op": "updateJSON",
+        "targetSrc": "./package.json",
+        "path": "imports.~/*",
+        "value": "$aliases"
+      }
+    ]
+  }
+]
+```
+
+The above command will:
+
+- Prompt for user input (such as selecting a package manager or specifying a directory).
+- Copy necessary files or configurations to the specified directories.
+- Update project files like package.json based on user choices.
+
+Do explore other <a href='/docs/operations/add'> operations</a> to perform your intended use cases.
+
+### 2. Run your command
+
+Once your assets are hosted, you can run the HTTP endpoint that points to your JSON command file in your documentation. Users can then execute these commands directly using the Kommander CLI tool.
+
+For example, pass the endpoint file path to the latest version of Kommander like so:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx kmdrr@latest run https://your-domain.com/commands/command.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Iterate !
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Kommander offers a variety of additional <a href='/docs/operations/add'> operations</a> for you to explore. Head over to the <a href='/docs/operations/add'> operations</a> section of this doc and see what's available. Feel free to try them out and enhance your workflows—there's plenty to discover!
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Conclusion
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/nisabmohd/Aria-Docs)
-
-Got it! Here's a way to present the features in a more structured and visually appealing way using a table:
-
-
-
-
-## Features
-
-```plaintext
-Features
-├── MDX supported
-├── Nested pages support
-├── Syntax highlighting
-├── Table of contents
-├── Code line highlight & code title
-├── Static site generation
-├── Custom components
-└── Light mode & dark mode
-```
-
-<img src="./public/1.png" />
-<img src="./public/2.png" />
+Kommander simplifies the process of creating reusable project configurations by giving developers a flexible, reusable, and customizable solution.
+Whether you're a library maintainer or developer working on complex projects, Kommander will streamline your workflows and improve efficiency.

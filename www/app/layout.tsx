@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navbar";
 import { DM_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { BackgroundPattern } from "@/components/background-pattern";
+import { Analytics } from "@vercel/analytics/react";
 
 const regularFont = Inter({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Analytics />
       <body
         className={`${regularFont.variable} ${codeFont.variable} font-regular`}
         suppressHydrationWarning

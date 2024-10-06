@@ -14,6 +14,19 @@ export const ROUTES: EachRoute[] = [
     noLink: true,
     items: [
       { title: "Introduction", href: "/introduction" },
+      { title: "Commands", href: "/commands" },
+      { title: "Operations", href: "/operations" },
+      { title: 'Variables', 'href': '/variables' },
+    ],
+  },
+  {
+    title: "Commands",
+    href: "/commands",
+    noLink: true,
+    items: [
+      { title: "init", href: "/init" },
+      { title: "run", href: "/run" },
+      { title: "verify", href: "/verify" },
     ],
   },
   {
@@ -31,14 +44,6 @@ export const ROUTES: EachRoute[] = [
       { title: "select", href: "/select" },
       { title: "updateJSON", href: "/updateJSON" },
     ],
-  },
-  {
-    title: "Variables",
-    href: "/variables",
-    noLink: true,
-    items: [
-      { title: 'Intro', 'href': '/' }
-    ]
   },
 ];
 

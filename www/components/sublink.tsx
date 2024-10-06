@@ -67,7 +67,7 @@ export default function SubLink({
           <div
             className={cn(
               "flex flex-col items-start sm:text-sm dark:text-neutral-300/85 text-neutral-800 ml-0.5 mt-2.5 gap-3",
-              level > 0 && "pl-4 border-l ml-1"
+              level >= 0 && "ps-4 border-l ml-1"
             )}
           >
             {items?.map((innerLink) => {
