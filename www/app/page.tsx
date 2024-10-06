@@ -37,7 +37,7 @@ export default function Home() {
             Get started
           </Link>
           <Link
-            href={`/ docs${page_routes[0].href}`}
+            href={`https://github.com/Blaise1030/kmdrr`}
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
               "w-fit"
