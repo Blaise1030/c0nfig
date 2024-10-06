@@ -1,6 +1,7 @@
 import { Parser } from 'expr-eval';
 import fs from 'fs-extra';
 import path from 'path';
+import { COMMAND_CONFIG_FILENAME } from './index';
 import { z } from 'zod';
 
 /**
@@ -22,7 +23,7 @@ export function replaceVariables(str: string, variables: Record<string, string>)
  * @param configPath - The path to the config file. Defaults to './setup.json'.
  * @returns The contents of the config file as an object.
  */
-export const readConfig = async (configPath: string = './setup.json'): Promise<any> => {
+export const readConfig = async (configPath: string = COMMAND_CONFIG_FILENAME): Promise<any> => {
     try {
         const resolvedConfigPath = path.resolve(configPath);
         const config = await fs.readJSON(resolvedConfigPath);
@@ -39,7 +40,7 @@ export const readConfig = async (configPath: string = './setup.json'): Promise<a
  * @param configPath - The path to the `config.json` file (default is './config.json').
  * @returns - The string with the `~` alias replaced with the actual path from the config file.
  */
-export const replaceAliasWithPath = async (inputStr: string, configPath: string = './setup.json'): Promise<string> => {
+export const replaceAliasWithPath = async (inputStr: string, configPath: string = COMMAND_CONFIG_FILENAME): Promise<string> => {
     try {
         const config = await readConfig(configPath)
         const aliasPath = config.aliases?.path;
@@ -49,8 +50,8 @@ export const replaceAliasWithPath = async (inputStr: string, configPath: string 
         const resultStr = inputStr.replace(/~\//g, aliasPath.endsWith('/') ? aliasPath : `${aliasPath}/`);
         return resultStr.replace("*", '');
     } catch (error) {
-        console.error(`Error reading config or replacing alias: ${error.message}`);
-        throw error;
+        console.error(`${COMMAND_CONFIG_FILENAME} file not found`);
+        return inputStr
     }
 };
 
