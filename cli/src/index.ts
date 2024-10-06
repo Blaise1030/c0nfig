@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { evaluate } from 'eval-expression';
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
 import path from 'path';
@@ -15,6 +14,7 @@ import {
     AddOperation,
     ConditionalOperation,
     Config,
+    ConfigSchema,
     InputOperation,
     InstallOperation,
     ReadJSONOperation,
@@ -22,6 +22,8 @@ import {
     UpdateJSONOperation,
 } from './type';
 import {
+    evaluate,
+    printValidationErrors,
     readConfig,
     replaceAliasWithPath,
     replaceVariables,
@@ -53,6 +55,37 @@ program
             process.exit(1);
         }
     });
+
+program
+    .command('verify <remote-config-url>')
+    .description('Verify if remote configuration matches schema')
+    .action(async (remoteURL: string) => {
+        try {
+            const url = new URL(remoteURL);
+
+            if (url.protocol !== 'https:' && url.protocol !== 'http:') {
+                console.error('Only HTTP and HTTPS protocols are allowed for remote configurations.');
+                process.exit(1);
+            }
+
+            BASE_URL = url.origin;
+            const config = await fetchConfig(url.pathname);
+
+            // Validate the config
+            const validation = ConfigSchema.safeParse(config);
+            if (validation.success) {
+                console.log('Validation succeeded: The configuration matches the schema.');
+            } else {
+                console.error('Validation failed:');
+                printValidationErrors(validation.error);
+                process.exit(1);
+            }
+        } catch (error: any) {
+            console.error(`Error: ${error.message}`);
+            process.exit(1);
+        }
+    });
+
 
 program.parse(process.argv);
 
