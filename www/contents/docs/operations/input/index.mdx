@@ -1,0 +1,32 @@
+---
+title: input
+description: Ask user to input and save it to the variable object
+---
+
+## Example
+
+```json
+{
+  "op": "input",
+  "title": "Enter your project name:",
+  "defaultValue": "my-app",
+  "value": "$projectName",
+  "actions": [
+    {
+      "op": "add",
+      "remoteSrc": "/templates/README.md",
+      "targetSrc": "./README.md"
+    }
+  ]
+}
+```
+
+## Fields
+
+| Fields       | Type          | Description                                                                                                                                                        |
+| ------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| op           | 'input'       | Specifies the type of operation. For InputOperation, this field must be 'input'.                                                                                   |
+| title        | `string`      | The message displayed to the user when prompting for input.                                                                                                        |
+| defaultValue | `string`      | The default value used if the user does not provide any input.                                                                                                     |
+| value        | `string`      | The name of the <a href='/docs/variables'> variable </a> where the user's input will be stored.                                                                    |
+| actions      | `Operation[]` | An array of operations to execute after the input is received. These actions can utilize the <a href='/docs/variables'> variable </a> defined by the user's input. |

@@ -1,0 +1,53 @@
+---
+title: select
+description: Present a list of options to the user and execute different sets of operations based on the selection.
+---
+
+## Example
+
+```json
+{
+  "op": "select",
+  "title": "Choose a styling library:",
+  "selections": [
+    { "label": "Styled Components", "value": "styled-components" },
+    { "label": "Emotion", "value": "emotion" },
+    { "label": "None", "value": "none" }
+  ],
+  "value": "$stylingLibrary",
+  "values": {
+    "styled-components": [
+      {
+        "op": "install",
+        "dep": ["styled-components"],
+        "devDep": ["@types/styled-components"]
+      }
+    ],
+    "emotion": [
+      {
+        "op": "install",
+        "dep": ["@emotion/react"],
+        "devDep": ["@emotion/styled"]
+      }
+    ],
+    "none": []
+  }
+}
+```
+
+## Fields
+
+| Fields     | Type                             | Description                                                                                            |
+| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| op         | 'select'                         | Specifies the type of operation. For SelectOperation, this field must be 'select'.                     |
+| title      | `string`                         | The prompt message displayed to the user when presenting the selection.                                |
+| selections | `Selection[]`                    | An array of selection options, each with a label and a value.                                          |
+| value      | `string`                         | The name of the <a href='/docs/variables'> variable </a> where the selected value will be stored.      |
+| values     | `{ [key: string]: Operation[] }` | An object mapping each selection value to an array of operations to execute if that value is selected. |
+
+## Selection Fields
+
+| Fields | Type     | Description                                     |
+| ------ | -------- | ----------------------------------------------- |
+| label  | `string` | The text displayed to the user for this option. |
+| value  | `string` | The internal value representing this option.    |

@@ -16,15 +16,29 @@ export const ROUTES: EachRoute[] = [
       { title: "Introduction", href: "/introduction" },
     ],
   },
-
   {
     title: "Operations",
     href: "/operations",
     noLink: true,
     items: [
-      { title: "install", href: "/install" },
       { title: "add", href: "/add" },
+      { title: "add-export", href: "/add-export" },
+      { title: "add-import", href: "/add-import" },
+      { title: "conditional", href: "/conditional" },
+      { title: "input", href: "/input" },
+      { title: "install", href: "/install" },
+      { title: "readJSON", href: "/readJSON" },
+      { title: "select", href: "/select" },
+      { title: "updateJSON", href: "/updateJSON" },
     ],
+  },
+  {
+    title: "Variables",
+    href: "/variables",
+    noLink: true,
+    items: [
+      { title: 'Intro', 'href': '/' }
+    ]
   },
 ];
 

@@ -1,47 +1,22 @@
 ---
 title: add
-description: Add a file from your assets to the designated path in project
+description: Copy a file from a remote source to a target location in the project directory.
 ---
 
-## Overview
+## Example
 
-Welcome to the getSession guide. Here, you'll find all the information you need to get started.
+```json
+{
+  "op": "add",
+  "remoteSrc": "/templates/tsconfig.json",
+  "targetSrc": "./tsconfig.json"
+}
+```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut metus ligula. Proin vehicula velit quis justo facilisis, in facilisis dolor interdum.
+## Fields
 
-## Prerequisites
-
-Before proceeding, ensure you have the following:
-
-- Node.js installed
-- Basic knowledge of command-line interface (CLI)
-- A code editor (e.g., VSCode)
-
-## Installation Steps
-
-1. **Clone the Repository**:
-   Clone the repository using the following command:
-
-   ```bash
-   git clone https://github.com/your-repo/your-project.git
-   ```
-
-2. **Navigate to the Project Directory**:
-   Use the `cd` command to navigate to your project directory:
-
-   ```bash
-   cd your-project
-   ```
-
-3. **Install Dependencies**:
-   Install the required dependencies using npm or yarn:
-
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-## Additional Information
-
-For more details, please refer to our official [documentation](#).
+| Fields    | Type     | Description                                                                         |
+| --------- | -------- | ----------------------------------------------------------------------------------- |
+| op        | 'add'    | Specifies the type of operation. For AddOperation, this field must be 'add'.        |
+| remoteSrc | `string` | The path or URL to the remote source file to be copied.                             |
+| targetSrc | `string` | The destination path where the file will be copied to within the project directory. |
