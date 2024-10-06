@@ -8,11 +8,11 @@
       {
         "op": "add",
         "remoteSrc": "/cli/setup.json",
-        "targetSrc": "./setup.json"
+        "targetSrc": "./command.config.json"
       },
       {
         "op": "updateJSON",
-        "targetSrc": "./setup.json",
+        "targetSrc": "./command.config.json",
         "path": "aliases.path",
         "value": "$aliases"
       },
@@ -28,16 +28,16 @@
     "op": "select",
     "title": "Select you package manager",
     "selections": [
-      {"label": "npm", "value": "npm"},
-      {"label": "pnpm", "value": "pnpm"},
-      {"label": "yarn", "value": "yarn"}
+      { "label": "npm", "value": "npm" },
+      { "label": "pnpm", "value": "pnpm" },
+      { "label": "yarn", "value": "yarn" }
     ],
     "value": "$packageManager",
     "values": {
       "npm": [
         {
           "op": "updateJSON",
-          "targetSrc": "./setup.json",
+          "targetSrc": "./command.config.json",
           "path": "packageManager",
           "value": "npm"
         }
@@ -45,7 +45,7 @@
       "pnpm": [
         {
           "op": "updateJSON",
-          "targetSrc": "./setup.json",
+          "targetSrc": "./command.config.json",
           "path": "packageManager",
           "value": "pnpm"
         }
@@ -53,7 +53,7 @@
       "yarn": [
         {
           "op": "updateJSON",
-          "targetSrc": "./setup.json",
+          "targetSrc": "./command.config.json",
           "path": "packageManager",
           "value": "yarn"
         }

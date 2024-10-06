@@ -1,5 +1,7 @@
+import { Parser } from 'expr-eval';
 import fs from 'fs-extra';
 import path from 'path';
+import { z } from 'zod';
 
 /**
  * Replaces variables in a string (denoted by $) with corresponding values from an object where keys are prefixed with $.
@@ -8,7 +10,7 @@ import path from 'path';
  * @returns - The string with the variables replaced by their corresponding values.
  */
 export function replaceVariables(str: string, variables: Record<string, string>): string {
-    return str.replace(/\$([a-zA-Z_][\w]*)/g, (_, variable) => {
+    return str.replaceAll(/\$([a-zA-Z_][\w]*)/g, (_, variable) => {
         // Look up the variable in the object with a prefixed $ and replace it if found
         const key = `$${variable}`;
         return variables[key] || key;
@@ -57,4 +59,35 @@ export const getModuleAbsolutePath = async (module: string) => {
     const config = await readConfig()
     const src = config?.aliases?.aliasSource.replace("*", '')
     return `${src}${module}`
+}
+
+export function evaluate(expression: string, variables: Record<string, any>): boolean {
+    try {
+        const parser = new Parser();
+        const expr = parser.parse(expression);
+        const result = expr.evaluate(variables);
+        return Boolean(result);
+    } catch (error) {
+        throw new Error(`Failed to evaluate expression: ${error.message}`);
+    }
+}
+
+export function printValidationErrors(error: z.ZodError) {
+    error.errors.forEach((err) => {
+        const path = err.path.length > 0 ? `Path: ${err.path.join(' -> ')}` : 'At root';
+        console.error(`${path}`);
+        console.error(`  Issue: ${err.message}`);
+        if (err.code === 'invalid_union') {
+            console.error('  Expected one of the following schemas:');
+            err.unionErrors?.forEach((unionErr, index) => {
+                console.error(`  Option ${index + 1}:`);
+                unionErr.errors.forEach((ue) => {
+                    const unionPath = ue.path.length > 0 ? `Path: ${ue.path.join(' -> ')}` : 'At root';
+                    console.error(`    ${unionPath}`);
+                    console.error(`      Issue: ${ue.message}`);
+                });
+            });
+        }
+        console.error('');
+    });
 }

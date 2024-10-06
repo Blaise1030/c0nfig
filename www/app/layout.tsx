@@ -3,12 +3,13 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { DM_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import { BackgroundPattern } from "@/components/background-pattern";
+import { Analytics } from "@vercel/analytics/react";
 
 const regularFont = Inter({
   subsets: ["latin"],
   variable: "--font-regular",
   display: "swap",
-  weight: "400",
 });
 
 const codeFont = DM_Mono({
@@ -31,6 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Analytics />
       <body
         className={`${regularFont.variable} ${codeFont.variable} font-regular`}
         suppressHydrationWarning
@@ -46,6 +48,7 @@ export default function RootLayout({
             {children}
           </main>
         </ThemeProvider>
+        <BackgroundPattern />
       </body>
     </html>
   );

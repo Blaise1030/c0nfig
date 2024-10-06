@@ -1,47 +1,22 @@
 ---
 title: install
-description: Conduct install operation
+description: Install npm packages into the project, including dependencies and development dependencies.
 ---
 
-## Overview
+## Example
 
-Welcome to the getToken guide. Here, you'll find all the information you need to get started.
+```json
+{
+  "op": "install",
+  "dep": ["react", "react-dom"],
+  "devDep": ["typescript", "@types/react"]
+}
+```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut metus ligula. Proin vehicula velit quis justo facilisis, in facilisis dolor interdum.
+## Fields
 
-## Prerequisites
-
-Before proceeding, ensure you have the following:
-
-- Node.js installed
-- Basic knowledge of command-line interface (CLI)
-- A code editor (e.g., VSCode)
-
-## Installation Steps
-
-1. **Clone the Repository**:
-   Clone the repository using the following command:
-
-   ```bash
-   git clone https://github.com/your-repo/your-project.git
-   ```
-
-2. **Navigate to the Project Directory**:
-   Use the `cd` command to navigate to your project directory:
-
-   ```bash
-   cd your-project
-   ```
-
-3. **Install Dependencies**:
-   Install the required dependencies using npm or yarn:
-
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-## Additional Information
-
-For more details, please refer to our official [documentation](#).
+| Fields | Type        | Description                                                                          |
+| ------ | ----------- | ------------------------------------------------------------------------------------ |
+| op     | 'install'   | Specifies the type of operation. For InstallOperation, this field must be 'install'. |
+| dep    | `string[]`  | An array of package names to install as regular dependencies.                        |
+| devDep | `string[]?` | An array of package names to install as development dependencies.                    |

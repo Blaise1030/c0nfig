@@ -1,0 +1,40 @@
+---
+title: verify
+description: The verify command fetches a remote configuration file over HTTP or HTTPS and validates its structure against the Kommander schema. This is useful for testing configurations before publishing them to ensure they are correctly formed.
+---
+
+## Usage
+
+```bash
+npx kmdrr@latest verify  <remote-config-url>
+```
+
+`<remote-config-url>`is The HTTPS URL pointing to the remote configuration JSON file.
+
+The verify command provides verbose error messages to help you pinpoint exactly where and what the issues are in your configuration.
+
+Suppose your configuration is missing the `targetSrc` field in an add operation:
+
+```json
+[
+  {
+    "op": "add",
+    "remoteSrc": "/templates/README.md"
+    // "targetSrc" is missing
+  }
+]
+```
+
+Running the verify command
+
+```bash
+npx kmdrr@latest verify https://example.com/invalid-config.json
+```
+
+Will give you as such
+
+```bash
+Validation failed:
+Path: 0 -> targetSrc
+  Issue: Required
+```
