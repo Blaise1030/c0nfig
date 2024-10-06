@@ -34,7 +34,7 @@ import {
 const execAsync = promisify(exec);
 const program = new Command();
 
-let BASE_URL = process.env.BASE_URL;
+let BASE_URL = process.env.BASE_URL ?? 'https://kmdr.vercel.app';
 const INIT_URL = `${BASE_URL}/cli/init.json`
 const COMMAND_CONFIG_FILENAME = 'command.config.json'
 
