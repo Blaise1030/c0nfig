@@ -40,9 +40,9 @@ export const ROUTES: EachRoute[] = [
       { title: "conditional", href: "/conditional" },
       { title: "input", href: "/input" },
       { title: "install", href: "/install" },
-      { title: "readJSON", href: "/readJSON" },
+      { title: "readJSON", href: "/readJson" },
       { title: "select", href: "/select" },
-      { title: "updateJSON", href: "/updateJSON" },
+      { title: "updateJSON", href: "/updateJson" },
     ],
   },
 ];
