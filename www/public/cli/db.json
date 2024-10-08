@@ -28,13 +28,13 @@
         { "op": "install", "dep": ["@libsql/client"] },
         {
           "op": "updateJSON",
-          "targetSrc": "./setup.json",
+          "targetSrc": "./command.config.json",
           "path": "db.engine",
           "value": "sqlite"
         },
         {
           "op": "updateJSON",
-          "targetSrc": "./setup.json",
+          "targetSrc": "./command.config.json",
           "path": "db.name",
           "value": "turso"
         }
@@ -58,13 +58,13 @@
         { "op": "install", "dep": ["postgres"] },
         {
           "op": "updateJSON",
-          "targetSrc": "./setup.json",
+          "targetSrc": "./command.config.json",
           "path": "db.engine",
           "value": "postgres"
         },
         {
           "op": "updateJSON",
-          "targetSrc": "./setup.json",
+          "targetSrc": "./command.config.json",
           "path": "db.name",
           "value": "supabase"
         }
@@ -88,13 +88,13 @@
         { "op": "install", "dep": ["better-sqlite3"] },
         {
           "op": "updateJSON",
-          "targetSrc": "./setup.json",
+          "targetSrc": "./command.config.json",
           "path": "db.engine",
           "value": "sqlite"
         },
         {
           "op": "updateJSON",
-          "targetSrc": "./setup.json",
+          "targetSrc": "./command.config.json",
           "path": "db.name",
           "value": "sqlite"
         }

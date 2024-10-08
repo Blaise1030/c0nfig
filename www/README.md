@@ -34,11 +34,11 @@ Here's an example of a basic JSON structure that you should host:
       {
         "op": "add",
         "remoteSrc": "/cli/setup.json",
-        "targetSrc": "./setup.json"
+        "targetSrc": "./command.config.json"
       },
       {
         "op": "updateJSON",
-        "targetSrc": "./setup.json",
+        "targetSrc": "./command.config.json",
         "path": "aliases.path",
         "value": "$aliases"
       },
