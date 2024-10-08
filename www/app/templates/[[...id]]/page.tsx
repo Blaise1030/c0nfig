@@ -1,4 +1,4 @@
-import {Button, buttonVariant} from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 import {
   Card,
   CardDescription,
@@ -8,11 +8,11 @@ import {
 } from "@/components/ui/card";
 import {Badge} from "@/components/ui/badge";
 import {ArrowRight} from "lucide-react";
-import Link from "next/link";
 
-export default function Templates() {
+export default function Template() {
   return (
     <div>
+      Item 2
       <div className="flex flex-col py-12">
         <div className="flex flex-col space-y-1">
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
@@ -37,13 +37,12 @@ export default function Templates() {
             </CardHeader>
             <CardFooter className="p-4 border-t justify-between">
               <Badge className="w-fit rounded-sm">Free</Badge>
-              <Link className={buttonVariant({size: "sm", variant: "outline"})}>
+              <Button size={"sm"} variant={"outline"}>
                 Read Documentation <ArrowRight className="size-4 ms-2" />
-              </Link>
+              </Button>
             </CardFooter>
           </Card>
         ))}
       </section>
     </div>
   );
-}
