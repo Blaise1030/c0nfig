@@ -14,6 +14,10 @@ export const NAVLINKS = [
     title: "GitHub",
     href: "https://github.com/Blaise1030/kmdrr",
   },
+  {
+    title: "Templates",
+    href: "/templates",
+  },
 ];
 
 export function Navbar() {
