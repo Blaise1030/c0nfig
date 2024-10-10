@@ -1,4 +1,4 @@
-import {Button, buttonVariant} from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
@@ -6,11 +6,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {Badge} from "@/components/ui/badge";
-import {ArrowRight} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Templates() {
+  const templates = [
+    {
+      title: "Drizzle ORM & Drizzle Kit",
+      description: "Setup Drizzle ORM & Drizzle Kit to your project.",
+      href: "/templates/1",
+      id: 1,
+    },
+  ];
   return (
     <div>
       <div className="flex flex-col py-12">
@@ -25,19 +33,18 @@ export default function Templates() {
         </div>
       </div>
       <section className="grid grid-cols-3 gap-4 col-span-9">
-        {[1, 2, 3, 4].map((id) => (
+        {templates?.map(({ title, description, href, id }) => (
           <Card className="cols-span-1" key={id}>
             <CardHeader className="p-4">
-              <CardTitle className="text-md">
-                Drizzle ORM & Drizzle Kit
-              </CardTitle>
-              <CardDescription>
-                Setup Drizzle ORM & Drizzle Kit to your project.
-              </CardDescription>
+              <CardTitle className="text-md">{title}</CardTitle>
+              <CardDescription>{description}</CardDescription>
             </CardHeader>
             <CardFooter className="p-4 border-t justify-between">
               <Badge className="w-fit rounded-sm">Free</Badge>
-              <Link className={buttonVariant({size: "sm", variant: "outline"})}>
+              <Link
+                className={buttonVariants({ size: "sm", variant: "outline" })}
+                href={href}
+              >
                 Read Documentation <ArrowRight className="size-4 ms-2" />
               </Link>
             </CardFooter>
