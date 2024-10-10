@@ -32,7 +32,7 @@ export function CodeBlockWrapper({
   }, [children]);
 
   return (
-    <div className="bg-black text-white rounded-md relative p-2 max-w-2xl">
+    <div className="bg-gray-900 border text-white rounded-md relative p-2 max-w-xl">
       <div
         ref={codeBlockRef}
         className={cn(

@@ -15,7 +15,7 @@ export default function Templates() {
     {
       title: "Drizzle ORM & Drizzle Kit",
       description: "Setup Drizzle ORM & Drizzle Kit to your project.",
-      href: "/templates/1",
+      href: "/template/1",
       id: 1,
     },
   ];

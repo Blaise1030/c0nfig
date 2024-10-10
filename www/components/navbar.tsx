@@ -16,7 +16,7 @@ export const NAVLINKS = [
   },
   {
     title: "Templates",
-    href: "/templates",
+    href: "/template",
   },
 ];
 

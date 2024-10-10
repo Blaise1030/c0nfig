@@ -21,6 +21,12 @@
         "targetSrc": "./package.json",
         "path": "imports.~/*",
         "value": "$aliases"
+      },
+      {
+        "op": "updateJSON",
+        "targetSrc": "./package.json",
+        "path": "compilerOptions.paths.~/*[0]",
+        "value": "./modules/*"
       }
     ]
   },
@@ -28,9 +34,9 @@
     "op": "select",
     "title": "Select you package manager",
     "selections": [
-      { "label": "npm", "value": "npm" },
-      { "label": "pnpm", "value": "pnpm" },
-      { "label": "yarn", "value": "yarn" }
+      {"label": "npm", "value": "npm"},
+      {"label": "pnpm", "value": "pnpm"},
+      {"label": "yarn", "value": "yarn"}
     ],
     "value": "$packageManager",
     "values": {
