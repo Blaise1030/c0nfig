@@ -135,7 +135,7 @@ const OperationBlock = ({ operation, number }) => {
     case 'add':
       return (
         <div key={number}>
-          <StepComp description={<>Add file from path <code>{operation?.remoteSrc}</code> to <code>{operation?.targetSrc}</code></>} number={number} />
+          <StepComp description={<>Copy file from path <code>{operation?.remoteSrc}</code> to <code>{operation?.targetSrc}</code></>} number={number} />
           <StepDescription>
             <code className="text-xs">{operation?.remoteSrc}</code>
             <CodeBlockWrapper>{operation.code}</CodeBlockWrapper>
@@ -146,7 +146,7 @@ const OperationBlock = ({ operation, number }) => {
     case 'updateJSON':
       return (
         <div key={number}>
-          <StepComp description={<>Update JSON file at <code>{operation?.targetSrc}</code></>} number={number} />
+          <StepComp description={<>Add the following into <code>{operation?.targetSrc}</code></>} number={number} />
           <StepDescription>
             <CodeBlockWrapper>{JSON.stringify(_.set({}, operation.path, operation.value), undefined, 2)}</CodeBlockWrapper>
           </StepDescription>
@@ -157,7 +157,9 @@ const OperationBlock = ({ operation, number }) => {
       return (
         <div key={number}>
           <StepComp description={<>
-            {operation.title} (default: <code className="mx-1">{operation.defaultValue}</code>) value is saved as
+            Prompt: `{operation.title}` (default: <code className="mx-1">{operation.defaultValue}</code>)
+            <br />
+            (value is saved as)
             <code className="mx-1">{operation.value}</code>
           </>} number={number} />
           <StepDescription>
