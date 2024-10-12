@@ -7,20 +7,22 @@ import { Button } from "./ui/button";
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   expandButtonTitle?: string;
+  disableShowMore?: boolean
 }
 
 export function CodeBlockWrapper({
   expandButtonTitle = "View Code",
   className,
   children,
+  disableShowMore,
   ...props
 }: CodeBlockProps) {
-  const [isOpened, setIsOpened] = React.useState(false);
+  const [isOpened, setIsOpened] = React.useState(false || disableShowMore);
   const codeBlockRef = React.useRef<HTMLDivElement>(null);
   const [showButton, setShowButton] = React.useState(false);
 
   React.useEffect(() => {
-    if (codeBlockRef.current) {
+    if (codeBlockRef.current && !disableShowMore) {
       const lineHeight = parseInt(
         getComputedStyle(codeBlockRef.current).lineHeight
       );
@@ -32,12 +34,14 @@ export function CodeBlockWrapper({
   }, [children]);
 
   return (
-    <div className="bg-gray-900 border text-white rounded-md relative p-2 max-w-xl">
+    <div className={
+      cn("bg-gray-900 border text-white rounded-md relative p-2 max-w-[300px] overflow-x-auto", className)
+    }>
       <div
         ref={codeBlockRef}
         className={cn(
-          "whitespace-pre text-xs font-mono",
-          !isOpened && "line-clamp-5"
+          "whitespace-pre text-xs font-mono overflow-x-auto",
+          !isOpened && "line-clamp-5",
         )}
       >
         {children}

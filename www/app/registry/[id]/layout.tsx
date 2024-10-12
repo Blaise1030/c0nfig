@@ -1,11 +1,10 @@
-import { Typography } from "@/components/typography";
+
 import { ReactElement } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils";
-import { EachRoute, ROUTES } from "@/lib/routes-config";
-import Link from "next/link";
+import { EachRoute } from "@/lib/routes-config";
 import { Badge } from "@/components/ui/badge";
 import SubLink from "@/components/sublink";
+import { CodeBlockWrapper } from "@/components/code-previewer";
 
 export default function DocumentationSection({
   children,
@@ -45,26 +44,10 @@ function DocumentationToC() {
   return (
     <div className="lg:flex hidden toc flex-[1] min-w-[230px] py-8 sticky top-16 h-[95.95vh]">
       <div className="flex flex-col gap-3 w-full pl-2">
-        <h3 className="font-semibold text-sm">On this page</h3>
-        <ScrollArea className="pb-4 pt-0.5">
-          <div className="flex flex-col gap-2.5 text-sm dark:text-neutral-300/85 text-neutral-800 ml-0.5">
-            {[{ href: "", level: 0, text: "hello" }].map(
-              ({ href, level, text }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={cn({
-                    "pl-0": level == 2,
-                    "pl-4": level == 3,
-                    "pl-8 ": level == 4,
-                  })}
-                >
-                  {text}
-                </Link>
-              )
-            )}
-          </div>
-        </ScrollArea>
+        <h3 className="font-semibold text-sm">Run command with</h3>
+        <CodeBlockWrapper>
+          npx kmdrr@latest https://example.com/hello.json
+        </CodeBlockWrapper>
       </div>
     </div>
   );
