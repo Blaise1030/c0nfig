@@ -1,0 +1,81 @@
+---
+title: Introduction
+description: A CLI tool that allows you to create easy, quick, and reusable configurations for various developer tools.
+---
+
+This project is heavily inspired by Shadcn's CLI approach, which promotes copying and pasting code snippets directly into your apps, rather than including them as dependencies together. It also greatly helps with developer's
+workflows by handling updates on a project configurations as well.
+
+This approach strikes an ideal balance between customizability and efficiency.
+
+**Kommander** aims to streamline this process by providing a standardized structure, enabling developers or library maintainers to easily create their own bootstrapping tools.
+
+**Kommander's** approach of executing remote configurations simplifies distribution and updates, ensuring all users have access to the latest configurations without manual updates.
+Updating configurations or assets can be as simple as updating the files on your server, without needing to update the CLI tool or redistribute packages.
+
+## Quick Start
+
+To get started with **Kommander**, follow these simple steps:
+
+### 1. Host your command
+
+Begin by hosting your commands and assets on a storage bucket or serve them as static content from your website. This allows your CLI tools to fetch necessary configurations, commands, or other files required for bootstrapping.
+
+Here's an example of a basic JSON structure that you should host:
+
+```json
+[
+  {
+    "op": "input",
+    "title": "Which is your source directory",
+    "defaultValue": "./src/*",
+    "value": "$aliases",
+    "actions": [
+      {
+        "op": "add",
+        "remoteSrc": "/cli/setup.json",
+        "targetSrc": "./command.config.json"
+      },
+      {
+        "op": "updateJSON",
+        "targetSrc": "./command.config.json",
+        "path": "aliases.path",
+        "value": "$aliases"
+      },
+      {
+        "op": "updateJSON",
+        "targetSrc": "./package.json",
+        "path": "imports.~/*",
+        "value": "$aliases"
+      }
+    ]
+  }
+]
+```
+
+The above command will:
+
+- Prompt for user input (such as selecting a package manager or specifying a directory).
+- Copy necessary files or configurations to the specified directories.
+- Update project files like package.json based on user choices.
+
+Do explore other <a href='/docs/operations/add'> operations</a> to perform your intended use cases.
+
+### 2. Run your command
+
+Once your assets are hosted, you can run the HTTP endpoint that points to your JSON command file in your documentation. Users can then execute these commands directly using the Kommander CLI tool.
+
+For example, pass the endpoint file path to the latest version of Kommander like so:
+
+```bash
+npx kmdrr@latest run https://your-domain.com/commands/command.json
+```
+
+### 3. Iterate !
+
+Kommander offers a variety of additional <a href='/docs/operations/add'> operations</a> for you to explore. Head over to the <a href='/docs/operations/add'> operations</a> section of this doc and see what's available. Feel free to try them out and enhance your workflows—there's plenty to discover!
+
+## Conclusion
+
+Kommander simplifies the process of creating reusable project configurations by giving developers a flexible, reusable, and customizable solution.
+Whether you're a library maintainer or developer working on complex projects, Kommander will streamline your workflows and improve efficiency.

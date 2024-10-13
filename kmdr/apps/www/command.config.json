@@ -1,0 +1,10 @@
+{
+  "aliases": {
+    "path": "./modules/*"
+  },
+  "packageManager": "npm",
+  "db": {
+    "engine": "postgres",
+    "name": "supabase"
+  }
+}

@@ -1,0 +1,22 @@
+---
+title: add
+description: Copy a file from a remote source to a target location in the project directory.
+---
+
+## Example
+
+```json
+{
+  "op": "add",
+  "remoteSrc": "/templates/tsconfig.json",
+  "targetSrc": "./tsconfig.json"
+}
+```
+
+## Fields
+
+| Fields    | Type     | Description                                                                         |
+| --------- | -------- | ----------------------------------------------------------------------------------- |
+| op        | 'add'    | Specifies the type of operation. For AddOperation, this field must be 'add'.        |
+| remoteSrc | `string` | The path or URL to the remote source file to be copied.                             |
+| targetSrc | `string` | The destination path where the file will be copied to within the project directory. |

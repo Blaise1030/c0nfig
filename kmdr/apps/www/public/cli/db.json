@@ -1,0 +1,127 @@
+[
+  {
+    "op": "select",
+    "title": "Select your database type",
+    "selections": [
+      { "label": "Turso (SQLite)", "value": "turso" },
+      { "label": "Supabase", "value": "supabase" },
+      { "label": "SQLite", "value": "sqlite" }
+    ],
+    "value": "$databaseType",
+    "values": {
+      "turso": [
+        {
+          "op": "add",
+          "remoteSrc": "/assets/db/turso/drizzle.config.ts",
+          "targetSrc": "./drizzle.config.ts"
+        },
+        {
+          "op": "add",
+          "remoteSrc": "/assets/db/turso/index.ts",
+          "targetSrc": "~/db/index.ts"
+        },
+        {
+          "op": "add",
+          "remoteSrc": "/assets/db/turso/schema.ts",
+          "targetSrc": "~/db/schema.ts"
+        },
+        { "op": "install", "dep": ["@libsql/client"] },
+        {
+          "op": "updateJSON",
+          "targetSrc": "./command.config.json",
+          "path": "db.engine",
+          "value": "sqlite"
+        },
+        {
+          "op": "updateJSON",
+          "targetSrc": "./command.config.json",
+          "path": "db.name",
+          "value": "turso"
+        }
+      ],
+      "supabase": [
+        {
+          "op": "add",
+          "remoteSrc": "/assets/db/supabase/drizzle.config.ts",
+          "targetSrc": "./drizzle.config.ts"
+        },
+        {
+          "op": "add",
+          "remoteSrc": "/assets/db/supabase/index.ts",
+          "targetSrc": "~/db/index.ts"
+        },
+        {
+          "op": "add",
+          "remoteSrc": "/assets/db/supabase/schema.ts",
+          "targetSrc": "~/db/schema.ts"
+        },
+        { "op": "install", "dep": ["postgres"] },
+        {
+          "op": "updateJSON",
+          "targetSrc": "./command.config.json",
+          "path": "db.engine",
+          "value": "postgres"
+        },
+        {
+          "op": "updateJSON",
+          "targetSrc": "./command.config.json",
+          "path": "db.name",
+          "value": "supabase"
+        }
+      ],
+      "sqlite": [
+        {
+          "op": "add",
+          "remoteSrc": "/assets/db/sqlite/drizzle.config.ts",
+          "targetSrc": "./drizzle.config.ts"
+        },
+        {
+          "op": "add",
+          "remoteSrc": "/assets/db/sqlite/index.ts",
+          "targetSrc": "~/db/index.ts"
+        },
+        {
+          "op": "add",
+          "remoteSrc": "/assets/db/sqlite/schema.ts",
+          "targetSrc": "~/db/schema.ts"
+        },
+        { "op": "install", "dep": ["better-sqlite3"] },
+        {
+          "op": "updateJSON",
+          "targetSrc": "./command.config.json",
+          "path": "db.engine",
+          "value": "sqlite"
+        },
+        {
+          "op": "updateJSON",
+          "targetSrc": "./command.config.json",
+          "path": "db.name",
+          "value": "sqlite"
+        }
+      ]
+    }
+  },
+  {
+    "op": "updateJSON",
+    "targetSrc": "./package.json",
+    "path": "scripts.db:generate",
+    "value": "drizzle-kit generate"
+  },
+  {
+    "op": "updateJSON",
+    "targetSrc": "./package.json",
+    "path": "scripts.db:migrate",
+    "value": "drizzle-kit migrate"
+  },
+  {
+    "op": "updateJSON",
+    "targetSrc": "./package.json",
+    "path": "scripts.db:push",
+    "value": "drizzle-kit push"
+  },
+  {
+    "op": "install",
+    "dep": ["drizzle-orm"],
+    "devDep": ["drizzle-kit"]
+  }
+]
