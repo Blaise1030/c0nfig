@@ -9,7 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "declaration": true,
     "sourceMap": true,

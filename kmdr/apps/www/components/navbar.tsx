@@ -11,12 +11,12 @@ export const NAVLINKS = [
     href: `/docs${page_routes[0].href}`,
   },
   {
-    title: "GitHub",
-    href: "https://github.com/Blaise1030/kmdrr",
+    title: "Registry",
+    href: "/registry",
   },
   {
-    title: "Templates",
-    href: "/template",
+    title: "GitHub",
+    href: "https://github.com/Blaise1030/kmdrr",
   },
 ];
 

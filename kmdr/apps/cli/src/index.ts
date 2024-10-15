@@ -12,18 +12,18 @@ import { promisify } from 'util';
 import yoctoSpinner from 'yocto-spinner';
 import _ from 'lodash';
 import {
-    AddExportOperation,
-    AddImportOperation,
-    AddOperation,
-    ConditionalOperation,
-    Config,
+    type AddExportOperation,
+    type AddImportOperation,
+    type AddOperation,
+    type ConditionalOperation,
+    type Config,
     ConfigSchema,
-    InputOperation,
-    InstallOperation,
-    ReadJSONOperation,
-    SelectOperation,
-    UpdateJSONOperation,
-} from './type';
+    type InputOperation,
+    type InstallOperation,
+    type ReadJSONOperation,
+    type SelectOperation,
+    type UpdateJSONOperation,
+} from '@kmdr/types';
 import {
     evaluate,
     printValidationErrors,

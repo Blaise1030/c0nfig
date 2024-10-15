@@ -1,14 +1,10 @@
 import { CodeBlockWrapper } from "@/components/code-previewer";
 import { Typography } from "@/components/typography";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
 import { ReactElement } from "react";
 import _ from "lodash";
+import { Config, Operation } from "@kmdr/types";
 
 // Sample operations array with added 'add-import', 'add-export', and 'readJSON' operations
 const op = [
@@ -132,9 +128,7 @@ const StepComp = ({
 
 const StepDescription = ({ children }: { children: ReactElement }) => {
   return (
-    <div className="border-l-2 pl-4 md:pl-5 py-4 h-fit w-full">
-      {children}
-    </div>
+    <div className="border-l-2 pl-4 md:pl-5 py-4 h-fit w-full">{children}</div>
   );
 };
 
@@ -143,18 +137,17 @@ const DetailsPage = () => {
     <React.Fragment>
       <Tabs defaultValue="what-this-does">
         <TabsList>
-          <TabsTrigger value="what-this-does">
-            What it does ?
-          </TabsTrigger>
-          <TabsTrigger value="payload">
-            Payload
-          </TabsTrigger>
+          <TabsTrigger value="what-this-does">What it does ?</TabsTrigger>
+          <TabsTrigger value="payload">Payload</TabsTrigger>
         </TabsList>
         <TabsContent value="what-this-does">
           <OperationDocs operations={op} />
         </TabsContent>
         <TabsContent value="payload">
-          <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full" className="max-w-[89vw]" disableShowMore>
+          <CodeBlockWrapper
+            className="max-w-[89vw] md:max-w-auto w-full"
+            disableShowMore
+          >
             {JSON.stringify(op, null, 2)}
           </CodeBlockWrapper>
         </TabsContent>
@@ -163,21 +156,23 @@ const DetailsPage = () => {
   );
 };
 
-const OperationDocs = ({ operations }) => {
+const OperationDocs = ({ operations }: { operations: Config }) => {
   return (
     <div className="space-y-4">
-      {operations.map((operation, index) => (
-        <OperationBlock
-          key={index}
-          operation={operation}
-          number={index + 1}
-        />
+      {operations.map((operation: Operation, index: number) => (
+        <OperationBlock key={index} operation={operation} number={index + 1} />
       ))}
     </div>
   );
 };
 
-const OperationBlock = ({ operation, number }) => {
+const OperationBlock = ({
+  operation,
+  number,
+}: {
+  number: number;
+  operation: Operation;
+}) => {
   const opType = operation.op;
 
   if (opType === "install") {
@@ -192,13 +187,17 @@ const OperationBlock = ({ operation, number }) => {
             {operation.dep && operation.dep.length > 0 && (
               <>
                 <p className="font-semibold">Dependencies:</p>
-                <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full" className="max-w-sm w-full">{operation.dep.join("\n")}</CodeBlockWrapper>
+                <CodeBlockWrapper className="max-w-sm w-full">
+                  {operation.dep.join("\n")}
+                </CodeBlockWrapper>
               </>
             )}
             {operation.devDep && operation.devDep.length > 0 && (
               <>
                 <p className="font-semibold">Dev Dependencies:</p>
-                <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">{operation.devDep.join("\n")}</CodeBlockWrapper>
+                <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">
+                  {operation.devDep.join("\n")}
+                </CodeBlockWrapper>
               </>
             )}
           </>
@@ -218,9 +217,11 @@ const OperationBlock = ({ operation, number }) => {
           number={number}
         />
         <StepDescription>
-          <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">{/* Remote file content */}</CodeBlockWrapper>
-        </StepDescription >
-      </div >
+          <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">
+            {/* Remote file content */}
+          </CodeBlockWrapper>
+        </StepDescription>
+      </div>
     );
   } else if (opType === "updateJSON") {
     return (
@@ -285,12 +286,10 @@ const OperationBlock = ({ operation, number }) => {
             </TabsList>
             {operation.selections.map(
               (selection: { value: string; label: string }, idx: number) => (
-                <TabsContent
-                  value={selection.value}
-                  key={idx}
-                  className="pt-4"
-                >
-                  <OperationDocs operations={operation.values[selection.value]} />
+                <TabsContent value={selection.value} key={idx} className="pt-4">
+                  <OperationDocs
+                    operations={operation.values[selection.value]}
+                  />
                 </TabsContent>
               )
             )}
@@ -308,7 +307,9 @@ const OperationBlock = ({ operation, number }) => {
         <StepDescription>
           <>
             <p className="font-semibold">Condition:</p>
-            <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">{operation.condition}</CodeBlockWrapper>
+            <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">
+              {operation.condition}
+            </CodeBlockWrapper>
             {operation.then && (
               <>
                 <p className="mt-4 font-semibold">Then:</p>
@@ -337,7 +338,9 @@ const OperationBlock = ({ operation, number }) => {
           number={number}
         />
         <StepDescription>
-          <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">{operation.content}</CodeBlockWrapper>
+          <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">
+            {operation.content}
+          </CodeBlockWrapper>
         </StepDescription>
       </div>
     );
@@ -353,7 +356,9 @@ const OperationBlock = ({ operation, number }) => {
           number={number}
         />
         <StepDescription>
-          <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">{operation.content}</CodeBlockWrapper>
+          <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">
+            {operation.content}
+          </CodeBlockWrapper>
         </StepDescription>
       </div>
     );
@@ -377,23 +382,25 @@ const OperationBlock = ({ operation, number }) => {
         />
         {operation.values && Object.keys(operation.values).length > 0 && (
           <StepDescription>
-            <p className="italic mb-4 text-sm text-muted-foreground">
-              Based on the value, perform the following actions:
-            </p>
-            <Tabs defaultValue={Object.keys(operation.values)[0]}>
-              <TabsList>
-                {Object.keys(operation.values).map((key, idx) => (
-                  <TabsTrigger key={idx} value={key}>
-                    {key}
-                  </TabsTrigger>
+            <React.Fragment>
+              <p className="italic mb-4 text-sm text-muted-foreground">
+                Based on the value, perform the following actions:
+              </p>
+              <Tabs defaultValue={Object.keys(operation.values)[0]}>
+                <TabsList>
+                  {Object.keys(operation.values).map((key, idx) => (
+                    <TabsTrigger key={idx} value={key}>
+                      {key}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+                {Object.entries(operation.values).map(([key, ops], idx) => (
+                  <TabsContent value={key} key={idx} className="pt-4">
+                    <OperationDocs operations={ops as Config} />
+                  </TabsContent>
                 ))}
-              </TabsList>
-              {Object.entries(operation.values).map(([key, ops], idx) => (
-                <TabsContent value={key} key={idx} className="pt-4">
-                  <OperationDocs operations={ops} />
-                </TabsContent>
-              ))}
-            </Tabs>
+              </Tabs>
+            </React.Fragment>
           </StepDescription>
         )}
       </div>
@@ -406,7 +413,9 @@ const OperationBlock = ({ operation, number }) => {
           number={number}
         />
         <StepDescription>
-          <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">{JSON.stringify(operation, null, 2)}</CodeBlockWrapper>
+          <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">
+            {JSON.stringify(operation, null, 2)}
+          </CodeBlockWrapper>
         </StepDescription>
       </div>
     );
