@@ -20,6 +20,7 @@ import {
     ConfigSchema,
     type InputOperation,
     type InstallOperation,
+    OperationConfig,
     type ReadJSONOperation,
     type SelectOperation,
     type UpdateJSONOperation,
@@ -60,7 +61,7 @@ program
 
             BASE_URL = url.origin;
             const config = await fetchConfig(url.pathname);
-            await runOperations(config, {});
+            await runOperations(config.operation, {});
         } catch (error) {
             console.error(`Error: ${error.message}`);
             process.exit(1);
@@ -75,7 +76,7 @@ program
             const url = new URL(INIT_URL);
             BASE_URL = url.origin;
             const config = await fetchConfig(url.pathname);
-            await runOperations(config, {});
+            await runOperations(config.operation, {});
         } catch (error: any) {
             console.error(`Error: ${error.message}`);
             process.exit(1);
@@ -120,7 +121,7 @@ program.parse(process.argv);
  * @param path - The path to the configuration file.
  * @returns The parsed configuration object.
  */
-async function fetchConfig(configPath: string): Promise<Config> {
+async function fetchConfig(configPath: string): Promise<OperationConfig> {
     const url = `${BASE_URL}${configPath}`;
     try {
         const response = await fetch(url);
@@ -129,7 +130,7 @@ async function fetchConfig(configPath: string): Promise<Config> {
             throw new Error(`Failed to fetch configuration from ${url}: ${response.statusText}`);
         }
 
-        const content: Config = await response.json();
+        const content: OperationConfig = await response.json();
         return content;
     } catch (error) {
         throw new Error(`Error fetching configuration: ${error.message}`);
