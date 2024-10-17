@@ -1,0 +1,22 @@
+---
+title: add-import
+description: Insert an import statement into a specified file.
+---
+
+## Example
+
+```json
+{
+  "op": "add-import",
+  "targetSrc": "./src/index.ts",
+  "content": "import { MyComponent } from './components/MyComponent';"
+}
+```
+
+## Fields
+
+| Fields    | Type         | Description                                                                               |
+| --------- | ------------ | ----------------------------------------------------------------------------------------- |
+| op        | 'add-import' | Specifies the type of operation. For AddImportOperation, this field must be 'add-import'. |
+| targetSrc | `string`     | The path to the file where the import statement will be added.                            |
+| content   | `string`     | The import statement content to be added to the file.                                     |

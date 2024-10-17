@@ -1,0 +1,51 @@
+---
+title: Variables
+description: Variables in kmdrr are a powerful feature that allows you to store user inputs, selections, or values read from files, and then reuse them throughout your configuration. Variables are declared with a dollar sign prefix ($) and are referenced using the same syntax.s
+---
+
+## Variable Syntax
+
+Variables are declared and assigned values in operations like `input`, `select`, or `readJSON`. To reference a variable's value in your operations, use the syntax `$variableName`.
+
+## Examples
+
+### 1. Using Variables in Paths
+
+Assign a value to a variable named `projectName` then use the variable `$projectName` in another operation
+
+```json
+{
+  "op": "input",
+  "title": "Enter your project name:",
+  "defaultValue": "my-app",
+  "value": "$projectName",
+  "actions": [
+    {
+      "op": "add",
+      "remoteSrc": "/templates/README.md",
+      "targetSrc": "./$projectName/README.md"
+    }
+  ]
+}
+```
+
+### 2. Using Variables in Content
+
+```json
+{
+  "op": "add-import",
+  "targetSrc": "./src/index.ts",
+  "content": "import { $componentName } from './components/$componentName';"
+}
+```
+
+### 3. Using Variables in Content
+
+```json
+{
+  "op": "conditional",
+  "condition": "$useTypescript === 'true'",
+  "then": [],
+  "else": []
+}
+```

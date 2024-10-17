@@ -1,0 +1,16 @@
+---
+title: Operations
+description: This document provides all the operations currently supported by Kommander. Each operation is designed to perform specific tasks during the execution of remote configurations.
+---
+
+| Operation                                     | Description                                                                                           |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| [`add`](/docs/operations/add)                 | Fetches a remote file and copies it to a specified local destination.                                 |
+| [`add-import`](/docs/operations/add-import)   | Adds an import statement to a specified local file if it doesn't already exist.                       |
+| [`add-export`](/docs/operations/add-export)   | Appends an export statement to a specified local file if it doesn't already exist.                    |
+| [`install`](/docs/operations/install)         | Installs specified dependencies and devDependencies using the project's package manager.              |
+| [`select`](/docs/operations/select)           | Presents a list of options to the user and executes operations based on the user's selection.         |
+| [`input`](/docs/operations/input)             | Prompts the user for input, stores the result in a variable, and executes actions based on the input. |
+| [`readJSON`](/docs/operations/readJSON)       | Reads a value from a JSON file and executes operations based on that value.                           |
+| [`updateJSON`](/docs/operations/updateJSON)   | Updates a value in a local JSON file at a specified path.                                             |
+| [`conditional`](/docs/operations/conditional) | Evaluates a condition and executes operations based on the result (if-then-else structure).           |

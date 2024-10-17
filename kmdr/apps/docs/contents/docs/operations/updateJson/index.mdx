@@ -1,0 +1,24 @@
+---
+title: updateJSON
+description: Update a value in a JSON file at a specified path.
+---
+
+## Example
+
+```json
+{
+  "op": "updateJSON",
+  "targetSrc": "./package.json",
+  "path": "scripts.build",
+  "value": "webpack --config webpack.prod.js"
+}
+```
+
+## Fields
+
+| Fields    | Type         | Description                                                                                         |
+| --------- | ------------ | --------------------------------------------------------------------------------------------------- |
+| op        | 'updateJSON' | Specifies the type of operation. For UpdateJSONOperation, this field must be 'updateJSON'.          |
+| targetSrc | `string`     | The path to the JSON file to update.                                                                |
+| path      | `string`     | The JSON path where the value will be updated.                                                      |
+| value     | `string`     | The value to set at the specified path. This can include <a href='/docs/variables'> variables </a>. |
