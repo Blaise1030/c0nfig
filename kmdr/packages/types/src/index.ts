@@ -96,6 +96,7 @@ export const OperationArraySchema = z.array(OperationSchema);
 // Config Schema
 export const ConfigSchema = OperationArraySchema;
 
+// Types below
 // Type inference for InputOperation
 export type InputOperation = z.infer<typeof InputOperationSchema>;
 
@@ -127,7 +128,14 @@ export type UpdateJSONOperation = z.infer<typeof UpdateJSONOperationSchema>;
 export type ConditionalOperation = z.infer<typeof ConditionalOperationSchema>;
 
 // Type inference for Operation
-export type Operation = z.infer<typeof OperationSchema>;
+export type Operation = ConditionalOperation | InputOperation | AddOperation | AddImportOperation | AddExportOperation | InstallOperation | SelectOperation | ReadJSONOperation | UpdateJSONOperation;
 
 // Type inference for Config
-export type Config = z.infer<typeof ConfigSchema>;
+export type Config = Operation[];
+
+export type OperationConfig = {
+    title: string
+    description: string
+    version: number
+    operation: Config
+}
