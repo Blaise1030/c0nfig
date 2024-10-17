@@ -1,69 +1,75 @@
-[
-  {
-    "op": "input",
-    "title": "Which is your source directory",
-    "defaultValue": "./src/*",
-    "value": "$aliases",
-    "actions": [
-      {
-        "op": "add",
-        "remoteSrc": "/cli/setup.json",
-        "targetSrc": "./command.config.json"
-      },
-      {
-        "op": "updateJSON",
-        "targetSrc": "./command.config.json",
-        "path": "aliases.path",
-        "value": "$aliases"
-      },
-      {
-        "op": "updateJSON",
-        "targetSrc": "./package.json",
-        "path": "imports.~/*",
-        "value": "$aliases"
-      },
-      {
-        "op": "updateJSON",
-        "targetSrc": "./package.json",
-        "path": "compilerOptions.paths.~/*[0]",
-        "value": "./modules/*"
-      }
-    ]
-  },
-  {
-    "op": "select",
-    "title": "Select you package manager",
-    "selections": [
-      {"label": "npm", "value": "npm"},
-      {"label": "pnpm", "value": "pnpm"},
-      {"label": "yarn", "value": "yarn"}
-    ],
-    "value": "$packageManager",
-    "values": {
-      "npm": [
+{
+  "$schema": "http://localhost:3000/cli/schema.json",
+  "description": "Init your Kommander framework",
+  "title": "Init Kommander",
+  "version": 1.0,
+  "operation": [
+    {
+      "op": "input",
+      "title": "Which is your source directory",
+      "defaultValue": "./src/*",
+      "value": "$aliases",
+      "actions": [
+        {
+          "op": "add",
+          "remoteSrc": "/cli/setup.json",
+          "targetSrc": "./command.config.json"
+        },
         {
           "op": "updateJSON",
           "targetSrc": "./command.config.json",
-          "path": "packageManager",
-          "value": "npm"
-        }
-      ],
-      "pnpm": [
+          "path": "aliases.path",
+          "value": "$aliases"
+        },
         {
           "op": "updateJSON",
-          "targetSrc": "./command.config.json",
-          "path": "packageManager",
-          "value": "pnpm"
-        }
-      ],
-      "yarn": [
+          "targetSrc": "./package.json",
+          "path": "imports.~/*",
+          "value": "$aliases"
+        },
         {
           "op": "updateJSON",
-          "targetSrc": "./command.config.json",
-          "path": "packageManager",
-          "value": "yarn"
+          "targetSrc": "./package.json",
+          "path": "compilerOptions.paths.~/*[0]",
+          "value": "./modules/*"
         }
       ]
+    },
+    {
+      "op": "select",
+      "title": "Select you package manager",
+      "selections": [
+        { "label": "npm", "value": "npm" },
+        { "label": "pnpm", "value": "pnpm" },
+        { "label": "yarn", "value": "yarn" }
+      ],
+      "value": "$packageManager",
+      "values": {
+        "npm": [
+          {
+            "op": "updateJSON",
+            "targetSrc": "./command.config.json",
+            "path": "packageManager",
+            "value": "npm"
+          }
+        ],
+        "pnpm": [
+          {
+            "op": "updateJSON",
+            "targetSrc": "./command.config.json",
+            "path": "packageManager",
+            "value": "pnpm"
+          }
+        ],
+        "yarn": [
+          {
+            "op": "updateJSON",
+            "targetSrc": "./command.config.json",
+            "path": "packageManager",
+            "value": "yarn"
+          }
+        ]
+      }
     }
-  }
-]
+  ]
+}

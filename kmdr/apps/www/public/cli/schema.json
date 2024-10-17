@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "version": { "type": "number" },
+    "operation": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Operation" }
+    }
+  },
+  "required": ["title", "description", "operation"],
+  "additionalProperties": false,
+  "definitions": {
+    "Operation": {
+      "oneOf": [
+        { "$ref": "#/definitions/InputOperation" },
+        { "$ref": "#/definitions/AddOperation" },
+        { "$ref": "#/definitions/AddImportOperation" },
+        { "$ref": "#/definitions/AddExportOperation" },
+        { "$ref": "#/definitions/InstallOperation" },
+        { "$ref": "#/definitions/SelectOperation" },
+        { "$ref": "#/definitions/ReadJSONOperation" },
+        { "$ref": "#/definitions/UpdateJSONOperation" },
+        { "$ref": "#/definitions/ConditionalOperation" }
+      ]
+    },
+    "OperationArray": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Operation" }
+    },
+    "Selection": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "value": { "type": "string" }
+      },
+      "required": ["label", "value"],
+      "additionalProperties": false
+    },
+    "InputOperation": {
+      "type": "object",
+      "properties": {
+        "op": { "const": "input" },
+        "title": { "type": "string" },
+        "defaultValue": { "type": "string" },
+        "value": { "type": "string" },
+        "actions": { "$ref": "#/definitions/OperationArray" }
+      },
+      "required": ["op", "title", "defaultValue", "value", "actions"],
+      "additionalProperties": false
+    },
+    "AddOperation": {
+      "type": "object",
+      "properties": {
+        "op": { "const": "add" },
+        "remoteSrc": { "type": "string" },
+        "targetSrc": { "type": "string" }
+      },
+      "required": ["op", "remoteSrc", "targetSrc"],
+      "additionalProperties": false
+    },
+    "AddImportOperation": {
+      "type": "object",
+      "properties": {
+        "op": { "const": "add-import" },
+        "targetSrc": { "type": "string" },
+        "content": { "type": "string" }
+      },
+      "required": ["op", "targetSrc", "content"],
+      "additionalProperties": false
+    },
+    "AddExportOperation": {
+      "type": "object",
+      "properties": {
+        "op": { "const": "add-export" },
+        "targetSrc": { "type": "string" },
+        "content": { "type": "string" }
+      },
+      "required": ["op", "targetSrc", "content"],
+      "additionalProperties": false
+    },
+    "InstallOperation": {
+      "type": "object",
+      "properties": {
+        "op": { "const": "install" },
+        "dep": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "devDep": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["op", "dep"],
+      "additionalProperties": false
+    },
+    "SelectOperation": {
+      "type": "object",
+      "properties": {
+        "op": { "const": "select" },
+        "title": { "type": "string" },
+        "selections": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Selection" }
+        },
+        "value": { "type": "string" },
+        "values": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/OperationArray" }
+        }
+      },
+      "required": ["op", "title", "selections", "value", "values"],
+      "additionalProperties": false
+    },
+    "ReadJSONOperation": {
+      "type": "object",
+      "properties": {
+        "op": { "const": "readJSON" },
+        "targetSrc": { "type": "string" },
+        "value": { "type": "string" },
+        "path": { "type": "string" },
+        "values": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/OperationArray" }
+        }
+      },
+      "required": ["op", "targetSrc", "path", "values"],
+      "additionalProperties": false
+    },
+    "UpdateJSONOperation": {
+      "type": "object",
+      "properties": {
+        "op": { "const": "updateJSON" },
+        "targetSrc": { "type": "string" },
+        "path": { "type": "string" },
+        "value": { "type": "string" }
+      },
+      "required": ["op", "targetSrc", "path", "value"],
+      "additionalProperties": false
+    },
+    "ConditionalOperation": {
+      "type": "object",
+      "properties": {
+        "op": { "const": "conditional" },
+        "condition": { "type": "string" },
+        "then": { "$ref": "#/definitions/OperationArray" },
+        "else": { "$ref": "#/definitions/OperationArray" }
+      },
+      "required": ["op", "condition", "then"],
+      "additionalProperties": false
+    }
+  }
+}

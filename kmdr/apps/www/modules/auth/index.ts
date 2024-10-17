@@ -1,11 +1,28 @@
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { betterAuth } from "better-auth";
-import { db } from "~/db";
+import { Lucia } from "lucia";
+import { adapter } from "./adapter"
 
-export const auth = betterAuth({
-  database: drizzleAdapter(db, {
-    provider: "pg",
-  })
+// import { webcrypto } from "crypto";
+// globalThis.crypto = webcrypto as Crypto;
+
+export const lucia = new Lucia(adapter, {
+  sessionCookie: {
+    attributes: {
+      secure: process.env.NODE_ENV === "production"
+    }
+  },
+  getUserAttributes: (attributes) => {
+    return {
+      username: attributes.username
+    };
+  }
 });
 
+declare module "lucia" {
+  interface Register {
+    Lucia: typeof lucia;
+    DatabaseUserAttributes: Omit<{ username: string }, "id">;
+  }
+}
+
 export * from "./auth-schema"
+export * from "./options"

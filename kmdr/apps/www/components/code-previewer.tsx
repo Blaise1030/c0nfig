@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   expandButtonTitle?: string;
-  disableShowMore?: boolean
+  disableShowMore?: boolean;
 }
 
 export function CodeBlockWrapper({
@@ -34,21 +34,25 @@ export function CodeBlockWrapper({
   }, [children]);
 
   return (
-    <div className={
-      cn("bg-gray-900 border text-white rounded-md relative p-2 max-w-[300px] overflow-x-auto", className)
-    }>
+    <div
+      className={cn(
+        "bg-gray-900 border text-white rounded-md relative p-2 max-w-[300px] overflow-x-auto",
+        className,
+        isOpened ? "pb-12" : ""
+      )}
+    >
       <div
         ref={codeBlockRef}
         className={cn(
           "whitespace-pre text-xs font-mono overflow-x-auto",
-          !isOpened && "line-clamp-5",
+          !isOpened && "line-clamp-5"
         )}
       >
         {children}
       </div>
       {showButton && (
         <Button
-          className="bottom-1 absolute left-[50%] z-10 -translate-x-[50%]"
+          className={cn("bottom-1 absolute left-[50%] z-10 -translate-x-[50%]")}
           onClick={() => setIsOpened(!isOpened)}
           variant={"secondary"}
           size={"xs"}

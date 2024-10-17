@@ -2,7 +2,7 @@
   "aliases": {
     "path": "./modules/*"
   },
-  "packageManager": "npm",
+  "packageManager": "pnpm",
   "db": {
     "engine": "postgres",
     "name": "supabase"

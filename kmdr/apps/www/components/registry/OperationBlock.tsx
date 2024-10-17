@@ -5,22 +5,35 @@ import { StepComp, StepDescription } from "./StepComponents";
 import _ from "lodash";
 import React from "react";
 
-export const OperationDocs = ({ operations }: { operations: Config }) => {
+export const OperationDocs = ({
+  operations,
+  host,
+}: {
+  operations: Config;
+  host: string;
+}) => {
   return (
     <div className="space-y-4">
       {operations.map((operation: Operation, index: number) => (
-        <OperationBlock key={index} operation={operation} number={index + 1} />
+        <OperationBlock
+          key={index}
+          operation={operation}
+          number={index + 1}
+          host={host}
+        />
       ))}
     </div>
   );
 };
 
-export const OperationBlock = ({
+export const OperationBlock = async ({
   operation,
   number,
+  host,
 }: {
   number: number;
   operation: Operation;
+  host: string;
 }) => {
   const opType = operation.op;
 
@@ -67,7 +80,7 @@ export const OperationBlock = ({
         />
         <StepDescription>
           <CodeBlockWrapper className="max-w-[80vw] md:max-w-auto w-full">
-            {/* Remote file content */}
+            {await (await fetch(`${host}${operation.remoteSrc}`)).text()}
           </CodeBlockWrapper>
         </StepDescription>
       </div>
@@ -113,7 +126,7 @@ export const OperationBlock = ({
         <StepDescription>
           <React.Fragment>
             <p className="italic mb-4 text-sm text-muted-foreground">Then:</p>
-            <OperationDocs operations={operation.actions} />
+            <OperationDocs operations={operation.actions} host={host} />
           </React.Fragment>
         </StepDescription>
       </div>
@@ -138,6 +151,7 @@ export const OperationBlock = ({
                 <TabsContent value={selection.value} key={idx} className="pt-4">
                   <OperationDocs
                     operations={operation.values[selection.value]}
+                    host={host}
                   />
                 </TabsContent>
               )
@@ -162,13 +176,13 @@ export const OperationBlock = ({
             {operation.then && (
               <>
                 <p className="mt-4 font-semibold">Then:</p>
-                <OperationDocs operations={operation.then} />
+                <OperationDocs host={host} operations={operation.then} />
               </>
             )}
             {operation.else && (
               <>
                 <p className="mt-4 font-semibold">Else:</p>
-                <OperationDocs operations={operation.else} />
+                <OperationDocs host={host} operations={operation.else} />
               </>
             )}
           </>
@@ -245,7 +259,7 @@ export const OperationBlock = ({
                 </TabsList>
                 {Object.entries(operation.values).map(([key, ops], idx) => (
                   <TabsContent value={key} key={idx} className="pt-4">
-                    <OperationDocs operations={ops as Config} />
+                    <OperationDocs host={host} operations={ops as Config} />
                   </TabsContent>
                 ))}
               </Tabs>
@@ -258,7 +272,7 @@ export const OperationBlock = ({
     return (
       <div key={number}>
         <StepComp
-          description={`Unknown operation: ${operation.op}`}
+          description={`Unknown operation: ${(operation as any)?.op}`}
           number={number}
         />
         <StepDescription>
