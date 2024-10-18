@@ -1,21 +1,23 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Logo, NavMenu } from "./navbar";
 import { Button } from "./ui/button";
 import { AlignLeftIcon } from "lucide-react";
+import { FooterButtons } from "./footer";
+import { DialogTitle } from "./ui/dialog";
 import DocsMenu from "./docs-menu";
 
 export function Leftbar() {
   return (
-    <aside className="md:flex hidden flex-[1] min-w-[230px] sticky top-16 flex-col h-[94.5vh] overflow-y-auto">
-      <ScrollArea className="py-4">
+    <aside className="md:flex hidden flex-[1.5] min-w-[238px] sticky top-16 flex-col h-[93.75vh] overflow-y-auto">
+      <div className="py-4">
         <DocsMenu />
-      </ScrollArea>
+      </div>
     </aside>
   );
 }
@@ -25,19 +27,27 @@ export function SheetLeftbar() {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="md:hidden flex">
-          <AlignLeftIcon className="w-5 h-5" />
+          <AlignLeftIcon />
         </Button>
       </SheetTrigger>
       <SheetContent className="flex flex-col gap-4 px-0" side="left">
-        <SheetTitle className="sr-only">Menu</SheetTitle>
+        <DialogTitle className="sr-only">Menu</DialogTitle>
         <SheetHeader>
-          <h2 className="font-extrabold text-start px-8">Menu</h2>
+          <SheetClose className="px-5" asChild>
+            <Logo />
+          </SheetClose>
         </SheetHeader>
-        <ScrollArea className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 overflow-y-auto">
+          <div className="flex flex-col gap-2.5 mt-3 mx-2 px-5">
+            <NavMenu isSheet />
+          </div>
           <div className="mx-2 px-5">
             <DocsMenu isSheet />
           </div>
-        </ScrollArea>
+          <div className="p-6 pb-4 flex gap-2.5">
+            <FooterButtons />
+          </div>
+        </div>
       </SheetContent>
     </Sheet>
   );

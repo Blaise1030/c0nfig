@@ -1,56 +1,64 @@
-import { buttonVariants } from "@/components/ui/button";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { CodeBlockWrapper } from "@/components/code-previewer";
+import { Typography } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { generateMdxContent } from "@/lib/generateMdxContent";
+import { parseMdx } from "@/lib/markdown";
+import { ConfigSchema, OperationConfig } from "@kmdr/types";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
-export default function Templates() {
-  const templates = [
-    {
-      title: "Drizzle ORM & Drizzle Kit",
-      description: "Setup Drizzle ORM & Drizzle Kit to your project.",
-      href: "/registry/1",
-      id: 1,
-    },
-  ];
+export default async function OperationsPage() {
+  const src = "http://localhost:3000/cli/auth.json";
+  const item = await fetch(src);
+  const detailsPage = (await item.json()) as OperationConfig;
+  const result = ConfigSchema.safeParse(detailsPage?.operation);
+  const mdxContent = await generateMdxContent(
+    detailsPage.operation,
+    new URL(src).origin
+  );
+  const content = await parseMdx(mdxContent);
+
   return (
-    <div>
-      <div className="flex flex-col py-12">
-        <div className="flex flex-col space-y-1">
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-            Check out some templates
-          </h1>
-          <p className="text-md max-w-lg text-muted-foreground">
-            Check these templates and get your project started with these
-            configurations.
+    <div className="flex items-start gap-10 flex-[5.45]">
+      <div className="flex-[4.5] py-10">
+        <Typography>
+          <h1 className="text-3xl -mt-2">{detailsPage?.title}</h1>
+          <p className="-mt-6 text-muted-foreground text-[16.5px]">
+            {detailsPage?.description}
           </p>
-        </div>
-      </div>
-      <section className="grid grid-cols-3 gap-4 col-span-9">
-        {templates?.map(({ title, description, href, id }) => (
-          <Card className="cols-span-1" key={id}>
-            <CardHeader className="p-4">
-              <CardTitle className="text-md">{title}</CardTitle>
-              <CardDescription>{description}</CardDescription>
-            </CardHeader>
-            <CardFooter className="p-4 border-t justify-between">
-              <Badge className="w-fit rounded-sm">Free</Badge>
-              <Link
-                className={buttonVariants({ size: "sm", variant: "outline" })}
-                href={href}
+          <div className="flex gap-2 ">
+            <Badge>Version {detailsPage?.version}</Badge>
+            {result.success ? (
+              <Badge className="gap-2 bg-background w-fit" variant="outline">
+                <div className="size-2 bg-green-400 animate-pulse rounded-full" />
+                Schema Valid
+              </Badge>
+            ) : (
+              <Badge className="gap-2 bg-background w-fit" variant="outline">
+                <div className="size-2 bg-red-400 animate-pulse rounded-full" />
+                Schema Invalid
+              </Badge>
+            )}
+          </div>
+          <Tabs defaultValue="what-this-does" className="mt-8">
+            <TabsList>
+              <TabsTrigger value="what-this-does">What it does ?</TabsTrigger>
+              <TabsTrigger value="payload">Payload</TabsTrigger>
+            </TabsList>
+            <TabsContent value="what-this-does">
+              <div>{content.content}</div>
+            </TabsContent>
+            <TabsContent value="payload">
+              <br />
+              <CodeBlockWrapper
+                className="max-w-[89vw] md:max-w-auto w-full"
+                disableShowMore
               >
-                Read Documentation <ArrowRight className="size-4 ms-2" />
-              </Link>
-            </CardFooter>
-          </Card>
-        ))}
-      </section>
+                {JSON.stringify(detailsPage, null, 2)}
+              </CodeBlockWrapper>
+            </TabsContent>
+          </Tabs>
+        </Typography>
+      </div>
     </div>
   );
 }

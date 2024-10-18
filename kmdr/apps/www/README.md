@@ -1,81 +1,96 @@
----
-title: Introduction
-description: A CLI tool that allows you to create easy, quick, and reusable configurations for various developer tools.
----
+## AriaDocs - Documentation Template
 
-This project is heavily inspired by Shadcn's CLI approach, which promotes copying and pasting code snippets directly into your apps, rather than including them as dependencies together. It also greatly helps with developer's
-workflows by handling updates on a project configurations as well.
+This feature-packed documentation template, built with Next.js, offers a sleek and responsive design, perfect for all your project documentation needs.
 
-This approach strikes an ideal balance between customizability and efficiency.
+<img src="./public/public-og.png" />
 
-**Kommander** aims to streamline this process by providing a standardized structure, enabling developers or library maintainers to easily create their own bootstrapping tools.
+<br/>
 
-**Kommander's** approach of executing remote configurations simplifies distribution and updates, ensuring all users have access to the latest configurations without manual updates.
-Updating configurations or assets can be as simple as updating the files on your server, without needing to update the CLI tool or redistribute packages.
+Here are all versions of the AriaDocs template, each crafted for specific use cases:
 
-## Quick Start
 
-To get started with **Kommander**, follow these simple steps:
+- **Advanced Docs:** A comprehensive template offering extensive features for in-depth documentation needs. Perfect for larger projects that require detailed explanations and advanced configurations.  
+  [Explore the Advanced Docs](https://github.com/nisabmohd/Aria-Docs/tree/master)
 
-### 1. Host your command
+- **Lite Version:** A streamlined, no-frills template perfect for straightforward documentation needs.  
+  [Explore the Lite Version](https://github.com/nisabmohd/Aria-Docs/tree/minimal-docs)
 
-Begin by hosting your commands and assets on a storage bucket or serve them as static content from your website. This allows your CLI tools to fetch necessary configurations, commands, or other files required for bootstrapping.
+- **Version with Versioning:** A powerful option for projects that require historical documentation tracking. Manage multiple versions of your docs effortlessly.  
+  [Check out the Versioning Feature](https://github.com/nisabmohd/Aria-Docs/tree/version_docs)
 
-Here's an example of a basic JSON structure that you should host:
+- **i18n Support Version (WIP):** Designed for international audiences, this version will offer comprehensive multilingual support.  
+  [Preview the i18n Support](https://github.com/nisabmohd/Aria-Docs/tree/i18n-support)
 
-```json
-[
-  {
-    "op": "input",
-    "title": "Which is your source directory",
-    "defaultValue": "./src/*",
-    "value": "$aliases",
-    "actions": [
-      {
-        "op": "add",
-        "remoteSrc": "/cli/setup.json",
-        "targetSrc": "./command.config.json"
-      },
-      {
-        "op": "updateJSON",
-        "targetSrc": "./command.config.json",
-        "path": "aliases.path",
-        "value": "$aliases"
-      },
-      {
-        "op": "updateJSON",
-        "targetSrc": "./package.json",
-        "path": "imports.~/*",
-        "value": "$aliases"
-      }
-    ]
-  }
-]
-```
+### Quick Start
 
-The above command will:
-
-- Prompt for user input (such as selecting a package manager or specifying a directory).
-- Copy necessary files or configurations to the specified directories.
-- Update project files like package.json based on user choices.
-
-Do explore other <a href='/docs/operations/add'> operations</a> to perform your intended use cases.
-
-### 2. Run your command
-
-Once your assets are hosted, you can run the HTTP endpoint that points to your JSON command file in your documentation. Users can then execute these commands directly using the Kommander CLI tool.
-
-For example, pass the endpoint file path to the latest version of Kommander like so:
+You can create a new Ariadocs project using the command:
 
 ```bash
-npx kmdrr@latest run https://your-domain.com/commands/command.json
+npx create-aria-doc <project-directory>
 ```
 
-### 3. Iterate !
+### Expected Output
 
-Kommander offers a variety of additional <a href='/docs/operations/add'> operations</a> for you to explore. Head over to the <a href='/docs/operations/add'> operations</a> section of this doc and see what's available. Feel free to try them out and enhance your workflows—there's plenty to discover!
+When you run the CLI, you can expect an output similar to this:
 
-## Conclusion
+```
+Creating a new Ariadocs project in /path/to/your/project from the master branch...
+Cloning Master (Full Documentation)...
+Ariadocs project successfully created in /path/to/your/project!
 
-Kommander simplifies the process of creating reusable project configurations by giving developers a flexible, reusable, and customizable solution.
-Whether you're a library maintainer or developer working on complex projects, Kommander will streamline your workflows and improve efficiency.
+Next steps:
+1. Navigate to your project directory:
+   cd <project-directory>
+2. Install dependencies:
+   npm install
+3. Start the development server:
+   npm run dev
+```
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/nisabmohd/Aria-Docs)
+
+Got it! Here's a way to present the features in a more structured and visually appealing way using a table:
+
+
+
+
+## Features
+
+```plaintext
+Features
+├── MDX supported
+├── Nested pages support
+├── Blog section (New)
+├── Syntax highlighting
+├── Table of contents
+├── Pagination
+├── Search
+├── Code line highlight & code title
+├── Static site generation
+├── Custom components
+├── Light mode & dark mode
+├── Code Switcher
+├── Code copy
+└── Table of content observer highlight
+```

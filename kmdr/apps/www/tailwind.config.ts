@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 
-
 const config = {
   darkMode: ["class"],
   content: [
@@ -15,7 +14,7 @@ const config = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1250px",
+        "2xl": "1300px",
       },
     },
     extend: {
@@ -60,8 +59,8 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        code: ["var(--font-code)"],
-        regular: ["var(--font-regular)"],
+        code: ["var(--font-geist-mono)"],
+        regular: ["var(--font-geist-sans)"],
       },
       keyframes: {
         "accordion-down": {
@@ -72,28 +71,8 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        aurora: {
-          from: {
-            backgroundPosition: "50% 50%, 50% 50%",
-          },
-          to: {
-            backgroundPosition: "350% 50%, 350% 50%",
-          },
-        },
-        spotlight: {
-          "0%": {
-            opacity: '0',
-            transform: "translate(-72%, -62%) scale(0.5)",
-          },
-          "100%": {
-            opacity: '1',
-            transform: "translate(-50%,-40%) scale(1)",
-          },
-        },
       },
       animation: {
-        aurora: "aurora 60s linear infinite",
-        spotlight: "spotlight 2s ease .75s 1 forwards",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
@@ -101,6 +80,5 @@ const config = {
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;
-
 
 export default config;

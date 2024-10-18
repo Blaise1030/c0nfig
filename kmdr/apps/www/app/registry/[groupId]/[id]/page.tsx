@@ -4,8 +4,6 @@ import { OperationDocs } from "@/components/registry/OperationBlock";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ConfigSchema, OperationConfig } from "@kmdr/types";
 
-
-
 export default async function DetailsPage() {
   const src = "http://localhost:3000/cli/auth.json";
   const item = await fetch(src);
@@ -24,18 +22,12 @@ export default async function DetailsPage() {
             <div className="flex gap-2">
               <Badge>Version {detailsPage?.version}</Badge>
               {result.success ? (
-                <Badge
-                  className="gap-2 bg-background w-fit"
-                  variant="outline"
-                >
+                <Badge className="gap-2 bg-background w-fit" variant="outline">
                   <div className="size-2 bg-green-400 animate-pulse rounded-full" />
                   Schema Valid
                 </Badge>
               ) : (
-                <Badge
-                  className="gap-2 bg-background w-fit"
-                  variant="outline"
-                >
+                <Badge className="gap-2 bg-background w-fit" variant="outline">
                   <div className="size-2 bg-red-400 animate-pulse rounded-full" />
                   Schema Invalid
                 </Badge>
@@ -51,9 +43,7 @@ export default async function DetailsPage() {
             </div>
             <Tabs defaultValue="what-this-does">
               <TabsList>
-                <TabsTrigger value="what-this-does">
-                  What it does ?
-                </TabsTrigger>
+                <TabsTrigger value="what-this-does">What it does ?</TabsTrigger>
                 <TabsTrigger value="payload">Payload</TabsTrigger>
               </TabsList>
               <TabsContent value="what-this-does">
@@ -88,4 +78,3 @@ function DocumentationToC() {
     </div>
   );
 }
-

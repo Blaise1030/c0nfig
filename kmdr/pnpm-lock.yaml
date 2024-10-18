@@ -81,6 +81,9 @@ importers:
 
   apps/docs:
     dependencies:
+      '@kmdr/types':
+        specifier: '*'
+        version: link:../../packages/types
       '@radix-ui/react-accordion':
         specifier: ^1.2.0
         version: 1.2.1(@types/react-dom@18.3.0)(@types/react@18.3.6)(react-dom@18.3.1)(react@18.3.1)

@@ -1,26 +1,14 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/contexts/theme-provider";
 import { Navbar } from "@/components/navbar";
-import { DM_Mono, Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { Footer } from "@/components/footer";
 import "./globals.css";
-import { BackgroundPattern } from "@/components/background-pattern";
-import { Analytics } from "@vercel/analytics/react";
-
-const regularFont = Inter({
-  subsets: ["latin"],
-  variable: "--font-regular",
-  display: "swap",
-});
-
-const codeFont = DM_Mono({
-  subsets: ["latin"],
-  variable: "--font-code",
-  display: "swap",
-  weight: "400",
-});
 
 export const metadata: Metadata = {
-  title: "Kommander",
+  title: "AriaDocs - Template",
+  metadataBase: new URL("https://ariadocs.vercel.app/"),
   description:
     "This comprehensive documentation template, crafted with Next.js and available as open-source, delivers a sleek and responsive design, tailored to meet all your project documentation requirements.",
 };
@@ -32,16 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Analytics />
-      <head>
-        <meta
-          name="google-site-verification"
-          content="tWqhMLMr3tLCIsVHvSXX_qc7spW5az1XUdoP-ESeyXY"
-        />
-      </head>
-
       <body
-        className={`${regularFont.variable} ${codeFont.variable} font-regular`}
+        className={`${GeistSans.variable} ${GeistMono.variable} font-regular antialiased`}
         suppressHydrationWarning
       >
         <ThemeProvider
@@ -51,11 +31,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="sm:container mx-auto w-[88vw] h-auto">
+          <main className="sm:container mx-auto w-[90vw] h-auto">
             {children}
           </main>
+          <Footer />
         </ThemeProvider>
-        <BackgroundPattern />
       </body>
     </html>
   );
