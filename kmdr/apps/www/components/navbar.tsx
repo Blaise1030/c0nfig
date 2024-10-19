@@ -21,19 +21,11 @@ export const NAVLINKS = [
     title: "Registry",
     href: "/registry",
   },
-  {
-    title: "Guides",
-    href: "#",
-  },
-  {
-    title: "Community",
-    href: "https://github.com/nisabmohd/Aria-Docs/discussions",
-  },
 ];
 
 export function Navbar() {
   return (
-    <nav className="w-full border-b h-16 sticky top-0 z-50 bg-background">
+    <nav className="w-full h-12 sticky top-0 z-50 bg-background/70 backdrop-blur-sm">
       <div className="sm:container mx-auto w-[95vw] h-full flex items-center justify-between md:gap-2">
         <div className="flex items-center gap-5">
           <SheetLeftbar />
@@ -55,7 +47,7 @@ export function Navbar() {
                 href="https://github.com/nisabmohd/NexDocs"
                 className={buttonVariants({ variant: "ghost", size: "icon" })}
               >
-                <GithubIcon className="h-[1.1rem] w-[1.1rem]" />
+                <GithubIcon className="size-4" />
               </Link>
               <Link
                 href="#"
@@ -64,7 +56,7 @@ export function Navbar() {
                   size: "icon",
                 })}
               >
-                <TwitterIcon className="h-[1.1rem] w-[1.1rem]" />
+                <TwitterIcon className="size-4" />
               </Link>
               <ModeToggle />
             </div>

@@ -69,7 +69,13 @@ function BlogCard({
   );
 }
 
-function AvatarGroup({ users, max = 4 }: { users: Author[]; max?: number }) {
+export function AvatarGroup({
+  users,
+  max = 4,
+}: {
+  users: Author[];
+  max?: number;
+}) {
   const displayUsers = users.slice(0, max);
   const remainingUsers = Math.max(users.length - max, 0);
 

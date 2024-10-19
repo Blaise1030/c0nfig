@@ -70,7 +70,7 @@ export default async function BlogPage({ params: { slug } }: PageProps) {
   );
 }
 
-function Authors({ authors }: { authors: Author[] }) {
+export function Authors({ authors }: { authors: Author[] }) {
   return (
     <div className="flex items-center gap-8 flex-wrap">
       {authors.map((author) => {

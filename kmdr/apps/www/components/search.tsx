@@ -54,9 +54,9 @@ export default function Search() {
               placeholder="Search"
               type="search"
             />
-            <div className="sm:flex hidden absolute top-1/2 -translate-y-1/2 right-2 text-xs font-medium font-mono items-center gap-0.5 dark:bg-stone-900 bg-stone-200/65 p-1 rounded-sm">
+            <div className="sm:flex hidden absolute top-1/2 -translate-y-1/2 right-3 text-xs font-medium font-mono items-center gap-0.5 dark:bg-stone-900 bg-stone-200/65 p-1 rounded-sm">
               <CommandIcon className="w-3 h-3" />
-              <span>k</span>
+              <span>K</span>
             </div>
           </div>
         </DialogTrigger>
