@@ -1,4 +1,3 @@
-import { BackgroundPattern } from "@/components/background-pattern";
 import { DemoSection } from "@/components/demo-section";
 import { buttonVariants } from "@/components/ui/button";
 import { page_routes } from "@/lib/routes-config";

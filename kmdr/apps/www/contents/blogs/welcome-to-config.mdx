@@ -1,5 +1,5 @@
 ---
-title: "Building a Recursive File System with React: A Deep Dive"
+title: "Welcome to c0nfig."
 description: "Explore how to create a recursive file system in React. This blog post provides a comprehensive guide on building a file system where folders and files can be nested, added, renamed, and deleted."
 date: 02-09-2024
 authors:
@@ -39,8 +39,8 @@ const folder = {
   name: "Documents",
   type: "folder",
   children: [
-    { id: "2", name: "Resume.pdf", type: "file" },
-    { id: "3", name: "CoverLetter.docx", type: "file" },
+    {id: "2", name: "Resume.pdf", type: "file"},
+    {id: "3", name: "CoverLetter.docx", type: "file"},
   ],
 };
 ```
@@ -53,7 +53,7 @@ The project includes several key components to handle different aspects of the f
 
 ```jsx
 // src/components/FileExplorer.js
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Folder from "./Folder";
 import File from "./File";
 
@@ -106,7 +106,7 @@ export default FileExplorer;
 import React from "react";
 import FileExplorer from "./FileExplorer";
 
-const Folder = ({ folder, onAdd, onRename, onDelete }) => {
+const Folder = ({folder, onAdd, onRename, onDelete}) => {
   return (
     <div>
       <h3>{folder.name}</h3>
@@ -128,7 +128,7 @@ export default Folder;
 // src/components/File.js
 import React from "react";
 
-const File = ({ file, onRename, onDelete }) => {
+const File = ({file, onRename, onDelete}) => {
   return (
     <div>
       <p>{file.name}</p>

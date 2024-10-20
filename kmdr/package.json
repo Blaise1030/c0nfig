@@ -2,12 +2,13 @@
   "name": "kmdr",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev --filter=...@kmdr/platform",
+    "build": "dotenv -- turbo build",
+    "dev": "dotenv -- turbo dev --filter=...@kmdr/platform",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "dotenv-cli": "^7.4.2",
     "prettier": "^3.2.5",
     "turbo": "^2.1.3",
     "typescript": "^5.4.5"
