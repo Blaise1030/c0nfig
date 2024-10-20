@@ -120,7 +120,7 @@ export function DemoSection() {
             data-show={animationDone}
             className="rounded-full z-10 absolute bottom-3 data-[show=true]:translate-y-0 transition-all data-[show=false]:translate-y-12 left-[50%] -translate-x-[50%]"
             variant={"secondary"}
-            size={"xs"}
+            size={"sm"}
             onClick={() => {
               setAnimationDone(false);
               setSwitch(false);

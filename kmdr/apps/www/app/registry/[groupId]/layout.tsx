@@ -40,12 +40,14 @@ export default function Layout({
     <React.Fragment>
       <div className="mx-auto top-0 w-full z-20 mb-4">
         <div className="mx-auto bg-background md:py-4 md:pt-8 py-5 backdrop-blur-sm flex gap-4 items-center">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             <SheetLeftbar groupId={groupId} />
-            <h1 className="text-3xl tracking-tighter font-bold">
-              Documentation name asdasd asdasda asasdasd asdasd
+            <h1 className="text-3xl font-extrabold">
+              The latest blogs of this product
             </h1>
-            <p className="text-muted-foreground">This is the items</p>
+            <p className="text-muted-foreground -mt-4">
+              All the latest blogs and news, straight from the team.
+            </p>
             <Authors
               authors={[
                 {
@@ -59,8 +61,9 @@ export default function Layout({
           </div>
         </div>
       </div>
-      <div className="flex items-start gap-8 border-t">
-        <aside className="md:flex hidden flex-[1] min-w-[230px] sticky top-16 flex-col h-[94.5vh] overflow-y-auto border-e">
+      <div className="border-t sticky top-12 z-10" />
+      <div className="flex items-start gap-8">
+        <aside className="md:flex hidden flex-[1] min-w-[230px] sticky top-12 flex-col h-[94.5vh] overflow-y-auto border-e">
           <ScrollArea>
             <DocsMenu groupId={groupId} />
           </ScrollArea>
@@ -102,7 +105,7 @@ export function SheetLeftbar({ groupId }: { groupId: string }) {
 
 async function DocsMenu({ isSheet = false, groupId }) {
   return (
-    <div className="flex flex-col gap-3.5 pr-2 pt-5 pb-6">
+    <div className="flex flex-col gap-3.5 pr-2 pt-8 pb-6">
       {(
         [
           {

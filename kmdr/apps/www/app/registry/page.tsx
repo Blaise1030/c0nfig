@@ -1,3 +1,4 @@
+import { TemplatesFilter } from "@/components/templates-filter";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Author, BlogMdxFrontmatter, getAllBlogs } from "@/lib/markdown";
 import { formatDate2, stringToDate } from "@/lib/utils";
@@ -16,19 +17,26 @@ export default async function BlogIndexPage() {
       stringToDate(a.frontmatter.date).getTime()
   );
   return (
-    <div className="w-full mx-auto flex flex-col gap-1 sm:min-h-[91vh] min-h-[88vh] pt-2">
-      <div className="mb-7 flex flex-col gap-2">
-        <h1 className="text-3xl font-extrabold">
-          The latest blogs of this product
-        </h1>
-        <p className="text-muted-foreground">
-          All the latest blogs and news, straight from the team.
-        </p>
-      </div>
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-2 gap-4 mb-5">
-        {blogs.map((blog) => (
-          <BlogCard {...blog.frontmatter} slug={blog.slug} key={blog.slug} />
-        ))}
+    <div className="flex flex-col items-start justify-center pt-8 pb-10 w-full mx-auto">
+      <div className="w-full mx-auto flex flex-col gap-1 sm:min-h-[91vh] min-h-[88vh] pt-2">
+        <div className="mb-7 flex flex-col gap-2">
+          <h1 className="text-3xl font-extrabold">
+            Find your Template
+          </h1>
+          <p className="text-muted-foreground">
+            Jumpstart your app development process with pre-built solutions from c0nfig and our community.
+          </p>
+        </div>
+        <div className="flex md:flex-row flex-col gap-8 items-start">
+          <div className="min-w-[250px]">
+            <TemplatesFilter />
+          </div>
+          <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2 mb-5">
+            {blogs.map((blog) => (
+              <BlogCard {...blog.frontmatter} slug={blog.slug} key={blog.slug} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -39,26 +47,15 @@ function BlogCard({
   title,
   description,
   slug,
-  cover,
   authors,
 }: BlogMdxFrontmatter & { slug: string }) {
   return (
     <Link
-      href={`/blog/${slug}`}
-      className="flex flex-col gap-2 items-start border rounded-md py-5 px-3 min-h-[400px]"
+      href={`/registry/${slug}/12`}
+      className="flex flex-col gap-2 items-start border rounded-md py-5 px-3"
     >
       <h3 className="text-md font-semibold -mt-1 pr-7">{title}</h3>
-      <div className="w-full">
-        <Image
-          src={cover}
-          alt={title}
-          width={400}
-          height={150}
-          quality={80}
-          className="w-full rounded-md object-cover h-[180px] border"
-        />
-      </div>
-      <p className="text-sm text-muted-foreground">{description}</p>
+      <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
       <div className="flex items-center justify-between w-full mt-auto">
         <p className="text-[13px] text-muted-foreground">
           Published on {formatDate2(date)}

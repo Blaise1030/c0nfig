@@ -1,7 +1,7 @@
 {
   "$schema": "http://localhost:3000/cli/schema.json",
-  "description": "Init your Kommander framework",
-  "title": "Init Kommander",
+  "description": "Init your c0nfig framework",
+  "title": "Init c0nfig",
   "version": 1.0,
   "operation": [
     {
@@ -39,9 +39,9 @@
       "op": "select",
       "title": "Select you package manager",
       "selections": [
-        { "label": "npm", "value": "npm" },
-        { "label": "pnpm", "value": "pnpm" },
-        { "label": "yarn", "value": "yarn" }
+        {"label": "npm", "value": "npm"},
+        {"label": "pnpm", "value": "pnpm"},
+        {"label": "yarn", "value": "yarn"}
       ],
       "value": "$packageManager",
       "values": {

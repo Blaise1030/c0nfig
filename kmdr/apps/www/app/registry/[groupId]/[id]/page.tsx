@@ -26,7 +26,7 @@ export default async function OperationsPage() {
 
   return (
     <div className="flex items-start gap-10 flex-[5.45]">
-      <div className="flex-[4.5] pt-4 pb-10">
+      <div className="flex-[4.5] pt-8 pb-10">
         <Typography>
           <h1 className="text-3xl -mt-2">{detailsPage?.title}</h1>
           <p className="-mt-6 text-muted-foreground text-[16.5px]">
