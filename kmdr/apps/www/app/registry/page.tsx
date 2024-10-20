@@ -3,7 +3,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Author, BlogMdxFrontmatter, getAllBlogs } from "@/lib/markdown";
 import { formatDate2, stringToDate } from "@/lib/utils";
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -27,7 +26,7 @@ export default async function BlogIndexPage() {
             Jumpstart your app development process with pre-built solutions from c0nfig and our community.
           </p>
         </div>
-        <div className="flex md:flex-row flex-col gap-8 items-start">
+        <div className="flex md:flex-row flex-col gap-10 items-start">
           <div className="min-w-[250px]">
             <TemplatesFilter />
           </div>

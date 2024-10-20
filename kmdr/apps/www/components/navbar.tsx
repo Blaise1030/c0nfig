@@ -1,5 +1,5 @@
 import { ModeToggle } from "@/components/theme-toggle";
-import { GithubIcon, TwitterIcon } from "lucide-react";
+import { TwitterIcon } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import Search from "./search";
@@ -7,6 +7,8 @@ import Anchor from "./anchor";
 import { SheetLeftbar } from "./leftbar";
 import { page_routes } from "@/lib/routes-config";
 import { SheetClose } from "@/components/ui/sheet";
+import { Github } from "./icons/Github";
+import { cn } from "@/lib/utils";
 
 export const NAVLINKS = [
   {
@@ -27,9 +29,9 @@ export function Navbar() {
   return (
     <nav className="w-full h-12 sticky top-0 z-50 bg-background/70 backdrop-blur-sm">
       <div className="sm:container mx-auto w-[95vw] h-full flex items-center justify-between md:gap-2">
-        <div className="flex items-center gap-5">
+        <div className="flex items-center md:gap-5">
           <SheetLeftbar />
-          <div className="flex items-center gap-6">
+          <div className="flex items-center md:gap-6">
             <div className="sm:flex hidden">
               <Logo />
             </div>
@@ -42,12 +44,12 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <Search />
-            <div className="flex ml-2.5 sm:ml-0">
-              <Link
+            <div className="flex ml-2.5 sm:ml-0 items-center gap-1">
+              {/* <Link
                 href="https://github.com/nisabmohd/NexDocs"
                 className={buttonVariants({ variant: "ghost", size: "icon" })}
               >
-                <GithubIcon className="size-4" />
+                <Github className="size-4" />
               </Link>
               <Link
                 href="#"
@@ -57,6 +59,15 @@ export function Navbar() {
                 })}
               >
                 <TwitterIcon className="size-4" />
+              </Link> */}
+              <Link
+                href="/login"
+                className={cn(buttonVariants({
+                  variant: "default",
+                  size: 'sm',
+                }), 'h-8')}
+              >
+                Sign In
               </Link>
               <ModeToggle />
             </div>

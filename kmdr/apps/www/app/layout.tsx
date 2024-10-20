@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/contexts/theme-provider";
-import { Navbar } from "@/components/navbar";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Footer } from "@/components/footer";
 import "./globals.css";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 
 export const metadata: Metadata = {
   title: "AriaDocs - Template",
@@ -31,11 +28,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main className="sm:container mx-auto w-[90vw] h-auto">
-            {children}
-          </main>
-          <Footer />
+          {children}
         </ThemeProvider>
       </body>
     </html>
