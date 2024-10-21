@@ -1,5 +1,6 @@
+'use client'
+
 import { ModeToggle } from "@/components/theme-toggle";
-import { TwitterIcon } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import Search from "./search";
@@ -7,7 +8,6 @@ import Anchor from "./anchor";
 import { SheetLeftbar } from "./leftbar";
 import { page_routes } from "@/lib/routes-config";
 import { SheetClose } from "@/components/ui/sheet";
-import { Github } from "./icons/Github";
 import { cn } from "@/lib/utils";
 
 export const NAVLINKS = [
@@ -45,21 +45,6 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <Search />
             <div className="flex ml-2.5 sm:ml-0 items-center gap-1">
-              {/* <Link
-                href="https://github.com/nisabmohd/NexDocs"
-                className={buttonVariants({ variant: "ghost", size: "icon" })}
-              >
-                <Github className="size-4" />
-              </Link>
-              <Link
-                href="#"
-                className={buttonVariants({
-                  variant: "ghost",
-                  size: "icon",
-                })}
-              >
-                <TwitterIcon className="size-4" />
-              </Link> */}
               <Link
                 href="/login"
                 className={cn(buttonVariants({
