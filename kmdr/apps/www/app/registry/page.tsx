@@ -1,7 +1,6 @@
 import { db } from "@/be/db";
-import { AvatarGroup } from "@/components/avatar-group";
+import { AvatarGroup } from "@/components/common/avatar-group";
 import { TemplatesFilter } from "@/components/templates-filter";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Author } from "@/lib/markdown";
 import { Metadata } from "next";
 import Link from "next/link";

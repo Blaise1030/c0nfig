@@ -1,5 +1,5 @@
 import { Author } from "@/lib/markdown";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 export function AvatarGroup({
   users,

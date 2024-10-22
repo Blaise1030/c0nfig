@@ -6,8 +6,8 @@ import { useState } from "react"
 import { Discord } from "@/components/icons/Discord"
 import { Twitter } from "@/components/icons/Twitter"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Logo } from "@/components/navbar"
 import { signin } from "@/be/auth/client"
+import { Logo } from "@/components/layouts/navbar"
 
 export const description =
   "A login page with two columns. The first column has the login form with email and password. There's a Forgot your passwork link and a link to sign up if you do not have an account. The second column has a cover image."

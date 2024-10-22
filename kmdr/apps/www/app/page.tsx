@@ -1,4 +1,4 @@
-import { DemoSection } from "@/components/demo-section";
+import { DemoSection } from "@/components/demo/cli-demo-section/demo-section";
 import { buttonVariants } from "@/components/ui/button";
 import BaseLayout from "@/layout/BaseLayout";
 import { page_routes } from "@/lib/routes-config";
