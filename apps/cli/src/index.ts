@@ -2,7 +2,6 @@
 
 import dotenv from 'dotenv';
 dotenv.config();
-
 import { Command } from 'commander';
 import inquirer from 'inquirer';
 import fs from 'fs-extra';

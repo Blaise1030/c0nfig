@@ -5,7 +5,7 @@ on:
     paths:
       - "apps/cli/**"
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
@@ -14,15 +14,30 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 7
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
-          cache-dependency-path: pnpm-lock.yaml
+          always-auth: true
           cache: "pnpm"
-      - run: pnpm install
-      - run: pnpm run build
-      - run: cd apps/cli && npm publish
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build CLI package
+        run: pnpm --filter ./apps/cli... run build
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+
+      - name: Publish package to npm
+        working-directory: apps/cli
+        run: pnpm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          BASE_URL: ${{ secrets.BASE_URL }}
