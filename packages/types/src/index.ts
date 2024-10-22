@@ -95,6 +95,14 @@ export const ConditionalOperationSchema = z.object({
     else: OperationArraySchema.optional(),
 });
 
+export const OperationConfigSchema = z.object({
+    $schema: z.string(),
+    title: z.string(),
+    description: z.string(),
+    version: z.number(),
+    operation: OperationArraySchema,
+})
+
 // Config Schema
 export const ConfigSchema = OperationArraySchema;
 

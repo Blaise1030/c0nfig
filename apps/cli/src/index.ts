@@ -16,10 +16,10 @@ import {
     type AddOperation,
     type ConditionalOperation,
     type Config,
-    ConfigSchema,
     type InputOperation,
     type InstallOperation,
     OperationConfig,
+    OperationConfigSchema,
     type ReadJSONOperation,
     type SelectOperation,
     type UpdateJSONOperation,
@@ -98,7 +98,7 @@ program
             const config = await fetchConfig(url.pathname);
 
             // Validate the config
-            const validation = ConfigSchema.safeParse(config);
+            const validation = OperationConfigSchema.safeParse(config);
             if (validation.success) {
                 console.log('Validation succeeded: The configuration matches the schema.');
             } else {
