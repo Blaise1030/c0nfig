@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "@k0nfig/platform",
+  "buildCommand": "pnpm run build-platform",
+  "installCommand": "pnpm install",
+  "framework": "nextjs",
+  "public": true
+}

@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "kmdr/apps/cli/**" # Triggers the workflow only when changes are made in the 'cli' directory
+      - "apps/cli/**"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,14 +15,14 @@ jobs:
         with:
           version: 7
       - uses: actions/checkout@v2
-      # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v2
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
-          cache: pnpm
-      - run: cd kmdr && pnpm install
-      - run: cd kmdr && pnpm run build
-      - run: cd kmdr/apps/cli && npm publish
+          cache-dependency-path: pnpm-lock.yaml
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm run build
+      - run: cd apps/cli && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
