@@ -1,0 +1,21 @@
+{
+  "name": "k0nfig",
+  "private": true,
+  "scripts": {
+    "build-platform": "dotenv -- turbo build --filter=...@k0nfig/platform",
+    "build-cli": "dotenv -- turbo build --filter=...@k0nfig/cli",
+    "dev": "dotenv -- turbo dev --filter=...@k0nfig/platform",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.4.2",
+    "prettier": "^3.2.5",
+    "turbo": "^2.1.3",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "pnpm@8.15.6",
+  "engines": {
+    "node": ">=18"
+  }
+}

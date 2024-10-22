@@ -1,0 +1,10 @@
+{
+  "aliases": {
+    "path": "./be/*"
+  },
+  "packageManager": "pnpm",
+  "db": {
+    "engine": "postgres",
+    "name": "supabase"
+  }
+}
