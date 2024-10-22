@@ -27,7 +27,7 @@ export default async function BlogIndexPage() {
           </p>
         </div>
         <div className="flex md:flex-row flex-col gap-10 items-start">
-          <div className="md:w-[250px] w-full">
+          <div className="md:w-[256px] w-full">
             <TemplatesFilter />
           </div>
           <div className="w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2 mb-5">

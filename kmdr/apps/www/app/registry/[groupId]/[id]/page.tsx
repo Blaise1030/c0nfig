@@ -1,102 +1,138 @@
-import { Typography } from "@/components/typography";
-import { Badge } from "@/components/ui/badge";
-import { generateMdxContent } from "@/lib/generateMdxContent";
-import { parseMdx } from "@/lib/markdown";
-import { ConfigSchema, OperationConfig } from "@kmdr/types";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Card } from "@/components/ui/card";
-import { Gauge, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { EachRoute } from "@/lib/routes-config";
+import React from "react";
+import { ReactElement } from "react";
+import {
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetClose,
+  Sheet,
+} from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
+import { Authors } from "@/app/blog/[slug]/page";
+import { Logo } from "@/components/layouts/navbar";
+import SubLink from "@/components/layouts/sublink";
+import { db } from "@/be/db";
+import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
+import { DocumentationBlock } from "@/components/modules/registry/documentation-block";
 
-export default async function OperationsPage() {
-  const src = "http://localhost:3000/cli/auth.json";
-  const item = await fetch(src);
-  const detailsPage = (await item.json()) as OperationConfig;
-  const result = ConfigSchema.safeParse(detailsPage?.operation);
-  const { mdxContent, manualSteps, commandLineSteps } =
-    await generateMdxContent(detailsPage.operation, new URL(src).origin);
-  const content = await parseMdx(mdxContent);
-  const runCommandCode = generateCodeBlock(`npx kmdrr@latest run ${src}`);
-  const runCommand = await parseMdx(runCommandCode);
+export default async function Layout({
+  children,
+  ...remaining
+}: {
+  children: ReactElement;
+}) {
 
-  const jsonCode = generateCodeBlock(
-    JSON.stringify(detailsPage, null, 2),
-    "```json"
-  );
-  const json = await parseMdx(jsonCode);
+  const groupId = decodeURIComponent(((remaining as any).params as any)?.groupId.replace(/\+/g, '%20'));
+  const paramsId = decodeURIComponent(((remaining as any).params as any)?.id.replace(/\+/g, '%20'));
+
+  if (!groupId || !paramsId) redirect('/404')
+
+  const templates = await db.query.templates.findFirst({
+    with: { author: true },
+    where: (p) => eq(p.slug, groupId as string)
+  })
+
+  if (!templates) redirect('/404')
 
   return (
-    <div className="flex items-start gap-10 flex-[5.45]">
-      <div className="flex-[4.5] pt-8 pb-10">
-        <Typography>
-          <h1 className="text-3xl -mt-2">{detailsPage?.title}</h1>
-          <p className="-mt-6 text-muted-foreground text-[16.5px]">
-            {detailsPage?.description}
-          </p>
-          <div className="flex gap-2 ">
-            <Badge>Version {detailsPage?.version}</Badge>
-            {result.success ? (
-              <Badge className="gap-2 bg-background w-fit" variant="outline">
-                <div className="size-2 bg-green-400 animate-pulse rounded-full" />
-                Schema Valid
-              </Badge>
-            ) : (
-              <Badge className="gap-2 bg-background w-fit" variant="outline">
-                <div className="size-2 bg-red-400 animate-pulse rounded-full" />
-                Schema Invalid
-              </Badge>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <h3 className="font-medium text-sm">Run command</h3>
-            <div className="-mt-6">{runCommand.content}</div>
-          </div>
-
-          <Tabs defaultValue="what-this-does" className="mt-2">
-            <TabsList>
-              <TabsTrigger value="what-this-does">What it does ?</TabsTrigger>
-              <TabsTrigger value="payload">Payload</TabsTrigger>
-            </TabsList>
-            <TabsContent value="what-this-does">
-              <div>{content.content}</div>
-            </TabsContent>
-            <TabsContent value="payload">{json.content}</TabsContent>
-          </Tabs>
-        </Typography>
-      </div>
-      <div className="lg:flex hidden toc flex-[1.5] min-w-[238px] py-8 sticky top-16 h-[95.95vh]">
-        <div className="flex flex-col gap-3 w-full pl-2 text-center">
-          <div>
-            <Card className="flex items-center flex-col w-full p-1 bg-muted">
-              <div className="p-2 py-3 flex gap-2 font-bold items-center">
-                <Gauge />
-                <div className="flex items-center text-2xl">
-                  {(manualSteps / commandLineSteps).toFixed(1)}x
-                </div>
-              </div>
-              <h3 className="font-medium text-sm mb-3 text-muted-foreground">
-                Number of steps saved
-              </h3>
-              <div className="bg-background rounded-lg w-full p-2 py-3 text-center border">
-                <p className="w-full font-semibold">
-                  <span className="line-through text-muted-foreground">
-                    {manualSteps} Steps
-                  </span>
-                  <span className="px-2">⚡️</span>
-                  <span>{commandLineSteps} Steps</span>
-                </p>
-              </div>
-            </Card>
+    <React.Fragment>
+      <div className="mx-auto top-0 w-full z-20 mb-4">
+        <div className="mx-auto bg-background md:py-4 md:pt-8 py-5 backdrop-blur-sm flex gap-4 items-center">
+          <div className="flex flex-col gap-4">
+            <SheetLeftbar groupId={groupId} templates={templates?.commandItems} />
+            <h1 className="text-3xl font-extrabold">
+              {templates.title}
+            </h1>
+            <p className="text-muted-foreground -mt-4">
+              {templates.description}
+            </p>
+            <Authors
+              authors={[
+                {
+                  avatar: templates?.author?.image as string,
+                  handleUrl: '#',
+                  username: templates?.author?.name,
+                  handle: templates?.author?.email,
+                }
+              ]}
+            />
           </div>
         </div>
       </div>
-    </div>
+      <div className="border-t sticky top-12 z-10" />
+      <div className="flex items-start gap-8">
+        <aside className="md:flex hidden flex-[1] min-w-[230px] sticky top-12 flex-col h-[94.5vh] overflow-y-auto border-e">
+          <ScrollArea>
+            <DocsMenu groupId={groupId} templates={templates?.commandItems} />
+          </ScrollArea>
+        </aside>
+        <DocumentationBlock src={templates.commandItems.find(({ slug }) => slug === paramsId)?.url as string} />
+      </div>
+    </React.Fragment>
   );
 }
 
-function generateCodeBlock(content: string, type: string = "```bash") {
-  const lines = [];
-  lines.push(type);
-  lines.push(`${content}`);
-  lines.push("```");
-  return lines.join("\n");
+export function SheetLeftbar({ groupId, templates }: { groupId: string, templates: { slug: string, title: string, description: string }[] }) {
+  return (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button
+          variant="secondary"
+          className="md:hidden flex w-fit rounded-2xl"
+          size="sm"
+        >
+          <Menu className="mr-2 size-4" />
+          More templates
+        </Button>
+      </SheetTrigger>
+      <SheetContent className="flex flex-col gap-4 px-0" side="left">
+        <SheetHeader>
+          <SheetClose className="px-5" asChild>
+            <Logo />
+          </SheetClose>
+        </SheetHeader>
+        <div className="flex flex-col gap-4 overflow-y-auto">
+          <div className="mx-2 px-5">
+            <DocsMenu isSheet groupId={groupId} templates={templates} />
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+async function DocsMenu({ isSheet = false, groupId, templates }: { isSheet?: boolean, groupId: string, templates: { slug: string, title: string, description: string }[] }) {
+  return (
+    <div className="flex flex-col gap-3.5 pr-2 pt-8 pb-6">
+      {(
+        [
+          {
+            title: "All Templates",
+            noLink: true,
+            items: templates?.map(({ title, slug }) => ({
+              title,
+              href: `/${slug}`,
+            })),
+          },
+        ] as EachRoute[]
+      ).map((item, index) => {
+        const modifiedItems = {
+          ...item,
+          level: 0,
+          isSheet,
+        };
+        return (
+          <SubLink
+            key={item.title + index}
+            {...modifiedItems}
+            href={`/registry/${groupId}`}
+          />
+        );
+      })}
+    </div>
+  );
 }
