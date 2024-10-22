@@ -10,12 +10,17 @@ jobs:
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
     steps:
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
       - uses: actions/checkout@v2
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v2
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
+          cache: pnpm
       - run: cd kmdr && pnpm install
       - run: cd kmdr && pnpm run build
       - run: cd kmdr/apps/cli && npm publish
