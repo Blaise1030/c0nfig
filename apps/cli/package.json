@@ -1,6 +1,6 @@
 {
   "name": "k0nfig",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "type": "module",
   "bin": "./dist/index.cjs",
@@ -16,7 +16,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@k0nfig/types": "workspace:*",
     "commander": "^12.1.0",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.33.0",
@@ -35,6 +34,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@k0nfig/types": "workspace:*",
     "@types/node": "^22.5.5",
     "tsx": "^4.19.1"
   },
