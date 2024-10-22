@@ -2,7 +2,7 @@ import { Typography } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
 import { generateMdxContent } from "@/lib/generateMdxContent";
 import { parseMdx } from "@/lib/markdown";
-import { ConfigSchema, OperationConfig } from "@kmdr/types";
+import { ConfigSchema, OperationConfig } from "@k0nfig/types";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Gauge } from "lucide-react";
@@ -14,7 +14,7 @@ export async function DocumentationBlock({ src }: { src: string }) {
   const { mdxContent, manualSteps, commandLineSteps } =
     await generateMdxContent(detailsPage.operation, new URL(src).origin);
   const content = await parseMdx(mdxContent);
-  const runCommandCode = generateCodeBlock(`npx kmdrr@latest run ${src}`);
+  const runCommandCode = generateCodeBlock(`npx k0nfig@latest run ${src}`);
   const runCommand = await parseMdx(runCommandCode);
 
   const jsonCode = generateCodeBlock(

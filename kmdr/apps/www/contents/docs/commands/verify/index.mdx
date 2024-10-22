@@ -6,7 +6,7 @@ description: The verify command fetches a remote configuration file over HTTP or
 ## Usage
 
 ```bash
-npx kmdrr@latest verify  <remote-config-url>
+npx k0nfig@latest verify  <remote-config-url>
 ```
 
 `<remote-config-url>`is The HTTPS URL pointing to the remote configuration JSON file.
@@ -28,7 +28,7 @@ Suppose your configuration is missing the `targetSrc` field in an add operation:
 Running the verify command
 
 ```bash
-npx kmdrr@latest verify https://example.com/invalid-config.json
+npx k0nfig@latest verify https://example.com/invalid-config.json
 ```
 
 Will give you as such

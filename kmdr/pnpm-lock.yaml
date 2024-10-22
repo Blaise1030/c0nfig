@@ -23,7 +23,7 @@ importers:
 
   apps/cli:
     dependencies:
-      '@kmdr/types':
+      '@k0nfig/types':
         specifier: workspace:*
         version: link:../../packages/types
       commander:
@@ -87,7 +87,7 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.1)
-      '@kmdr/types':
+      '@k0nfig/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@radix-ui/react-accordion':

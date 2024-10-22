@@ -1,9 +1,10 @@
 {
-  "name": "kmdr",
+  "name": "k0nfig",
   "private": true,
   "scripts": {
-    "build": "dotenv -- turbo build",
-    "dev": "dotenv -- turbo dev --filter=...@kmdr/platform",
+    "build-platform": "dotenv -- turbo build --filter=...@k0nfig/platform",
+    "build-cli": "dotenv -- turbo dev --filter=...@k0nfig/cli",
+    "dev": "dotenv -- turbo dev --filter=...@k0nfig/platform",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

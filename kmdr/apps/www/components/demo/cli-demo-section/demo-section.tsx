@@ -55,7 +55,7 @@ const commands = [
   { id: "5", text: "", typing: true, delay: 1000, clear: false },
   {
     id: "6",
-    text: `npx kmdrr@latest run ${endpoint}`,
+    text: `npx k0nfig@latest run ${endpoint}`,
     typing: true,
     delay: 50,
     clear: false,

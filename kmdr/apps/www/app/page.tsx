@@ -18,7 +18,7 @@ export default function Home() {
               href={`/ docs${page_routes[0].href}`}
             >
               <PieChartIcon size={18} className="me-2" />
-              npx kmdrr@latest
+              npx k0nfig@latest
               <ArrowRight className="ms-2" size={14} />
             </Link>
           </div>

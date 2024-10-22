@@ -1,5 +1,5 @@
 {
-  "name": "@kmdr/platform",
+  "name": "@k0nfig/platform",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -13,7 +13,7 @@
     "db:pull": "drizzle-kit pull"
   },
   "dependencies": {
-    "@kmdr/types": "workspace:*",
+    "@k0nfig/types": "workspace:*",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-avatar": "^1.1.0",

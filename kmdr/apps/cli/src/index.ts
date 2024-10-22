@@ -24,7 +24,7 @@ import {
     type ReadJSONOperation,
     type SelectOperation,
     type UpdateJSONOperation,
-} from '@kmdr/types';
+} from '@k0nfig/types';
 import {
     evaluate,
     printValidationErrors,
@@ -41,14 +41,14 @@ export const COMMAND_CONFIG_FILENAME = 'command.config.json'
 
 program
     .version('1.0.6')
-    .description('kmdrr - A flexible CLI tool for executing remote configurations')
+    .description('k0nfig - A flexible CLI tool for executing remote configurations')
     .command('run <remote-config-url>')
     .description('Fetch and execute remote configuration')
     .action(async (remoteURL: string) => {
         try {
             const setupFilePath = path.resolve(COMMAND_CONFIG_FILENAME);
             if (!(await fs.pathExists(setupFilePath))) {
-                console.error(`Error: ${COMMAND_CONFIG_FILENAME} not found. Please run "npx kmdrr @latest init" first.`);
+                console.error(`Error: ${COMMAND_CONFIG_FILENAME} not found. Please run "npx k0nfig @latest init" first.`);
                 process.exit(1);
             }
 

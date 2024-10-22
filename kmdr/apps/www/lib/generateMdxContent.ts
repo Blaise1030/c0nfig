@@ -1,6 +1,6 @@
 // lib/generateMdxContent.ts
 
-import { Operation, Config, InstallOperation, AddOperation, UpdateJSONOperation, InputOperation, SelectOperation, ConditionalOperation, AddImportOperation, AddExportOperation, ReadJSONOperation } from '@kmdr/types';
+import { Operation, Config, InstallOperation, AddOperation, UpdateJSONOperation, InputOperation, SelectOperation, ConditionalOperation, AddImportOperation, AddExportOperation, ReadJSONOperation } from '@k0nfig/types';
 type Context = { manualSteps: number, commandLineSteps: number }
 export async function generateMdxContent(operations: Config, host: string): Promise<{ mdxContent: string, manualSteps: number, commandLineSteps: number }> {
     const frontmatter = ``;
