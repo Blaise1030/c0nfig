@@ -13,8 +13,8 @@
     "db:pull": "drizzle-kit pull"
   },
   "dependencies": {
-    "@k0nfig/types": "workspace:*",
     "@hookform/resolvers": "^3.9.0",
+    "@k0nfig/types": "workspace:*",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-checkbox": "^1.1.2",
@@ -55,7 +55,8 @@
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "unist-util-visit": "^5.0.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.3"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.14",
