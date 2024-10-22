@@ -1,5 +1,5 @@
 {
-  "name": "@k0nfig/cli",
+  "name": "k0nfig",
   "version": "0.0.1",
   "main": "index.js",
   "type": "module",
