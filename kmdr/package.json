@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build-platform": "dotenv -- turbo build --filter=...@k0nfig/platform",
-    "build-cli": "dotenv -- turbo dev --filter=...@k0nfig/cli",
+    "build-cli": "dotenv -- turbo build --filter=...@k0nfig/cli",
     "dev": "dotenv -- turbo dev --filter=...@k0nfig/platform",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""

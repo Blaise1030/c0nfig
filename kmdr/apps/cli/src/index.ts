@@ -35,12 +35,12 @@ import {
 const execAsync = promisify(exec);
 const program = new Command();
 
-let BASE_URL = process.env.BASE_URL ?? 'https://kmdr.vercel.app';
+let BASE_URL = process.env.BASE_URL ?? 'https://c0nfig.vercel.app';
 const INIT_URL = `${BASE_URL}/cli/init.json`
 export const COMMAND_CONFIG_FILENAME = 'command.config.json'
 
 program
-    .version('1.0.6')
+    .version('0.0.1')
     .description('k0nfig - A flexible CLI tool for executing remote configurations')
     .command('run <remote-config-url>')
     .description('Fetch and execute remote configuration')
