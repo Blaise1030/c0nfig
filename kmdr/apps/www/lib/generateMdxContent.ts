@@ -115,7 +115,7 @@ async function renderAddOperation(operation: AddOperation, number: number, host:
         lines.push(fileContent);
         lines.push('```');
         lines.push('');
-    } catch (error) {
+    } catch (error: any) {
         lines.push('```');
         lines.push(`Error fetching file content from ${fileUrl}: ${error.message}`);
         lines.push('```');

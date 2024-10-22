@@ -1,12 +1,30 @@
 import { z } from 'zod';
 
+// Define OperationSchema with explicit type annotation to avoid implicit 'any' error
+export const OperationSchema: z.ZodType = z.lazy(() =>
+    z.discriminatedUnion('op', [
+        InputOperationSchema,
+        AddOperationSchema,
+        AddImportOperationSchema,
+        AddExportOperationSchema,
+        InstallOperationSchema,
+        SelectOperationSchema,
+        ReadJSONOperationSchema,
+        UpdateJSONOperationSchema,
+        ConditionalOperationSchema,
+    ])
+);
+
+// Define OperationArraySchema
+export const OperationArraySchema = z.array(OperationSchema);
+
 // InputOperation Schema
 export const InputOperationSchema = z.object({
     op: z.literal('input'),
     title: z.string(),
     defaultValue: z.string(),
     value: z.string(),
-    actions: z.lazy(() => OperationArraySchema),
+    actions: OperationArraySchema,
 });
 
 // AddOperation Schema
@@ -49,7 +67,7 @@ export const SelectOperationSchema = z.object({
     title: z.string(),
     selections: z.array(SelectionSchema),
     value: z.string(),
-    values: z.record(z.string(), z.lazy(() => OperationArraySchema)),
+    values: z.record(z.string(), OperationArraySchema),
 });
 
 // ReadJSONOperation Schema
@@ -58,7 +76,7 @@ export const ReadJSONOperationSchema = z.object({
     targetSrc: z.string(),
     value: z.string().optional(),
     path: z.string(),
-    values: z.record(z.string(), z.lazy(() => OperationArraySchema)),
+    values: z.record(z.string(), OperationArraySchema),
 });
 
 // UpdateJSONOperation Schema
@@ -73,69 +91,41 @@ export const UpdateJSONOperationSchema = z.object({
 export const ConditionalOperationSchema = z.object({
     op: z.literal('conditional'),
     condition: z.string(),
-    then: z.lazy(() => OperationArraySchema),
-    else: z.lazy(() => OperationArraySchema).optional(),
+    then: OperationArraySchema,
+    else: OperationArraySchema.optional(),
 });
-
-// Union of all Operations
-export const OperationSchema = z.discriminatedUnion('op', [
-    InputOperationSchema,
-    AddOperationSchema,
-    AddImportOperationSchema,
-    AddExportOperationSchema,
-    InstallOperationSchema,
-    SelectOperationSchema,
-    ReadJSONOperationSchema,
-    UpdateJSONOperationSchema,
-    ConditionalOperationSchema,
-]);
-
-// Array of Operations
-export const OperationArraySchema = z.array(OperationSchema);
 
 // Config Schema
 export const ConfigSchema = OperationArraySchema;
 
-// Types below
-// Type inference for InputOperation
+// Type inference using z.infer
 export type InputOperation = z.infer<typeof InputOperationSchema>;
-
-// Type inference for AddOperation
 export type AddOperation = z.infer<typeof AddOperationSchema>;
-
-// Type inference for AddImportOperation
 export type AddImportOperation = z.infer<typeof AddImportOperationSchema>;
-
-// Type inference for AddExportOperation
 export type AddExportOperation = z.infer<typeof AddExportOperationSchema>;
-
-// Type inference for InstallOperation
 export type InstallOperation = z.infer<typeof InstallOperationSchema>;
-
-// Type inference for Selection
 export type Selection = z.infer<typeof SelectionSchema>;
-
-// Type inference for SelectOperation
 export type SelectOperation = z.infer<typeof SelectOperationSchema>;
-
-// Type inference for ReadJSONOperation
 export type ReadJSONOperation = z.infer<typeof ReadJSONOperationSchema>;
-
-// Type inference for UpdateJSONOperation
 export type UpdateJSONOperation = z.infer<typeof UpdateJSONOperationSchema>;
-
-// Type inference for ConditionalOperation
 export type ConditionalOperation = z.infer<typeof ConditionalOperationSchema>;
 
-// Type inference for Operation
-export type Operation = ConditionalOperation | InputOperation | AddOperation | AddImportOperation | AddExportOperation | InstallOperation | SelectOperation | ReadJSONOperation | UpdateJSONOperation;
+export type Operation =
+    | InputOperation
+    | AddOperation
+    | AddImportOperation
+    | AddExportOperation
+    | InstallOperation
+    | SelectOperation
+    | ReadJSONOperation
+    | UpdateJSONOperation
+    | ConditionalOperation;
 
-// Type inference for Config
 export type Config = Operation[];
 
 export type OperationConfig = {
-    title: string
-    description: string
-    version: number
-    operation: Config
-}
+    title: string;
+    description: string;
+    version: number;
+    operation: Config;
+};

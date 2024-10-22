@@ -11,23 +11,18 @@ import {
   Sheet,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import { Authors } from "@/app/blog/[slug]/page";
 import { Logo } from "@/components/layouts/navbar";
 import SubLink from "@/components/layouts/sublink";
 import { db } from "@/be/db";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { DocumentationBlock } from "@/components/modules/registry/documentation-block";
+import Authors from "@/components/common/author";
 
-export default async function Layout({
-  children,
-  ...remaining
-}: {
-  children: ReactElement;
-}) {
+export default async function Layout(props: any) {
 
-  const groupId = decodeURIComponent(((remaining as any).params as any)?.groupId.replace(/\+/g, '%20'));
-  const paramsId = decodeURIComponent(((remaining as any).params as any)?.id.replace(/\+/g, '%20'));
+  const groupId = decodeURIComponent(((props as any).params as any)?.groupId.replace(/\+/g, '%20'));
+  const paramsId = decodeURIComponent(((props as any).params as any)?.id.replace(/\+/g, '%20'));
 
   if (!groupId || !paramsId) redirect('/404')
 
@@ -76,7 +71,7 @@ export default async function Layout({
   );
 }
 
-export function SheetLeftbar({ groupId, templates }: { groupId: string, templates: { slug: string, title: string, description: string }[] }) {
+function SheetLeftbar({ groupId, templates }: { groupId: string, templates: { slug: string, title: string, description: string }[] }) {
   return (
     <Sheet>
       <SheetTrigger asChild>

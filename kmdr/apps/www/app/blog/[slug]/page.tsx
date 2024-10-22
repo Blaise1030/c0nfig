@@ -1,12 +1,12 @@
 import { Typography } from "@/components/typography";
 import { buttonVariants } from "@/components/ui/button";
-import { Author, getAllBlogStaticPaths, getBlogForSlug } from "@/lib/markdown";
+import { getAllBlogStaticPaths, getBlogForSlug } from "@/lib/markdown";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
+import Authors from "@/components/common/author";
 
 type PageProps = {
   params: { slug: string };
@@ -70,31 +70,3 @@ export default async function BlogPage({ params: { slug } }: PageProps) {
   );
 }
 
-export function Authors({ authors }: { authors: Author[] }) {
-  return (
-    <div className="flex items-center gap-8 flex-wrap">
-      {authors.map((author) => {
-        return (
-          <Link
-            href={author.handleUrl}
-            className="flex items-center gap-2"
-            key={author.username}
-          >
-            <Avatar className="w-10 h-10">
-              <AvatarImage src={author.avatar} />
-              <AvatarFallback>
-                {author.username.slice(0, 2).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-            <div className="">
-              <p className="text-sm font-medium">{author.username}</p>
-              <p className="font-code text-[13px] text-muted-foreground">
-                @{author.handle}
-              </p>
-            </div>
-          </Link>
-        );
-      })}
-    </div>
-  );
-}
