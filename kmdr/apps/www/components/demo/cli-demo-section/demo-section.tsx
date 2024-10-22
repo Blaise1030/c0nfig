@@ -3,8 +3,8 @@
 import { useState } from "react";
 import CLISimulator from "./cli-simulator";
 import { FolderDiff } from "./folder-diff";
-import { Card } from "./ui/card";
-import { Button } from "./ui/button";
+import { Card } from "../../ui/card";
+import { Button } from "../../ui/button";
 import { RefreshCwIcon } from "lucide-react";
 
 const sample = `[

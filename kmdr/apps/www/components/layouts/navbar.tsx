@@ -1,14 +1,14 @@
 'use client'
 
-import { ModeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
-import Search from "./search";
-import Anchor from "./anchor";
+import { buttonVariants } from "../ui/button";
+import Search from "../common/search";
+import Anchor from "../anchor";
 import { SheetLeftbar } from "./leftbar";
 import { page_routes } from "@/lib/routes-config";
 import { SheetClose } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { ModeToggle } from "../common/theme-provider/theme-toggle";
 
 export const NAVLINKS = [
   {

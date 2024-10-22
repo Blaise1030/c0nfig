@@ -1,10 +1,8 @@
-import SubLink from "@/components/sublink";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { EachRoute } from "@/lib/routes-config";
 import React from "react";
 import { ReactElement } from "react";
-import { Logo } from "@/components/navbar";
 import {
   SheetTrigger,
   SheetContent,
@@ -13,8 +11,9 @@ import {
   Sheet,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import { AvatarGroup } from "@/app/blog/page";
 import { Authors } from "@/app/blog/[slug]/page";
+import { Logo } from "@/components/layouts/navbar";
+import SubLink from "@/components/layouts/sublink";
 
 const registry = [
   {
@@ -35,7 +34,7 @@ export default function Layout({
 }: {
   children: ReactElement;
 }) {
-  const groupId = remaining["params"]["groupId"];
+  const groupId = ((remaining as any).params as any)?.groupId;
   return (
     <React.Fragment>
       <div className="mx-auto top-0 w-full z-20 mb-4">
@@ -103,7 +102,7 @@ export function SheetLeftbar({ groupId }: { groupId: string }) {
   );
 }
 
-async function DocsMenu({ isSheet = false, groupId }) {
+async function DocsMenu({ isSheet = false, groupId }: { isSheet?: boolean, groupId: string }) {
   return (
     <div className="flex flex-col gap-3.5 pr-2 pt-8 pb-6">
       {(
@@ -125,9 +124,9 @@ async function DocsMenu({ isSheet = false, groupId }) {
         };
         return (
           <SubLink
-            href={`/registry/${groupId}`}
             key={item.title + index}
             {...modifiedItems}
+            href={`/registry/${groupId}`}
           />
         );
       })}

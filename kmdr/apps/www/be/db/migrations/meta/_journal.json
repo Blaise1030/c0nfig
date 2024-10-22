@@ -8,6 +8,20 @@
       "when": 1729408427397,
       "tag": "0000_tense_tyger_tiger",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1729518251853,
+      "tag": "0001_rainy_leopardon",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1729518572248,
+      "tag": "0002_magical_bastion",
+      "breakpoints": true
     }
   ]
 }

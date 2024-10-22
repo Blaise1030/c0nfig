@@ -1,7 +1,7 @@
 "use client";
 
 import { ROUTES } from "@/lib/routes-config";
-import SubLink from "./sublink";
+import SubLink from "../layouts/sublink";
 import { usePathname } from "next/navigation";
 
 export default function DocsMenu({ isSheet = false }) {

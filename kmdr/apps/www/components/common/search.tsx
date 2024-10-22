@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useEffect, useMemo, useState } from "react";
-import Anchor from "./anchor";
+import Anchor from "../anchor";
 import { advanceSearch, cn } from "@/lib/utils";
 
 export default function Search() {

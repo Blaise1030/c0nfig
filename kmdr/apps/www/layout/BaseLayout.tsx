@@ -1,5 +1,5 @@
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/layouts/footer";
+import { Navbar } from "@/components/layouts/navbar";
 import { ReactElement } from "react";
 
 export default function BaseLayout({ children }: { children: ReactElement }) {

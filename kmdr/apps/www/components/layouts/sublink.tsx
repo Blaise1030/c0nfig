@@ -1,6 +1,6 @@
 "use client";
 import { EachRoute } from "@/lib/routes-config";
-import Anchor from "./anchor";
+import Anchor from "../anchor";
 import {
   Collapsible,
   CollapsibleContent,
@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
 import { SheetClose } from "@/components/ui/sheet";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
