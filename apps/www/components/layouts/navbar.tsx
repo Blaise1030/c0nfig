@@ -12,16 +12,16 @@ import { ModeToggle } from "../common/theme-provider/theme-toggle";
 
 export const NAVLINKS = [
   {
+    title: "Registry",
+    href: "/registry",
+  },
+  {
     title: "Documentation",
     href: `/docs${page_routes[0].href}`,
   },
   {
     title: "Blog",
     href: "/blog",
-  },
-  {
-    title: "Registry",
-    href: "/registry",
   },
 ];
 

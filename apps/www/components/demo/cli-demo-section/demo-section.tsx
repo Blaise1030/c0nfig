@@ -43,17 +43,6 @@ project-root/
 
 const commands = [
   {
-    id: "1",
-    text: `curl -X GET "${endpoint}" | jq`,
-    typing: true,
-    delay: 50,
-    clear: false,
-  },
-  { id: "2", text: "", typing: true, delay: 1000, clear: false },
-  { id: "3", text: sample, typing: false, clear: false },
-  { id: "4", text: "", typing: true, delay: 1500, clear: false },
-  { id: "5", text: "", typing: true, delay: 1000, clear: false },
-  {
     id: "6",
     text: `npx k0nfig@latest run ${endpoint}`,
     typing: true,
@@ -89,6 +78,18 @@ const commands = [
     delay: 1000,
     clear: false,
   },
+  { id: "12", text: "", typing: true, delay: 1000, clear: false },
+  {
+    id: "13",
+    text: `curl -X GET "${endpoint}" | jq`,
+    typing: true,
+    delay: 50,
+    clear: false,
+  },
+  { id: "14", text: "", typing: true, delay: 1000, clear: false },
+  { id: "15", text: sample, typing: false, clear: false },
+  { id: "16", text: "", typing: true, delay: 1500, clear: false },
+  { id: "17", text: "", typing: true, delay: 1000, clear: false },
 ];
 
 export function DemoSection() {
@@ -106,7 +107,7 @@ export function DemoSection() {
             commands={commands}
             defaultDelay={100}
             onNextCommand={(item) => {
-              setSwitch((p) => (!p ? item?.id === "9" : p));
+              setSwitch((p) => (!p ? item?.id === "12" : p));
               setAnimationDone(!Boolean(item));
             }}
           />
