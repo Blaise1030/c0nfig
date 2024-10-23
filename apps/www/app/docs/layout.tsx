@@ -1,5 +1,11 @@
 import { Leftbar } from "@/components/layouts/leftbar";
 import BaseLayout from "@/layout/BaseLayout";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "c0nfig - Blog",
+};
+
 
 export default function DocsLayout({
   children,

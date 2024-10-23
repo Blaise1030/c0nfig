@@ -10,7 +10,7 @@ import React from "react";
 export default function Home() {
   return (
     <BaseLayout>
-      <div className="flex flex-col py-8 gap-2">
+      <div className="flex flex-col py-8 gap-2 min-h-dvh">
         <div className="flex flex-col space-y-4">
           <div className="flex flex-row gap-2 items-center">
             <Link

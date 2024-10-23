@@ -127,7 +127,7 @@ export function DemoSection() {
               setKey((p) => !p);
             }}
           >
-            <RefreshCwIcon size={12} className="mr-2" />
+            <RefreshCwIcon size={12} />
             Reset Animation
           </Button>
         </div>

@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { EachRoute } from "@/lib/routes-config";
-import React from "react";
-import { ReactElement } from "react";
+import React, { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   SheetTrigger,
   SheetContent,
@@ -65,10 +65,57 @@ export default async function Layout(props: any) {
             <DocsMenu groupId={groupId} templates={templates?.commandItems} />
           </ScrollArea>
         </aside>
-        <DocumentationBlock src={templates.commandItems.find(({ slug }) => slug === paramsId)?.url as string} />
+        <Suspense fallback={<DocsLoadingComponent />}>
+          <DocumentationBlock src={templates.commandItems.find(({ slug }) => slug === paramsId)?.url as string} />
+        </Suspense>
       </div>
     </React.Fragment>
   );
+}
+
+function DocsLoadingComponent() {
+  return (
+    <div className="flex items-start gap-10 flex-[5.45]">
+      <div className="flex-[4.5] pt-8 pb-10 flex flex-col gap-2">
+        <div className="flex flex-col gap-4">
+          <Skeleton className="h-12 w-[50%]" />
+          <div className="flex flex-col gap-1">
+            <Skeleton className="h-6 w-[80%]" />
+            <Skeleton className="h-6 w-[90%]" />
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <Skeleton className="h-4 w-12 rounded-md" />
+          <Skeleton className="h-4 w-12 rounded-md" />
+        </div>
+        <div className="flex gap-2 mt-12">
+          <Skeleton className="h-8 w-24" />
+          <Skeleton className="h-8 w-24" />
+        </div>
+        <div className="flex gap-6 flex-col">
+          <div className="gap-2 flex flex-col">
+            <Skeleton className="h-8 w-[60%]" />
+            <Skeleton className="h-48 w-full" />
+          </div>
+          <div className="gap-2 flex flex-col">
+            <Skeleton className="h-8 w-[90%]" />
+            <Skeleton className="h-48 w-full" />
+          </div>
+          <div className="gap-2 flex flex-col">
+            <Skeleton className="h-8 w-[50%]" />
+            <Skeleton className="h-48 w-full" />
+          </div>
+        </div>
+      </div>
+      <div className="lg:flex hidden toc flex-[1.5] min-w-[238px] py-8 sticky top-16 h-[95.95vh]">
+        <div className="flex flex-col gap-3 w-full pl-2 text-center">
+          <div>
+            <Skeleton className="h-32 w-full rounded-md" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function SheetLeftbar({ groupId, templates }: { groupId: string, templates: { slug: string, title: string, description: string }[] }) {
