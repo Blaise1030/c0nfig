@@ -1,5 +1,5 @@
 {
-  "$schema": "https://c0nfig.vercel.app/cli/schema.json",
+  "$schema": "http://localhost:3000/cli/schema.json",
   "description": "Init your c0nfig framework",
   "title": "Init c0nfig",
   "version": 1.0,
@@ -12,7 +12,7 @@
       "actions": [
         {
           "op": "add",
-          "remoteSrc": "/cli/setup.json",
+          "content": "{}",
           "targetSrc": "./command.config.json"
         },
         {

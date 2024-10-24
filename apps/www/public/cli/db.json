@@ -1,5 +1,5 @@
 {
-  "$schema": "https://c0nfig.vercel.app/cli/schema.json",
+  "$schema": "http://localhost:3000/cli/schema.json",
   "description": "Initialize Drizzle ORM and Drizzle Kit to your project",
   "title": "Drizzle ORM and Drizzle Kit",
   "version": 1.0,
@@ -17,17 +17,17 @@
         "turso": [
           {
             "op": "add",
-            "remoteSrc": "/assets/db/turso/drizzle.config.ts",
+            "content": "import { defineConfig } from 'drizzle-kit';\n\nexport default defineConfig({\n  schema: '$absDbPath/schema.ts',\n  out: '$absDbPath/migrations',\n  dialect: 'sqlite',\n  driver: 'turso',\n  verbose: true,\n  strict: true,\n  dbCredentials: {\n    authToken: process.env.DATABASE_AUTH as string,\n    url: process.env.DATABASE_URL as string\n  }\n});",
             "targetSrc": "./drizzle.config.ts"
           },
           {
             "op": "add",
-            "remoteSrc": "/assets/db/turso/index.ts",
+            "content": "import { drizzle } from 'drizzle-orm/libsql';\nimport { createClient } from '@libsql/client';\nexport * from \"./schema\";\n\nconst client = createClient({ url: process.env.VITE_DATABASE_URL, authToken: process.env.DATABASE_TOKEN });\nexport const db = drizzle(client);",
             "targetSrc": "~/db/index.ts"
           },
           {
             "op": "add",
-            "remoteSrc": "/assets/db/turso/schema.ts",
+            "content": "import { sqliteTable, text } from \"drizzle-orm/sqlite-core\";\n\nexport const users = sqliteTable('users', { id: text('id') });",
             "targetSrc": "~/db/schema.ts"
           },
           {"op": "install", "dep": ["@libsql/client"]},
@@ -47,17 +47,17 @@
         "supabase": [
           {
             "op": "add",
-            "remoteSrc": "/assets/db/supabase/drizzle.config.ts",
+            "content": "import { defineConfig } from 'drizzle-kit';\n\nexport default defineConfig({\n  schema: '$absDbPath/schema.ts',\n  out: '$absDbPath/migrations',\n  dialect: 'postgresql',\n  verbose: true,\n  strict: true,\n  dbCredentials: {\n    url: process.env.DATABASE_URL as string\n  }\n});",
             "targetSrc": "./drizzle.config.ts"
           },
           {
             "op": "add",
-            "remoteSrc": "/assets/db/supabase/index.ts",
+            "content": "import { drizzle } from 'drizzle-orm/postgres-js';\nimport postgres from 'postgres';\nexport * from \"./schema\";\n\nconst connectionString = process.env.DATABASE_URL;\nconst client = postgres(connectionString);\nexport const db = drizzle(client);",
             "targetSrc": "~/db/index.ts"
           },
           {
             "op": "add",
-            "remoteSrc": "/assets/db/supabase/schema.ts",
+            "content": "import { pgTable, serial } from \"drizzle-orm/pg-core\";\n\nexport const users = pgTable('users', {\n  id: serial('id').primaryKey(),\n});",
             "targetSrc": "~/db/schema.ts"
           },
           {"op": "install", "dep": ["postgres"]},
@@ -77,17 +77,17 @@
         "sqlite": [
           {
             "op": "add",
-            "remoteSrc": "/assets/db/sqlite/drizzle.config.ts",
+            "content": "import { defineConfig } from 'drizzle-kit';\n\nexport default defineConfig({\n  schema: '$absDbPath/schema.ts',\n  out: '$absDbPath/migrations',\n  dialect: 'sqlite',\n  verbose: true,\n  strict: true,\n  dbCredentials: {\n    url: 'sqlite.db'\n  }\n});",
             "targetSrc": "./drizzle.config.ts"
           },
           {
             "op": "add",
-            "remoteSrc": "/assets/db/sqlite/index.ts",
+            "content": "import { drizzle } from 'drizzle-orm/better-sqlite3';\nexport * from \"./schema\";\n\nimport Database from 'better-sqlite3';\nconst sqlite = new Database('sqlite.db');\nexport const db = drizzle(sqlite);",
             "targetSrc": "~/db/index.ts"
           },
           {
             "op": "add",
-            "remoteSrc": "/assets/db/sqlite/schema.ts",
+            "content": "import { text, sqliteTable } from \"drizzle-orm/sqlite-core\";\n\nexport const users = sqliteTable('users', {\n  id: text('id'),\n});",
             "targetSrc": "~/db/schema.ts"
           },
           {"op": "install", "dep": ["better-sqlite3"]},

@@ -30,7 +30,7 @@ export const InputOperationSchema = z.object({
 // AddOperation Schema
 export const AddOperationSchema = z.object({
     op: z.literal('add'),
-    remoteSrc: z.string(),
+    content: z.string(),
     targetSrc: z.string(),
 });
 
