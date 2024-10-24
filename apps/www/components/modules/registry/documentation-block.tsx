@@ -6,6 +6,33 @@ import { ConfigSchema, OperationConfig } from "@k0nfig/types";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Gauge } from "lucide-react";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { z } from "zod";
+
+function formatValidationErrors(error: z.ZodError): string {
+  let output = '';
+  error.errors.forEach((err) => {
+    const path =
+      err.path.length > 0 ? `Path: ${err.path.join(' -> ')}` : 'At root';
+    output += `${path}\n`;
+    output += `  Issue: ${err.message}\n`;
+
+    if (err.code === 'invalid_union') {
+      output += '  Expected one of the following schemas:\n';
+      err.unionErrors?.forEach((unionErr, index) => {
+        output += `  Option ${index + 1}:\n`;
+        unionErr.errors.forEach((ue) => {
+          const unionPath =
+            ue.path.length > 0 ? `Path: ${ue.path.join(' -> ')}` : 'At root';
+          output += `    ${unionPath}\n`;
+          output += `      Issue: ${ue.message}\n`;
+        });
+      });
+    }
+    output += '\n';
+  });
+  return output;
+}
 
 export async function DocumentationBlock({ src }: { src: string }) {
   const item = await fetch(src);
@@ -32,17 +59,24 @@ export async function DocumentationBlock({ src }: { src: string }) {
             {detailsPage?.description}
           </p>
           <div className="flex gap-2 ">
-            <Badge>Version {detailsPage?.version}</Badge>
+            <Badge className="h-fit">Version {detailsPage?.version}</Badge>
             {result.success ? (
               <Badge className="gap-2 bg-background w-fit" variant="outline">
                 <div className="size-2 bg-green-400 animate-pulse rounded-full" />
                 Schema Valid
               </Badge>
             ) : (
-              <Badge className="gap-2 bg-background w-fit" variant="outline">
-                <div className="size-2 bg-red-400 animate-pulse rounded-full" />
-                Schema Invalid
-              </Badge>
+              <HoverCard >
+                <HoverCardTrigger className="h-fit p-0">
+                  <Badge className="gap-2 bg-background w-fit" variant="outline">
+                    <div className="size-2 bg-red-400 animate-pulse rounded-full" />
+                    Schema Invalid
+                  </Badge>
+                </HoverCardTrigger>
+                <HoverCardContent align="start" className="px-2 w-auto text-foreground overflow-auto max-h-[200px]  text-xs whitespace-pre">
+                  {formatValidationErrors(result?.error)}
+                </HoverCardContent>
+              </HoverCard>
             )}
           </div>
           <div className="flex flex-col">
