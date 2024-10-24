@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-
 import dotenv from 'dotenv';
 dotenv.config();
+
 import { Command } from 'commander';
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
@@ -136,27 +136,6 @@ async function fetchConfig(configPath: string): Promise<OperationConfig> {
     }
 }
 
-/**
- * Fetches a remote file's content as text.
- * @param filePath - The path to the remote file.
- * @returns The content of the file.
- */
-async function fetchRemoteFile(filePath: string): Promise<string> {
-    const url = `${BASE_URL}${filePath}`;
-    try {
-        const response = await fetch(url);
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch file from ${url}: ${response.statusText}`);
-        }
-
-        const content = await response.text();
-        return content;
-    } catch (error) {
-        throw new Error(`Error fetching remote file: ${error.message}`);
-    }
-}
-
 async function onInputOperation(
     operation: InputOperation,
     variables: Record<string, string>
@@ -207,10 +186,10 @@ async function onAddOperation(
     operation: AddOperation,
     variables: Record<string, string>
 ): Promise<void> {
-    const { remoteSrc, targetSrc } = operation;
+    const { content: fileContents, targetSrc } = operation;
 
     try {
-        const content = await fetchRemoteFile(replaceVariables(remoteSrc, variables));
+        const content = replaceVariables(JSON.parse(fileContents), variables);
         const resolvedTargetPath = path.resolve(replaceVariables(await replaceAliasWithPath(targetSrc), variables));
 
         await fs.ensureDir(path.dirname(resolvedTargetPath));
@@ -230,9 +209,9 @@ async function onAddOperation(
         }
 
         await fs.writeFile(resolvedTargetPath, replaceVariables(content, variables));
-        console.log(`Copied ${remoteSrc} to ${resolvedTargetPath}`);
+        console.log(`Copied content to ${resolvedTargetPath}`);
     } catch (error) {
-        console.error(`Failed to add file from ${remoteSrc} to ${targetSrc}: ${error.message}`);
+        console.error(`Failed to add content to ${targetSrc}: ${error.message}`);
     }
 }
 

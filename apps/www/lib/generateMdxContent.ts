@@ -101,23 +101,20 @@ async function renderAddOperation(operation: AddOperation, number: number, host:
     lines.push('');
 
     lines.push(
-        `Copy file from \`${operation.remoteSrc}\` to \`${operation.targetSrc}\`.`
+        `Copy contents into \`${operation.targetSrc}\`.`
     );
     lines.push('');
 
-    // Fetch the content of the remote file
-    const fileUrl = `${host}${operation.remoteSrc}`;
+    // Fetch the content of the remote file    
     try {
-        const response = await fetch(fileUrl);
-        const fileContent = await response.text();
-
+        const fileContent = operation?.content;
         lines.push('```jsx');
         lines.push(fileContent);
         lines.push('```');
         lines.push('');
     } catch (error: any) {
         lines.push('```');
-        lines.push(`Error fetching file content from ${fileUrl}: ${error.message}`);
+        lines.push(`Error adding file content from: ${error.message}`);
         lines.push('```');
         lines.push('');
     }
