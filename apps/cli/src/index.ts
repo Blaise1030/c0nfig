@@ -53,10 +53,10 @@ program
 
             const url = new URL(remoteURL);
 
-            if (url.protocol !== 'https:') {
-                console.error('Only HTTPS protocol is allowed for remote configurations.');
-                process.exit(1);
-            }
+            // if (url.protocol !== 'https:') {
+            //     console.error('Only HTTPS protocol is allowed for remote configurations.');
+            //     process.exit(1);
+            // }
 
             BASE_URL = url.origin;
             const config = await fetchConfig(url.pathname);
@@ -189,7 +189,7 @@ async function onAddOperation(
     const { content: fileContents, targetSrc } = operation;
 
     try {
-        const content = replaceVariables(JSON.parse(fileContents), variables);
+        const content = replaceVariables(fileContents, variables);
         const resolvedTargetPath = path.resolve(replaceVariables(await replaceAliasWithPath(targetSrc), variables));
 
         await fs.ensureDir(path.dirname(resolvedTargetPath));
@@ -208,7 +208,7 @@ async function onAddOperation(
             }
         }
 
-        await fs.writeFile(resolvedTargetPath, replaceVariables(content, variables));
+        await fs.writeFile(resolvedTargetPath, content);
         console.log(`Copied content to ${resolvedTargetPath}`);
     } catch (error) {
         console.error(`Failed to add content to ${targetSrc}: ${error.message}`);
