@@ -53,11 +53,7 @@ export default function Home() {
           </div>
           <DemoSection />
         </div>
-        <div>
-          How it works
-        </div>
       </div>
-
     </BaseLayout>
   );
 }
