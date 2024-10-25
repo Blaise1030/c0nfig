@@ -1,5 +1,5 @@
 {
-  "$schema": "http://localhost:3000/cli/schema.json",
+  "$schema": "https://c0nfig.vercel.app/cli/schema.json",
   "description": "Initialize Lucia with Drizzle ORM",
   "title": "Lucia init",
   "version": 1.0,
