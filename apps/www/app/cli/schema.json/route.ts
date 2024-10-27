@@ -5,6 +5,6 @@ import zodToJsonSchema from "zod-to-json-schema"
 export const dynamic = 'force-static';
 
 export const GET = () => {
-  const schema = zodToJsonSchema(OperationConfigSchema)
+  const schema = zodToJsonSchema(OperationConfigSchema, { errorMessages: true })
   return NextResponse.json(schema)
 }

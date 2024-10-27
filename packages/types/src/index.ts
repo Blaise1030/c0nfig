@@ -23,7 +23,7 @@ export const InputOperationSchema = z.object({
     op: z.literal('input'),
     title: z.string(),
     defaultValue: z.string(),
-    value: z.string(),
+    value: z.string()?.regex(/^\$/, 'Variables must start with a $'),
     actions: OperationArraySchema,
 });
 
@@ -66,7 +66,7 @@ export const SelectOperationSchema = z.object({
     op: z.literal('select'),
     title: z.string(),
     selections: z.array(SelectionSchema),
-    value: z.string(),
+    value: z.string().regex(/^\$/, 'Variables must start with a $'),
     values: z.record(z.string(), OperationArraySchema),
 });
 
@@ -74,7 +74,7 @@ export const SelectOperationSchema = z.object({
 export const ReadJSONOperationSchema = z.object({
     op: z.literal('readJSON'),
     targetSrc: z.string(),
-    value: z.string().optional(),
+    value: z.string().regex(/^\$/, 'Variables must start with a $').optional(),
     path: z.string(),
     values: z.record(z.string(), OperationArraySchema),
 });

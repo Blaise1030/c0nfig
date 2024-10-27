@@ -23,6 +23,10 @@ export const NAVLINKS = [
     title: "Blog",
     href: "/blog",
   },
+  {
+    title: "Tools",
+    href: "/tools",
+  },
 ];
 
 export function Navbar() {
