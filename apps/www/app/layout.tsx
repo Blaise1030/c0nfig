@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/contexts/theme-provider";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { GoogleTagManager } from '@next/third-parties/google'
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,6 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      {process.env.NODE_ENV === "production" ? (
+        <GoogleTagManager gtmId={process.env.GTM as string} />
+      ) : null}
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} font-regular antialiased`}
         suppressHydrationWarning
