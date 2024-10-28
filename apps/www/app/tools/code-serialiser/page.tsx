@@ -62,7 +62,7 @@ export default function CodeSerializer() {
             Code Block Serialiser & Deserialiser
           </h1>
           <p className="text-muted-foreground">
-            Serialize your code blocks into a more compact for usage within a JSON object
+            Serialize your code blocks into a compact version for usage within a JSON object
           </p>
         </div>
         <div className='flex gap-4'>

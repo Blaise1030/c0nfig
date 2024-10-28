@@ -49,7 +49,7 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <Search />
             <div className="flex ml-2.5 sm:ml-0 items-center gap-1">
-              <Link
+              {/* <Link
                 href="/login"
                 className={cn(buttonVariants({
                   variant: "default",
@@ -57,7 +57,7 @@ export function Navbar() {
                 }), 'h-8')}
               >
                 Sign In
-              </Link>
+              </Link> */}
               <ModeToggle />
             </div>
           </div>
