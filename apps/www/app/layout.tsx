@@ -6,7 +6,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "c0nfig",
-  metadataBase: new URL("https://ariadocs.vercel.app/"),
+  metadataBase: new URL("https://c0nfig.vercel.app/"),
   description: "Create reusable CLI setup tools for your project using c0nfig.",
 };
 
