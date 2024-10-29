@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       {process.env.NODE_ENV === "production" ? (
-        <GoogleTagManager gtmId={process.env.GTM as string} />
+        <GoogleTagManager gtmId={'G-H02XVDM9DP'} />
       ) : null}
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} font-regular antialiased`}
