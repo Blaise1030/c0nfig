@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/contexts/theme-provider";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { GoogleTagManager } from '@next/third-parties/google'
+import { Analytics } from '@vercel/analytics/react';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,9 +19,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {process.env.NODE_ENV === "production" ? (
-        <GoogleTagManager gtmId={'G-H02XVDM9DP'} />
-      ) : null}
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} font-regular antialiased`}
         suppressHydrationWarning
@@ -34,6 +32,14 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
       </body>
+      {process.env.NODE_ENV === "production" ? (
+        <GoogleTagManager gtmId={'G-H02XVDM9DP'} />
+      ) : null}
+      {
+        process.env.NODE_ENV === 'production' ? (
+          <Analytics />
+        ) : null
+      }
     </html>
   );
 }
